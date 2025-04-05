@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand me-auto" href="../index.php">
+        <a class="navbar-brand me-auto" href="index.php">
             <span class="Eco">Eco</span><span class="Escambo">Escambo</span>
         </a>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
@@ -13,10 +13,10 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="../index.php">Início</a>
+                        <a class="nav-link mx-lg-2" href="index.php">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="../pages/produtos">Produtos</a>
+                        <a class="nav-link mx-lg-2" href="produtos.php">Produtos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-lg-2" href="#">Sobre nós</a>
@@ -27,7 +27,8 @@
                 </ul>
             </div>
         </div>
-        <a href="perfil.html" class="login-button">Perfil</a>
+<!--        <a href="perfil.php" class="login-button">Perfil</a>-->
+        <a class="login-button" href="#" data-bs-toggle="modal" data-bs-target="#perfilModal">Perfil</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

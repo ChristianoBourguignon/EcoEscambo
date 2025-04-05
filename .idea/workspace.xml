@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="" />
+    <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/perfil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/adicionados_recentemente.php" beforeDir="false" afterPath="$PROJECT_DIR$/adicionados_recentemente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/produtos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/todos_os_itens.php" beforeDir="false" afterPath="$PROJECT_DIR$/todos_os_itens.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/trocas_populares.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas_populares.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/scripts.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +68,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo" />
       <recent name="J:\Projetos\EcoEscambo\pages" />
       <recent name="J:\Projetos\EcoEscambo\models" />
       <recent name="C:\Users\chris\IdeaProjects\main\scripts" />
