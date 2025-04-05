@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand me-auto" href="index.html">
+        <a class="navbar-brand me-auto" href="../index.php">
             <span class="Eco">Eco</span><span class="Escambo">Escambo</span>
         </a>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
@@ -13,16 +13,16 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="index.html">Início</a>
+                        <a class="nav-link mx-lg-2" href="../index.php">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="produtos.html">Produtos</a>
+                        <a class="nav-link mx-lg-2" href="../pages/produtos">Produtos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="sobre.html">Sobre nós</a>
+                        <a class="nav-link mx-lg-2" href="#">Sobre nós</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="inventário.html">inventário</a>
+                        <a class="nav-link mx-lg-2" href="#">inventário</a>
                     </li>
                 </ul>
             </div>
