@@ -1,0 +1,312 @@
+/*Estilos da navbar*/
+.navbar {
+    background: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container-fluid {
+    display: flex;
+    align-items: center;
+}
+
+.Eco {
+    font-weight: bold;
+    color: #60db2f;
+    font-size: 24px;
+}
+
+.Escambo {
+    font-weight: bold;
+    color: #96079b;
+    font-size: 24px;
+}
+
+.navbar-brand {
+    color: inherit !important;
+    font-size: 24px;
+}
+
+.login-button,
+.vrit {
+    background-color: #96079b;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.login-button:hover,
+.vrit:hover {
+    background-color: blueviolet;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
+
+.btn-close {
+    color: black;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link {
+    color: rgba(12, 12, 14, 0.467);
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link:active {
+    color: inherit;
+}
+
+
+@media (min-width: 990px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #96079b;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+/*Estilos Index*/
+/* Estilos do Header */
+header {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./img/image.png');
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: darken;
+}
+
+/* Conteúdo central do Header */
+.header-content {
+    margin-bottom: 150px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+/* Animação de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.delay {
+    animation-delay: 0.5s;
+}
+
+/* Estilos dos textos */
+.header-content h2 {
+    font-size: 4vmin;
+    font-weight: bold;
+}
+
+.header-content h1 {
+    font-size: 7vmin;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+/* Linha decorativa */
+.line {
+    width: 520px;
+    height: 4px;
+    background: #f7f31d;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+/* Texto de destaque */
+.Futuro {
+    color: #73eb43;
+}
+
+/* Novo parágrafo adicionado */
+.header-content p {
+    font-size: 3vmin;
+    margin-top: 10px;
+    color: #ffffff;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Botão estilizado */
+.vrit {
+    background-color: #96079b;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    padding: 10px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.vrit:hover {
+    background-color: blueviolet;
+    transform: scale(1.05);
+}
+
+/* Importando a fonte Montserrat */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuste o espaçamento para evitar sobreposição da navbar */
+main {
+    padding-top: 80px;
+    /* Ajuste esse valor conforme a altura real da sua navbar */
+}
+
+
+/* Seções de produtos */
+.produtos-categoria {
+    margin-bottom: 40px;
+}
+
+.produtos-categoria h3 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Lista de produtos */
+.produtos-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: fl;
+    /* Faz os itens irem até a borda */
+}
+
+
+/* Estilo dos cards de produtos */
+.product {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+    width: 200px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.condition {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Botão "Trocar" oculto por padrão */
+.btn-trocar {
+    display: none;
+    background: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-trocar:hover {
+    background: #218838;
+}
+
+/* Efeito Hover: borda verde e exibe o botão */
+.product:hover {
+    border: 2px solid #28a745;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.product:hover .btn-trocar {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Link "Ver mais" */
+.ver-mais {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #28a745;
+    transition: color 0.3s;
+}
+
+.ver-mais:hover {
+    color: #1e7e34;
+}
+
+.categoria-titulo {
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 5px;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #333;
+}
