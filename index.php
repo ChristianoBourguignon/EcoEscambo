@@ -1,5 +1,6 @@
 <?php
-include("models/header.php")
+include("backend/db.php");
+include("models/header.php");
 ?>
     <header>
         <div class="header-content">

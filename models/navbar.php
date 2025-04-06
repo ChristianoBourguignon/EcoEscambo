@@ -28,7 +28,7 @@
             </div>
         </div>
 <!--        <a href="perfil.php" class="login-button">Perfil</a>-->
-        <a class="login-button" href="#" data-bs-toggle="modal" data-bs-target="#perfilModal">Perfil</a>
+        <a class="login-button" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Perfil</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
