@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/AlterarProduto.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/ExcluirProduto.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/processarProduto.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/produtoCadastrado.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/produtos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/navbar.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,10 +75,10 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="J:\Projetos\EcoEscambo" />
-      <recent name="J:\Projetos\EcoEscambo\pages" />
+      <recent name="J:\Projetos\EcoEscambo\backend\uploads" />
       <recent name="J:\Projetos\EcoEscambo\models" />
+      <recent name="J:\Projetos\EcoEscambo\pages" />
       <recent name="C:\Users\chris\IdeaProjects\main\scripts" />
-      <recent name="C:\Users\chris\IdeaProjects\main\css" />
     </key>
   </component>
   <component name="RunManager">
@@ -104,10 +112,15 @@
       <workItem from="1743866711194" duration="1757000" />
       <workItem from="1743880681445" duration="313000" />
       <workItem from="1743955574242" duration="4263000" />
+      <workItem from="1744029637478" duration="19309000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

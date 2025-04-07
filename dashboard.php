@@ -40,17 +40,23 @@ require_once("models/header.php");
                     <p class="product-name" style="font-weight: bold; margin-top: 10px;"><?= htmlspecialchars($produto['nome']) ?></p>
                     <p class="condition"><?= htmlspecialchars($produto['descricao']) ?></p>
 
-                    <div class="dropdown dropdown-btn" style="position: absolute; top: 10px; right: 10px; ">
+                    <div class="dropdown dropdown-btn" style="position: absolute; top: 10px; left: 10px;">
                         <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             :
                         </button>
-                        <ul class="dropdown-menu" style=" position: absolute;">
+                        <ul class="dropdown-menu" style="position: absolute;">
                             <li>
                                 <a class="dropdown-item" href="consultarSolicitacoes.php?id=<?= $produto['id'] ?>">Consultar Solicitações</a>
                             </li>
-                            <li>
-                                <a class="dropdown-item" href="#alterarProdutoModal" data-bs-toggle="modal" data-bs-target="#alterarProdutoModal">Alterar</a>
-                            </li>
+                            <a href="#alterarProdutoModal"
+                               class="dropdown-item btn-editar-produto"
+                               data-bs-toggle="modal"
+                               data-bs-target="#alterarProdutoModal"
+                               data-id="<?= $produto['id'] ?>"
+                               data-nome="<?= htmlspecialchars($produto['nome']) ?>"
+                               data-descricao="<?= htmlspecialchars($produto['descricao']) ?>">
+                                Alterar
+                            </a>
                             <li>
                                 <form action="backend/ExcluirProduto.php" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?')" style="margin: 0;">
                                     <input type="hidden" name="id" value="<?= $produto['id'] ?>">
@@ -69,5 +75,4 @@ require_once("models/header.php");
 
 <?php
 require_once("models/footer.php");
-include_once("backend/AlterarProduto.php");
 ?>
