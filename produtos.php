@@ -99,5 +99,5 @@ include("models/navbar.php");
     </main>
 
 <?php
-include("../models/footer.php");
+include("models/footer.php");
 ?>
