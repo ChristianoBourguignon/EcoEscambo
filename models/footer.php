@@ -16,6 +16,7 @@ if ($nomeUsuario) {
         modalErro.show();
     </script>
 <?php
+        include_once("models/modalAlterarProduto.php");
     }
 }
 ?>

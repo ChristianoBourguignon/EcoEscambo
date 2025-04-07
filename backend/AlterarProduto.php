@@ -1,52 +1,49 @@
 <?php
 require_once ("db.php");
 $pdo = Db::getConnection();
-$idProd = isset($_POST['id']) ? $_POST['id'] : null;
-try {
-//    SELECT * FROM `produtos` where id = 6;
-    //$stmt = $pdo->prepare("DELETE FROM produtos WHERE id = :idProd");
-    $stmt = $pdo->prepare("SELECT * FROM `produtos` where id = :idProd");
-    $stmt->bindParam(':idProd', $idProd);
-    $stmt->execute();
-    $produto = $stmt->fetch(PDO::FETCH_ASSOC);
+$idProd = $_POST['id'];
+$prodName = $_POST['nome'] ;
+$prodDesc = $_POST['descricao'];
+$image = $_FILES['imagem']['tmp_name'];// Só para evitar o erro de array
 
-    ?>
-<!-- Modal de Cadastro de Produto -->
-<div class="modal fade" id="alterarProdutoModal" tabindex="-1" aria-labelledby="alterarProdutoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-4 shadow">
-            <div class="modal-header">
-                <h5 class="modal-title" id="alterarProdutoModalLabel">Alterar Produto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <form action="alterarProduto.php" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="nome" class="form-label">Nome do Produto</label>
-                        <input type="text" class="form-control" id="nome" name="nome" value="<?= htmlspecialchars($produto['nome']) ?>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição</label>
-                        <textarea class="form-control" id="descricao" name="descricao" rows="3" value="<?= htmlspecialchars($produto['descricao']) ?>" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagem" class="form-label">Imagem do Produto</label>
-                        <input class="form-control" type="file" id="imagem" name="imagem" accept="image/*" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Alterar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<?php
+try {
+    $uploadDir = "../uploads/";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+    echo $idProd;
+    if ($image != null) {
+        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+            $imgTempPath = $_FILES['imagem']['tmp_name'];
+            $nameImg = basename($_FILES['imagem']['name']);
+            $extension = strtolower(pathinfo($nameImg, PATHINFO_EXTENSION));
+            $newNameImg = uniqid('img_', true) . '.' . $extension;
+            $imgPath = $uploadDir . $newNameImg;
+
+            if (move_uploaded_file($imgTempPath, $imgPath)) {
+                $image = "uploads/" . $newNameImg;
+
+            }
+            $stmt = $pdo->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, img = :img WHERE id = :idProd");
+            $stmt->bindParam(':nome', $prodName);
+            $stmt->bindParam(':descricao', $prodDesc);
+            $stmt->bindParam(':img', $image);
+            $stmt->bindParam(':idProd', $idProd);
+            $stmt->execute();
+            echo $image;
+
+        }
+    } else {
+        $stmt = $pdo->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao WHERE id = :idProd");
+        $stmt->bindParam(':nome', $prodName);
+        $stmt->bindParam(':descricao', $prodDesc);
+        $stmt->bindParam(':idProd', $idProd);
+        $stmt->execute();
+    }
+    header("Location: ../dashboard.php");
+
 
 } catch (PDOException $e) {
     echo "Erro ao buscar produtos: " . $e->getMessage();
     exit;
 }
-
-

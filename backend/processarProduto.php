@@ -6,7 +6,7 @@ $pdo = Db::getConnection();
 $nome = $_POST['nome'];
 $descricao = $_POST['descricao'];
 $idUser = $_SESSION['usuario_id'];
-$image = "";
+$image = NULL;
 
 // Lógica para upload da imagem
 $uploadDir = "../uploads/";
