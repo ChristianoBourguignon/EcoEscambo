@@ -1,3 +1,10 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+session_start();
+}
+
+$nomeUsuario = $_SESSION['usuario_nome'] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

@@ -1,5 +1,6 @@
 <?php
-include("backend/db.php");
+require_once 'backend/db.php';
+$pdo = Db::getConnection();
 include("models/header.php");
 ?>
     <header>

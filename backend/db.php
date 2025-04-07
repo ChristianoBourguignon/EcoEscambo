@@ -34,6 +34,7 @@ class Db {
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
                         descricao VARCHAR(255) NOT NULL,
+                        img VARCHAR(255) NOT NULL,
                         idUser INT NOT NULL,
                         FOREIGN KEY (idUser) REFERENCES users(id)
                     );

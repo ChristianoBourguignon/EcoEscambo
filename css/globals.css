@@ -310,3 +310,6 @@ main {
     font-size: 2rem;
     color: #333;
 }
+.produtos-lista .product:hover .dropdown {
+    opacity: 1;
+}

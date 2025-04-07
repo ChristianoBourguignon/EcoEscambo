@@ -1,9 +1,9 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-$nomeUsuario = $_SESSION['usuario_nome'] ?? null;
+//if (session_status() === PHP_SESSION_NONE) {
+//    session_start();
+//}
+//
+//$nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 ?>
 
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -29,23 +29,27 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
                     <li class="nav-item">
                         <a class="nav-link mx-lg-2" href="#">Sobre nós</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="dashboard.php">Inventário</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link mx-lg-2" href="dashboard.php">Inventário</a>-->
+<!--                    </li>-->
                 </ul>
             </div>
         </div>
 
         <?php if ($nomeUsuario): ?>
             <!-- Se estiver logado, mostra o nome e botão de logout -->
-            <!-- <span class="me-3 fw-semibold"></span>
-            <a href="backend/logout.php" class="login-button">Sair</a> -->
             <div class="dropdown">
             <a class="btn btn-outline-light dropdown-toggle login-button" href="#" role="button" id="dropdownPerfil" data-bs-toggle="dropdown" aria-expanded="false">
                 Olá, <?= htmlspecialchars($nomeUsuario) ?>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownPerfil">
+                <li>
+                    <a class="dropdown-item" href="dashboard.php">
+                        Meu Inventário
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item" href="#cadastroProdutosModal" data-bs-toggle="modal" data-bs-target="#cadastroProdutosModal">
                         Cadastrar Produto
