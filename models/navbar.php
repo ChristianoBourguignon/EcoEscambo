@@ -27,7 +27,7 @@
                         <a class="nav-link mx-lg-2" href="produtos.php">Produtos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-lg-2" href="#">Sobre nós</a>
+                        <a class="nav-link mx-lg-2" href="sobre.php">Sobre nós</a>
                     </li>
 <!--                    <li class="nav-item">-->
 <!--                        <a class="nav-link mx-lg-2" href="dashboard.php">Inventário</a>-->

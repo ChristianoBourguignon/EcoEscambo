@@ -34,7 +34,7 @@ try {
                                      data-nome="<?= htmlspecialchars($produto['nome']) ?>"
                                      data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
                                      data-img="<?= $produto['img'] ?>">
-                                    <img src="<?= $produto['img'] ?>" class="card-img-top" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                                    <img src="<?= $produto['img'] ?>" class="card-img-top img-prod" alt="<?= htmlspecialchars($produto['nome']) ?>">
                                     <div class="card-body">
                                         <h6 class="card-title"><?= htmlspecialchars($produto['nome']) ?></h6>
                                         <p class="card-text"><?= htmlspecialchars($produto['descricao']) ?></p>
@@ -85,15 +85,43 @@ try {
         if (produtoSelecionado) {
             // Preencher dados no modal anterior
             document.getElementById('boxProdutoSelecionado').innerHTML = `
-                <img src="${produtoSelecionado.img}" alt="${produtoSelecionado.nome}" class="img-fluid rounded shadow-sm mb-2">
+                <img src="${produtoSelecionado.img}" alt="${produtoSelecionado.nome}" class="img-prod img-fluid rounded shadow-sm mb-2">
                 <p><strong>${produtoSelecionado.nome}</strong></p>
                 <p>${produtoSelecionado.descricao}</p>
+                <button type="button" class="btn btn-outline-danger btn-sm mt-2" id="btnRemoverProduto">Remover Produto</button>
             `;
             document.getElementById('meuProdutoId').value = produtoSelecionado.id;
 
             // Fechar modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('modalSelecionarProduto'));
             modal.hide();
+
+            setTimeout(() => {
+                const btnRemover = document.getElementById('btnRemoverProduto');
+                if (btnRemover) {
+                    btnRemover.addEventListener('click', () => {
+                        document.getElementById('boxProdutoSelecionado').innerHTML = `
+                            <div id="produtoSelecionadoInfo">
+                                <p>Nenhum produto selecionado.</p>
+                                <button type="button"
+                                        class="btn btn-primary btn-sm w-100"
+                                        id="btnAbrirSelecionarProduto">
+                                    Selecionar
+                                </button>
+                            </div>
+                        `;
+                        document.getElementById('meuProdutoId').value = '';
+
+                        // Reativa o evento do botão Selecionar
+                        document.getElementById('btnAbrirSelecionarProduto').addEventListener('click', function () {
+                            const modalSelecionar = new bootstrap.Modal(document.getElementById('modalSelecionarProduto'), {
+                                backdrop: false
+                            });
+                            modalSelecionar.show();
+                        });
+                    });
+                }
+            }, 100);
         }
     });
 </script>

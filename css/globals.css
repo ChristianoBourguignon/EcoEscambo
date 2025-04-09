@@ -313,3 +313,19 @@ main {
 .produtos-lista .product:hover .dropdown {
     opacity: 1;
 }
+
+.modal-backdrop.show {
+    z-index: 1040;
+}
+
+#modalSelecionarProduto {
+    z-index: 1050;
+}
+
+.img-prod{
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
