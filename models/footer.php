@@ -1,6 +1,6 @@
 
 <?php
-include ("perfil.php");
+include_once("perfil.php");
 
 if ($nomeUsuario) {
     include_once("models/cadastrarProdutos.php");

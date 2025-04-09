@@ -1,9 +1,16 @@
 <?php
 require_once 'backend/db.php';
 $pdo = Db::getConnection();
+if(session_start()){
+    $idUser = $_SESSION['usuario_id'];
+}
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM produtos ");
+    if(!$idUser){
+        $stmt = $pdo->prepare("SELECT * FROM produtos ");
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM produtos where idUser != $idUser");
+    }
     $stmt->execute();
     $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -45,5 +52,6 @@ include("models/header.php");
   </main>
 <?php
 include("models/modalTrocarProduto.php");
+include("perfil.php");
 include("models/footer.php");
 ?>

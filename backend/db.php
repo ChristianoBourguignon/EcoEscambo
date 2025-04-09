@@ -39,9 +39,23 @@ class Db {
                         FOREIGN KEY (idUser) REFERENCES users(id)
                     );
                 ";
-
+                $sqlTroca = "
+                    CREATE TABLE IF NOT EXISTS troca (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        idUserDesejado INT NOT NULL,
+                        idProdDesejado INT NOT NULL,
+                        idUser INT NOT NULL,
+                        idProdUser INT NOT NULL,
+                        Status INT NOT NULL DEFAULT '0',
+                        FOREIGN KEY (idUserDesejado) REFERENCES users(id),
+                        FOREIGN KEY (idProdDesejado) REFERENCES produtos(id),
+                        FOREIGN KEY (idUser) REFERENCES users(id),
+                        FOREIGN KEY (idProdUser) REFERENCES produtos(id)
+                    );
+                ";
                 self::$pdo->exec($sqlUsers);
                 self::$pdo->exec($sqlProdutos);
+                self::$pdo->exec($sqlTroca);
             } catch (PDOException $e) {
                 die("Erro na conexão ou criação do banco: " . $e->getMessage());
             }
