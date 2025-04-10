@@ -43,8 +43,8 @@ class Db {
                     CREATE TABLE IF NOT EXISTS troca (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         idUserDesejado INT NOT NULL,
-                        idProdDesejado INT NOT NULL,
                         idUser INT NOT NULL,
+                        idProdDesejado INT NOT NULL,
                         idProdUser INT NOT NULL,
                         Status INT NOT NULL DEFAULT '0',
                         FOREIGN KEY (idUserDesejado) REFERENCES users(id),

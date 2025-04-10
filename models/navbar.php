@@ -50,6 +50,11 @@
                     </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
+                    <a class="dropdown-item" href="trocas.php">
+                        Minhas Trocas
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item" href="#cadastroProdutosModal" data-bs-toggle="modal" data-bs-target="#cadastroProdutosModal">
                         Cadastrar Produto

@@ -55,5 +55,5 @@ include("models/header.php");
 <?php
 include("perfil.php");
 include("models/modalTrocarProduto.php");
-include("models/footer.php");
+include("models/footer.php"); 
 ?>
