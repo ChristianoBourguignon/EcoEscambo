@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/img/gmail.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/operacaoTroca.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/modalSelecionarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/modalSelecionarProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/modalTrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/modalTrocarProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/navbar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todos_os_itens.php" beforeDir="false" afterPath="$PROJECT_DIR$/todos_os_itens.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trocas.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +46,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "J:/Projetos/EcoEscambo/img",
+    "last_opened_file_path": "J:/Projetos/EcoEscambo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -114,7 +109,9 @@
       <workItem from="1744029637478" duration="19543000" />
       <workItem from="1744082767843" duration="47000" />
       <workItem from="1744082898501" duration="134000" />
-      <workItem from="1744203572243" duration="13517000" />
+      <workItem from="1744203572243" duration="13976000" />
+      <workItem from="1744291628640" duration="90000" />
+      <workItem from="1744292984925" duration="13596000" />
     </task>
     <servers />
   </component>
