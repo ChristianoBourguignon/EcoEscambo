@@ -14,12 +14,12 @@ class Db {
                 $pdoTemp = new PDO("mysql:host=" . self::$host, self::$username, self::$password);
                 $pdoTemp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdoTemp->exec("CREATE DATABASE IF NOT EXISTS " . self::$dbname);
-                
+
                 // Conecta agora ao banco criado
                 self::$pdo = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8", self::$username, self::$password);
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                // Criação das tabelas, se não existirem
+                // Criação das tabelas
                 $sqlUsers = "
                     CREATE TABLE IF NOT EXISTS users (
                         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,6 +39,7 @@ class Db {
                         FOREIGN KEY (idUser) REFERENCES users(id)
                     );
                 ";
+
                 $sqlTroca = "
                     CREATE TABLE IF NOT EXISTS troca (
                         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -53,9 +54,13 @@ class Db {
                         FOREIGN KEY (idProdUser) REFERENCES produtos(id)
                     );
                 ";
+
+
+                // Executa as queries
                 self::$pdo->exec($sqlUsers);
                 self::$pdo->exec($sqlProdutos);
                 self::$pdo->exec($sqlTroca);
+
             } catch (PDOException $e) {
                 die("Erro na conexão ou criação do banco: " . $e->getMessage());
             }

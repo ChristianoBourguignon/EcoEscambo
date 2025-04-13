@@ -1,17 +1,18 @@
 <?php
 session_start();
-require_once 'backend/db.php';
+require_once 'db.php';
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: ../index.php");
     exit;
 }
+
 $pdo = Db::getConnection();
 $idUser = $_SESSION['usuario_id'];
-$prodUser = $_POST['meuProd'];
-$prodOferecido = $_POST['prodOferecido'];
-$idDonoProdOferecido = '';
+$prodUser = $_POST['meuProd'];            // Produto do usuário atual (quem está logado)
+$prodDesejado = $_POST['prodOferecido'];  // Produto que o outro usuário ofereceu
 
-$btn = NULL;
+$btn = null;
 if (isset($_POST['confirmar'])) {
     $btn = true;
 } elseif (isset($_POST['rejeitar'])) {
@@ -19,21 +20,74 @@ if (isset($_POST['confirmar'])) {
 }
 
 try {
-    if($btn){
-        $stmt = $pdo->prepare("SELECT * FROM PRODUTOS WHERE ID = :prodOferecido");
-        $stmt->bindParam(':prodOferecido', $prodOferecido);
-        $stmt->execute();
-        $prod = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $idDonoProdOferecido = $prod['idUser'];
-        $stmt = $pdo->prepare("UPDATE produtos SET idUser= :idUser WHERE :prodOferecido");
+    if ($btn === true) {
+        // Inicia transação
+        $pdo->beginTransaction();
 
-//        $stmt = $pdo->prepare("SELECT * FROM troca t JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) WHERE t.idUserDesejado = :idUser;");
-//        $stmt->bindParam(':idUser', $idUser);
-//        $stmt->execute();
-//        $troca = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//        header('Location: ../trocas.php');
+        // Atualiza o status da troca para 1 (confirmada)
+        $stmtTroca = $pdo->prepare("
+            UPDATE troca 
+            SET status = 1 
+            WHERE idProdDesejado = :prodDesejado 
+              AND idProdUser = :prodUser
+        ");
+        $stmtTroca->execute([
+            ':prodDesejado' => $prodDesejado,
+            ':prodUser' => $prodUser
+        ]);
+
+        // Buscar os donos originais dos produtos
+        $stmtProd1 = $pdo->prepare("SELECT idUser FROM produtos WHERE id = :id");
+        $stmtProd1->execute([':id' => $prodUser]);
+        $donoProdUser = $stmtProd1->fetchColumn();
+
+        $stmtProd2 = $pdo->prepare("SELECT idUser FROM produtos WHERE id = :id");
+        $stmtProd2->execute([':id' => $prodDesejado]);
+        $donoProdDesejado = $stmtProd2->fetchColumn();
+
+        // Trocar os donos dos produtos
+        $stmtUpdate1 = $pdo->prepare("UPDATE produtos SET idUser = :novoDono WHERE id = :idProduto");
+        $stmtUpdate1->execute([
+            ':novoDono' => $donoProdDesejado,
+            ':idProduto' => $prodUser
+        ]);
+
+        $stmtUpdate2 = $pdo->prepare("UPDATE produtos SET idUser = :novoDono WHERE id = :idProduto");
+        $stmtUpdate2->execute([
+            ':novoDono' => $donoProdUser,
+            ':idProduto' => $prodDesejado
+        ]);
+
+        // Finaliza a transação
+        $pdo->commit();
+
+        header('Location: ../trocas.php');
+        exit;
+    } elseif ($btn === false) {
+        // Rejeitar a troca (status -1)
+        $pdo->beginTransaction();
+
+        $stmt = $pdo->prepare("
+            UPDATE troca 
+            SET status = -1 
+            WHERE idProdDesejado = :prodDesejado 
+              AND idProdUser = :prodUser
+        ");
+        $stmt->execute([
+            ':prodDesejado' => $prodDesejado,
+            ':prodUser' => $prodUser
+        ]);
+
+        $pdo->commit();
+
+        header('Location: ../trocas.php');
+        exit;
     }
 
-} catch (PDOException $e) {
-    echo "Erro ao buscar produtos: " . $e->getMessage();
+} catch (Exception $e) {
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+    echo "Erro ao processar a troca: " . $e->getMessage();
 }
+?>
