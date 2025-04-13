@@ -1,5 +1,6 @@
 <?php
 require_once 'backend/db.php';
+include("models/header.php");
 $pdo = Db::getConnection();
 if(session_start()){
     $idUser = $_SESSION['usuario_id'];
@@ -17,7 +18,7 @@ try {
     echo "Erro ao buscar produtos: " . $e->getMessage();
     exit;
 }
-include("models/header.php");
+
 ?>
 
 <main class="container my-5">

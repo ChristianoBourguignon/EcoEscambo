@@ -5,10 +5,14 @@ include_once("perfil.php");
 if ($nomeUsuario) {
     include_once("models/cadastrarProdutos.php");
     include_once("models/produtoCadastrado.php");
-    if (isset($sucesso) && $sucesso){ ?>
+
+    if (isset($_SESSION['sucesso'])){ ?>
     <script>
         const sucessoModal = new bootstrap.Modal(document.getElementById('modalSucesso'));
         sucessoModal.show();
+        <?php
+        unset($_SESSION['sucesso']);
+        ?>
     </script>
     <?php } else {;?>
     <script>

@@ -1,103 +1,61 @@
 <?php
+require_once 'backend/db.php';
 include("models/header.php");
-include("models/navbar.php");
+$pdo = Db::getConnection();
+$idUser = $_SESSION['usuario_id'] ?? NULL;
+
+
+try {
+    if(!$idUser){
+        $stmt = $pdo->prepare("SELECT * FROM produtos ");
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM produtos where idUser != $idUser");
+    }
+    $stmt->execute();
+    $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao buscar produtos: " . $e->getMessage();
+    exit;
+}
+
 ?>
 
-    <!-- Navbar -->
-    <div id="navbar-container"></div>
-
-    <main class="container my-5">
-        <!-- Trocas Populares -->
-        <section class="produtos-categoria">
-            <h3>Trocas Populares</h3>
-            <div class="produtos-lista">
-                <div class="product">
-                    <img src="img/0005_01.webp" alt="">
-                    <p class="product-name">Óculos de Sol</p>
-                    <p class="condition">Estado: Bom</p>
-                    <a href="produtodesc.html?produto=Óculos de Sol" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/398536-800-800.webp" alt="">
-                    <p class="product-name">Geladeira Consul</p>
-                    <p class="condition">Estado: Médio</p>
-                    <a href="produtodesc.html?produto=Geladeira Consul" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/39d5a9649a.webp" alt="">
-                    <p class="product-name">Camiseta Ecológica</p>
-                    <p class="condition">Estado: Ruim</p>
-                    <a href="produtodesc.html?produto=Camiseta Ecológica" class="btn-trocar">Trocar</a>
-                </div>
-            </div>
-            <a href="trocas_populares.php" class="ver-mais">Ver mais →</a>
-        </section>
-
-        <!-- Adicionados Recentemente -->
-        <section class="produtos-categoria">
-            <h3>Adicionados Recentemente</h3>
-            <div class="produtos-lista">
-                <div class="product">
-                    <img src="img/a640f7e87b601033d58fc246e302167f.jpg" alt="">
-                    <p class="product-name">Kit de Livros</p>
-                    <p class="condition">Estado: Excelente</p>
-                    <a href="produtodesc.html?produto=Kit de Livros" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/CGY-0283-028_zoom1.webp" alt="">
-                    <p class="product-name">Bicicleta Esportiva</p>
-                    <p class="condition">Estado: Médio</p>
-                    <a href="produtodesc.html?produto=Bicicleta Esportiva" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/tenis_lacoste_39sma0057br_042_02-6399ef658b4f6.jpg" alt="">
-                    <p class="product-name">Tênis Lacoste</p>
-                    <p class="condition">Estado: Médio</p>
-                    <a href="produtodesc.html?produto=Tênis Lacoste" class="btn-trocar">Trocar</a>
-                </div>
-            </div>
-            <a href="adicionados_recentemente.php" class="ver-mais">Ver mais →</a>
-        </section>
-
-        <!-- Todos os Itens -->
-        <section class="produtos-categoria">
-            <h3>Todos os Itens</h3>
-            <div class="produtos-lista">
-                <div class="product">
-                    <img src="img/0005_01.webp" alt="">
-                    <p class="product-name">Óculos de Sol</p>
-                    <p class="condition">Estado: Bom</p>
-                    <a href="produtodesc.html?produto=Óculos de Sol" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/398536-800-800.webp" alt="">
-                    <p class="product-name">Geladeira Consul</p>
-                    <p class="condition">Estado: Médio</p>
-                    <a href="produtodesc.html?produto=Geladeira Consul" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/39d5a9649a.webp" alt="">
-                    <p class="product-name">Camiseta Ecológica</p>
-                    <p class="condition">Estado: Ruim</p>
-                    <a href="produtodesc.html?produto=Camiseta Ecológica" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/a640f7e87b601033d58fc246e302167f.jpg" alt="">
-                    <p class="product-name">Kit de Livros</p>
-                    <p class="condition">Estado: Excelente</p>
-                    <a href="produtodesc.html?produto=Kit de Livros" class="btn-trocar">Trocar</a>
-                </div>
-                <div class="product">
-                    <img src="img/CGY-0283-028_zoom1.webp" alt="">
-                    <p class="product-name">Bicicleta Esportiva</p>
-                    <p class="condition">Estado: Médio</p>
-                    <a href="produtodesc.html?produto=Bicicleta Esportiva" class="btn-trocar">Trocar</a>
-                </div>
-            </div>
-            <a href="todos_os_itens.php" class="ver-mais">Ver mais →</a>
-        </section>
-    </main>
+<main class="container my-5">
+    <!-- Trocas Populares -->
+    <section class="produtos-categoria">
+        <h3>Todos os Itens</h3>
+        <div class="produtos-lista">
+            <?php if (count($produtos) > 0): ?>
+                <?php foreach ($produtos as $produto): ?>
+                    <div class="product" style="position: relative; width: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s; text-align: center; overflow: visible; z-index: 1; background-color: #fff;">
+                        <img src="<?= htmlspecialchars($produto['img']) ?>"  class="img-prod" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                        <p class="product-name" style="font-weight: bold; margin-top: 10px;"><?= htmlspecialchars($produto['nome']) ?></p>
+                        <p class="condition"><?= htmlspecialchars($produto['descricao']) ?>
+                            <a href="#modalTrocarProduto"
+                               class="btn-trocar"
+                               data-bs-toggle="modal"
+                               data-bs-target="#modalTrocarProduto"
+                               data-id="<?= $produto['id'] ?>"
+                               data-nome="<?= htmlspecialchars($produto['nome']) ?>"
+                               data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
+                               data-imagem="<?= htmlspecialchars($produto['img']) ?>">
+                                Alterar
+                            </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nenhum produto cadastrado ainda.</p>
+            <?php endif; ?>
+        </div>
+        </div>
+        </div>
+    </section>
+</main>
 
 <?php
+include("perfil.php");
+include("models/produtoCadastrado.php");
+include("models/cadastrarProdutos.php");
+include("models/modalTrocarProduto.php");
 include("models/footer.php");
 ?>

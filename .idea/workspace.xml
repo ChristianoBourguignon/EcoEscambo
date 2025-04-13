@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/LEIAME.TXT" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/recuperarSenha.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/operacaoTroca.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/operacaoTroca.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ExcluirProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ExcluirProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/TrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/TrocarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/processarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/processarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perfil.php" beforeDir="false" afterPath="$PROJECT_DIR$/perfil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/produtos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todos_os_itens.php" beforeDir="false" afterPath="$PROJECT_DIR$/todos_os_itens.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trocas.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbebd9079ec5.74973847.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

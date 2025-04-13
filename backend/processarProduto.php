@@ -32,7 +32,7 @@ try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$nome, $descricao, $image, $idUser]);
 
-    $sucesso = true;
+    $_SESSION['sucesso'] = true;
     header("location: ../dashboard.php");
 } catch (PDOException $e) {
     ?>
