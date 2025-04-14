@@ -18,7 +18,7 @@ try {
     $stmt->bindParam(':idProd', $idProd);
     $stmt->execute();
 
-//    header("Location: ../dashboard.php");
+    header("Location: ../dashboard.php");
 
 } catch (PDOException $e) {
     echo "Erro ao buscar produtos: " . $e->getMessage();
