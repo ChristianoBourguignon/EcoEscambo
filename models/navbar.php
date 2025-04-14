@@ -34,7 +34,7 @@
                 </ul>
             </div>
         <?php else: ?>
-            <a class="btn btn-outline-light d-none d-lg-block" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Entrar / Cadastrar</a>
+            <a class="btn btn-outline-light d-none d-lg-block login-button" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Entrar / Cadastrar</a>
         <?php endif; ?>
 
         <!-- Offcanvas (menu mobile) -->

@@ -5,21 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/LEIAME.TXT" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/recuperarSenha.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/ExcluirProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ExcluirProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/TrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/TrocarProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/processarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/processarProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/perfil.php" beforeDir="false" afterPath="$PROJECT_DIR$/perfil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/produtos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todos_os_itens.php" beforeDir="false" afterPath="$PROJECT_DIR$/todos_os_itens.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/navbar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trocas.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/img_67fbebd9079ec5.74973847.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Vaso.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f341be392991.67750282.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f342120c0a38.78896079.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f343bd51f966.56903113.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f343d0d09608.42161208.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f343e4633c09.15513328.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f34917cb2880.59996413.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f34a0aa03391.55118082.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f34bb8a29f97.70170168.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f34bc3876772.10528061.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f350827120f4.66065378.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f3513391c066.61688603.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f411f1e954d1.97395133.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f42003246af4.64430062.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f4220f3b8bf2.50767841.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f4980f362706.11517013.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f4981b232b12.79331933.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f4981b290328.13871189.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f498307acb65.27667302.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f5b9e119f042.39818551.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f5ba1f732b90.64157663.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f5ba435c1195.12597386.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f5bee7c317a8.94856427.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f7080d70daa1.24667144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f70c350d5ed9.13091534.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f8934a811974.69732049.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67f8936bbb4254.28735086.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbeb83f2e138.49082571.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbed981dc4a3.94579317.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbee3aa80390.00097538.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbeebe2738b3.72442369.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fbef06deaca0.58515009.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc0558edc2b8.14544041.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc0f312c3771.42916331.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc13604b93f7.88617940.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc1377484099.50301561.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc2906c565f6.11635566.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc3162b92f18.01668754.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc31dc286740.34118587.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc31f3113184.34961106.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc3224f41f22.22343234.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc32bf0ee286.82017706.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc338711b682.50402147.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc349337cb81.64680044.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc34c1f2f650.51287874.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc34e916c6d7.97299693.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +165,7 @@
       <workItem from="1744374152365" duration="110000" />
       <workItem from="1744406084924" duration="103000" />
       <workItem from="1744406356409" duration="663000" />
+      <workItem from="1744605036277" duration="1022000" />
     </task>
     <servers />
   </component>
