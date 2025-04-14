@@ -152,7 +152,7 @@ header {
 
 /* Linha decorativa */
 .line {
-    width: 520px;
+    width: 50%;
     height: 4px;
     background: #f7f31d;
     margin: 10px auto;

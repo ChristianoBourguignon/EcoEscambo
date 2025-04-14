@@ -29,7 +29,6 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 <body>
 
 <!-- Navbar -->
-<div id="navbar-container"></div>
 <?php
     include("models/navbar.php")
 ?>
