@@ -57,7 +57,7 @@ require_once("models/header.php");
                             <!-- Produto Oferecido -->
                             <div class="col-md-3 text-center">
                                 <div class="card">
-                                    <div class="card-header bg-transparent">Produto Oferecido</div>
+                                    <div class="card-header bg-transparent">Seu Produto</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i]['nome']) ?></h5>
@@ -77,7 +77,7 @@ require_once("models/header.php");
                             <!-- Produto do Usuário -->
                             <div class="col-md-3 text-center">
                                 <div class="card">
-                                    <div class="card-header bg-transparent">Seu Produto</div>
+                                    <div class="card-header bg-transparent">Produto Oferecido</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?></h5>
@@ -90,8 +90,8 @@ require_once("models/header.php");
                         <!-- Botões e dados escondidos -->
                         <div class="row mt-3">
                             <div class="col text-center">
-                                <input type="hidden" name="prodOferecido" value="<?= $solicitacao[$i]['id'] ?>">
-                                <input type="hidden" name="meuProd" value="<?= $solicitacao[$i + 1]['id'] ?>">
+                                <input type="hidden" name="prodOferecido" value="<?= $solicitacao[$i + 1]['id'] ?>">
+                                <input type="hidden" name="meuProd" value="<?= $solicitacao[$i]['id'] ?>">
                                 <button type="submit" name="confirmar" value="Confirmar" class="btn btn-success me-2">Confirmar</button>
                                 <button type="submit" name="rejeitar" value="Rejeitar" class="btn btn-danger">Rejeitar</button>
                             </div>
@@ -115,7 +115,7 @@ require_once("models/header.php");
                         <!-- Produto Oferecido -->
                         <div class="col-md-3 text-center">
                             <div class="card">
-                                <div class="card-header bg-transparent">Seu produto</div>
+                                <div class="card-header bg-transparent">Produto Desejado</div>
                                 <img src="<?= htmlspecialchars($pendente[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($pendente[$i]['nome']) ?></h5>
@@ -135,7 +135,7 @@ require_once("models/header.php");
                         <!-- Produto do Usuário -->
                         <div class="col-md-3 text-center">
                             <div class="card">
-                                <div class="card-header bg-transparent">Produto Desejado</div>
+                                <div class="card-header bg-transparent">Seu produto</div>
                                 <img src="<?= htmlspecialchars($pendente[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($pendente[$i + 1]['nome']) ?></h5>
