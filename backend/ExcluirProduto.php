@@ -5,12 +5,15 @@ $pdo = Db::getConnection();
 $idProd = $_POST['id'];
 
 try {
-//    $stmt = $pdo->prepare("SELECT img FROM produtos WHERE id = :idProd");
-//    $stmt->bindParam(':idProd', $idProd);
-//    $stmt->execute();
-//    $prod = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//    $caminho = __DIR__ . '/../' . $prod['img'];
-//    unlink($caminho);
+    $stmt = $pdo->prepare("SELECT img FROM produtos WHERE id = :idProd");
+    $stmt->bindParam(':idProd', $idProd);
+    $stmt->execute();
+    $prod = $stmt->fetch();
+    $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
+    $caminhoAbsoluto = dirname(__DIR__) . DIRECTORY_SEPARATOR . $caminhoRelativo;
+    if (file_exists($caminhoAbsoluto)) {
+        unlink($caminhoAbsoluto);
+    }
     $stmt = $pdo->prepare("DELETE FROM troca WHERE idProdDesejado = :idProd or idProdUser = :idProd");
     $stmt->bindParam(':idProd', $idProd);
     $stmt->execute();
