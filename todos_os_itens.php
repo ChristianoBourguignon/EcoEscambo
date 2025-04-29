@@ -1,6 +1,6 @@
 <?php
 require_once 'backend/db.php';
-include("models/header.php");
+include_once("models/header.php");
 $pdo = Db::getConnection();
 if(session_start()){
     $idUser = $_SESSION['usuario_id'];
@@ -54,7 +54,7 @@ try {
   </main>
 
 <?php
-include("perfil.php");
-include("models/modalTrocarProduto.php");
-include("models/footer.php"); 
+include_once("perfil.php");
+include_once("models/modalTrocarProduto.php");
+include_once("models/footer.php");
 ?>

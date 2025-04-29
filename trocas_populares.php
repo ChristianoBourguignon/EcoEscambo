@@ -98,5 +98,5 @@ include ("models/header.php");
   </main>
 
 <?php
-include ("models/footer.php");
+include_once("models/footer.php");
 ?>

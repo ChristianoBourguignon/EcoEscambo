@@ -1,6 +1,6 @@
 <?php
 require_once 'backend/db.php';
-include("models/header.php");
+include_once("models/header.php");
 $pdo = Db::getConnection();
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 
@@ -39,7 +39,7 @@ try {
                                data-nome="<?= htmlspecialchars($produto['nome']) ?>"
                                data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
                                data-imagem="<?= htmlspecialchars($produto['img']) ?>">
-                                Alterar
+                                Trocar
                             </a>
                     </div>
                 <?php endforeach; ?>
@@ -53,9 +53,9 @@ try {
 </main>
 
 <?php
-include("perfil.php");
-include("models/produtoCadastrado.php");
-include("models/cadastrarProdutos.php");
-include("models/modalTrocarProduto.php");
-include("models/footer.php");
+include_once("perfil.php");
+include_once("models/produtoCadastrado.php");
+include_once("models/cadastrarProdutos.php");
+include_once("models/modalTrocarProduto.php");
+include_once("models/footer.php");
 ?>

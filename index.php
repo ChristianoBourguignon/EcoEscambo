@@ -1,5 +1,5 @@
 <?php
-include("models/header.php");
+include_once("models/header.php");
 ?>
     <header>
         <div class="header-content">
@@ -11,5 +11,5 @@ include("models/header.php");
         </div>
     </header>
 <?php
-include("models/footer.php");
+include_once("models/footer.php");
 ?>
