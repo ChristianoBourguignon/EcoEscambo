@@ -64,7 +64,13 @@
                         <a class="list-group-item list-group-item-action text-danger mt-3" href="backend/logout.php">Sair</a>
                     </div>
                 <?php else: ?>
-                    <a class="btn btn-outline-dark w-100" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Entrar / Cadastrar</a>
+                    <div class="list-group">
+                        <div class="list-group-item disabled ">Páginas</div>
+                        <a class="list-group-item list-group-item-action" href="index.php">Início</a>
+                        <a class="list-group-item list-group-item-action" href="produtos.php">Produtos</a>
+                        <a class="list-group-item list-group-item-action" href="sobre.php">Sobre nós</a>
+                        <a class="btn btn-outline-dark w-100 mt-3" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Entrar / Cadastrar</a>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
