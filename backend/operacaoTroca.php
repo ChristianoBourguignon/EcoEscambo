@@ -63,15 +63,16 @@ try {
 
         header('Location: ../trocas.php');
         exit;
-    } elseif ($btn === false) {
+    } else {
         // Rejeitar a troca (status -1)
         $pdo->beginTransaction();
 
         $stmt = $pdo->prepare("
             UPDATE troca 
             SET status = -1 
-            WHERE idProdDesejado = :prodDesejado 
-              AND idProdUser = :prodUser
+            WHERE idProdUser = :prodUser 
+                AND idProdDesejado = :prodDesejado
+                AND status = 0;
         ");
         $stmt->execute([
             ':prodDesejado' => $prodDesejado,
