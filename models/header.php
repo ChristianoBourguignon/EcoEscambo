@@ -23,6 +23,14 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
     <!-- CSS global -->
     <link rel="stylesheet" href="css/globals.css">
 
+    <?php
+    if (stripos($_SERVER['REQUEST_URI'], 'sobre.php')){
+        ?>
+        <!-- CSS sobre -->
+        <link rel="stylesheet" href="css/sobre.css">
+    <?php }  ?>
+
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
