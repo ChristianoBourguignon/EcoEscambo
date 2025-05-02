@@ -40,7 +40,7 @@ try {
         FROM troca t 
         JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
         WHERE t.idUser = :idUser 
-        AND t.status = 1 and t.status = -1;
+        AND (t.status = 1 or t.status = -1);
     ");
     $stmt->bindParam(':idUser', $idUser);
     $stmt->execute();
@@ -194,7 +194,7 @@ require_once("models/header.php");
                     <!-- Botões e dados escondidos -->
                     <div class="row mt-3">
                         <div class="col text-center">
-                            <?php if(($trocados[$i]['status'] = 1)): ?>
+                            <?php if(($trocados[$i]['Status'] == 1)): ?>
                             <button type="submit" value="aceito" class="btn btn-success me-2">Troca Confirmada</button>
                             <?php else: ?>
                             <button type="submit" value="rejeitado" class="btn btn-danger">Troca Rejeitada/Cancelada</button>
