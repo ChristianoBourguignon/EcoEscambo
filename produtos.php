@@ -9,7 +9,23 @@ try {
     if(!$idUser){
         $stmt = $pdo->prepare("SELECT * FROM produtos ");
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM produtos where idUser != $idUser");
+        $stmt = $pdo->prepare("
+        SELECT *
+        FROM produtos p
+        WHERE p.idUser != $idUser
+          AND EXISTS (
+            SELECT 1 
+            FROM troca t 
+            WHERE (t.idProdDesejado = p.id OR t.idProdUser = p.id)
+              AND t.Status IN (0, -1)
+          )
+          AND NOT EXISTS (
+            SELECT 1 
+            FROM troca t2 
+            WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
+              AND t2.Status = 1
+        );
+        ");
     }
     $stmt->execute();
     $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
