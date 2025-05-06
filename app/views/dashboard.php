@@ -25,9 +25,8 @@ try {
     echo "Erro ao buscar produtos: " . $e->getMessage();
     exit;
 }
-
-require_once("models/header.php");
 ?>
+<?php $this->start('body'); ?>
 
 <div class="container mt-5 py-5">
     <h1>Olá, <?= htmlspecialchars($nomeUsuario) ?>!</h1>
@@ -74,6 +73,4 @@ require_once("models/header.php");
     </div>
 </div>
 
-<?php
-require_once("models/footer.php");
-?>
+<?php $this->stop(); ?>

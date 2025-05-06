@@ -40,7 +40,7 @@ try {
         $stmt->bindParam(':idProd', $idProd);
         $stmt->execute();
     }
-    header("Location: ../dashboard.php");
+    header("Location:". BASE . "dashboard");
 
 
 } catch (PDOException $e) {

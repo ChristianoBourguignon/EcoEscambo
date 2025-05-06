@@ -38,5 +38,6 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 
 <!-- Navbar -->
 <?php
-    include_once("models/navbar.php")
+    include_once("models/navbar.php");
+
 ?>
