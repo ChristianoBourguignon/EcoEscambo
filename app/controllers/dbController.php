@@ -1,13 +1,21 @@
 <?php
 
-class Db {
+namespace app\controllers;
+use PDO;
+class dbController
+{
     private static $host = 'localhost';
     private static $dbname = 'ecoescambo';
     private static $username = 'root';
     private static $password = '';
     private static $pdo;
 
-    public static function getConnection() {
+    public static function getPdo() {
+        return self::$pdo;
+    }
+
+    public static function getConnection()
+    {
         if (!self::$pdo) {
             try {
                 // Conecta ao servidor para criar o banco, se necessário
