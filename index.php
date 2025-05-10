@@ -2,7 +2,9 @@
 require "config.php";
 require "vendor/autoload.php";
 require "router/router.php";
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 try {
     $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
     $request = $_SERVER["REQUEST_METHOD"];

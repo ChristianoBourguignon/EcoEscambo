@@ -36,10 +36,13 @@ $router = [
         "/produtos" => function () {
             return load("ProductsController", "index");
         },
+        "/EcoEscambo/dashboard" => function() {
+            return load("userController", "meusProdutos");
+        }
     ],
     "POST" => [
-        "/contact" => function () {
-            return load("aboutController", "store");
+        "/EcoEscambo/logar" => function () {
+            return load("userController", "logar");
         },
     ],
 ];

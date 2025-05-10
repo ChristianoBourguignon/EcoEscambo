@@ -25,7 +25,7 @@
                 <div class="tab-content" id="loginTabContent">
                     <!-- Login -->
                     <div class="tab-pane fade show active p-4" id="login" role="tabpanel">
-                        <form action="backend/login.php" method="POST">
+                        <form action="<?= BASE ?>/logar" method="POST">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="loginEmail" name="email" required>
