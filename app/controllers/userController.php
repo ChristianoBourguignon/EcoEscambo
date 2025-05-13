@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 use app\controllers\Controller;
-use PDO;
 
 session_start();
 require_once 'dbController.php';
@@ -55,27 +54,25 @@ class userController
         }
         header("location:" .BASE. "/dashboard");
     }
-    public function meusProdutos(){
+    public function meusProdutos($idUser){
         try {
-            $idUser = $_SESSION['usuario_id'];
-            $pdo = dbController::getConnection();
-            $stmt = $pdo->prepare("SELECT * FROM produtos WHERE idUser = :idUser");
+            dbController::getConnection();
+            $stmt = dbController::getPdo()->prepare("
+                SELECT produtos.*, users.nome
+                FROM produtos
+                INNER JOIN users ON produtos.idUser = users.id
+                WHERE produtos.idUser = :idUser;
+                "
+            );
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $produtos = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 
-            $stmt = $pdo->prepare("SELECT nome FROM users WHERE id = :id");
-            $stmt->bindParam(':id', $idUser);
-            $stmt->execute();
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $nomeUsuario = $usuario ? $usuario['nome'] : 'Usuário';
-            $_SESSION['usuario_nome'] = $nomeUsuario;
-
-            Controller::view("dashboard", [
-                'produtos' => $produtos,
-                'nomeUsuario' => $nomeUsuario
-            ]);
+//            $stmt = $pdo->prepare("SELECT nome FROM users WHERE id = :id");
+//            $stmt->bindParam(':id', $idUser);
+//            $stmt->execute();
+//            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $produtos;
         } catch (PDOException $e) {
             echo "Erro ao buscar produtos: " . $e->getMessage();
             exit;

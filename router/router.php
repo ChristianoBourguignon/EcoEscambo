@@ -37,7 +37,7 @@ $router = [
             return load("ProductsController", "index");
         },
         "/EcoEscambo/dashboard" => function() {
-            return load("userController", "meusProdutos");
+            return load("userController", "index");
         }
     ],
     "POST" => [
