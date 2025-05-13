@@ -25,7 +25,7 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
         <link rel="stylesheet" href="css/globals.css">
 
         <?php
-        if ((BASE . "/sobre")){
+        if ($_SERVER['REQUEST_URI'] == (BASE . "/sobre")){
             ?>
             <!-- CSS sobre -->
             <link rel="stylesheet" href="css/sobre.css">
