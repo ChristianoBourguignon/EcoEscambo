@@ -38,6 +38,12 @@ $router = [
         },
         "/EcoEscambo/dashboard" => function() {
             return load("userController", "index");
+        },
+        "/EcoEscambo/deslogar" => function () {
+            return load("userController", "deslogar");
+        },
+        "/EcoEscambo/trocas" => function (){
+            return load("userController","trocas");
         }
     ],
     "POST" => [

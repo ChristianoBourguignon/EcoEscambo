@@ -26,11 +26,11 @@
                     Olá, <?= htmlspecialchars($nomeUsuario) ?>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
-                    <li><a class="dropdown-item" href="dashboard.php">Meu Inventário</a></li>
-                    <li><a class="dropdown-item" href="trocas.php">Minhas Trocas</a></li>
+                    <li><a class="dropdown-item" href="<?= BASE ?>/dashboard">Meu Inventário</a></li>
+                    <li><a class="dropdown-item" href="<?= BASE ?>/trocas">Minhas Trocas</a></li>
                     <li><a class="dropdown-item" href="#cadastroProdutosModal" data-bs-toggle="modal" data-bs-target="#cadastroProdutosModal">Cadastrar Produto</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="backend/logout.php">Sair</a></li>
+                    <li><a class="dropdown-item text-danger" href="<?= BASE ?>/deslogar">Sair</a></li>
                 </ul>
             </div>
         <?php else: ?>

@@ -4,6 +4,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
+$idUser = $_SESSION['usuario_id'];
+var_dump($nomeUsuario);
+var_dump($_SESSION['usuario_id']);
+var_dump($idUser);
 
 ?>
     <!DOCTYPE html>
@@ -39,7 +43,7 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 
     <!-- Navbar -->
 <?php
-include_once("models/navbarRoter.php");
+include_once("models/navbarRouter.php");
 
 ?>
 
