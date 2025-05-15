@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
-require_once 'backend/db.php';
 $this->layout("master", [
     'title' => "Produtos",
     'description' => "Aqui você encontrará todos os produtos disponível para realizar uma troca, tendo total liberdade de escolha."
 ]);
+session_start();
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 
 $produtos = (new ProductsController)->buscarProdutos($idUser);
