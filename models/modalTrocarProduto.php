@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="modalTrocarProdutoLabel">Solicitar Troca de Produto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <form action="backend/TrocarProduto.php" method="POST">
+            <form action="<?= BASE ?>/solicitarTroca" method="POST">
                 <div class="modal-body">
                     <div class="row text-center">
                         <!-- Produto Desejado -->

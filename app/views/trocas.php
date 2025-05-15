@@ -23,13 +23,13 @@ $trocados = $resultados[3];
     <?php if (count($solicitacao) > 0): ?>
         <?php for ($i = 0; $i < count($solicitacao); $i += 2): ?>
             <?php if (isset($solicitacao[$i + 1])): // Verifica se existe um par de trocas ?>
-                <form action="<? userController::realizarTroca($solicitacao[$i]['id'],$solicitacao[$i+1]['id']) ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE ?>/realizarTroca" method="POST" enctype="multipart/form-data">
                     <div class="container my-4">
                         <div class="row justify-content-center align-items-center g-4">
                             <!-- Produto Oferecido -->
                             <div class="col-md-3 text-center">
                                 <div class="card">
-                                    <div class="card-header bg-transparent">Seu Produto</div>
+                                    <div class="card-header bg-transparent">Produto oferecido</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i]['nome']) ?></h5>
@@ -44,7 +44,7 @@ $trocados = $resultados[3];
                             <!-- Produto do Usuário -->
                             <div class="col-md-3 text-center">
                                 <div class="card">
-                                    <div class="card-header bg-transparent">Produto Oferecido</div>
+                                    <div class="card-header bg-transparent">Seu produto</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
                                     <div class="card-body">
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?></h5>

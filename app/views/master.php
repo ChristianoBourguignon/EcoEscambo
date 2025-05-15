@@ -2,10 +2,8 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
-$idUser = $_SESSION['usuario_id'];
-
+$idUser = $_SESSION['usuario_id'] ?? null;
 ?>
     <!DOCTYPE html>
     <html lang="pt-br">

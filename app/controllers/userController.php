@@ -5,8 +5,6 @@ use PDO;
 
 session_start();
 require_once 'dbController.php';
-$idUser = $_SESSION['usuario_id'];
-
 
 class userController
 {
@@ -14,11 +12,14 @@ class userController
     {
         Controller::view("dashboard");
     }
+
     public function trocas()
     {
         Controller::view("trocas");
     }
-    public function logar(){
+
+    public function logar()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'] ?? '';
             $senha = $_POST['senha'] ?? '';
@@ -59,9 +60,11 @@ class userController
             echo "Requisição inválida.";
             exit;
         }
-        header("location:" .BASE. "/dashboard");
+        header("location:" . BASE . "/dashboard");
     }
-    public function deslogar(){
+
+    public function deslogar()
+    {
         // Limpa todas as variáveis de sessão
         $_SESSION = array();
 
@@ -80,7 +83,9 @@ class userController
         // Redireciona para a tela de login ou início
         header("location:" . BASE);
     }
-    public function meusProdutos($idUser){
+
+    public function meusProdutos($idUser)
+    {
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
@@ -100,7 +105,9 @@ class userController
             exit;
         }
     }
-    public function consultarTrocas(){
+
+    public function consultarTrocas()
+    {
 
         if (!isset($_SESSION['usuario_id'])) {
             header("Location:" . BASE);
@@ -145,7 +152,7 @@ class userController
             $stmt->execute();
             $trocados = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 
-            $resultadosSql = [$nomeUsuario,$solicitacao,$pendente,$trocados];
+            $resultadosSql = [$nomeUsuario, $solicitacao, $pendente, $trocados];
             return $resultadosSql;
 
         } catch (PDOException $e) {
@@ -153,16 +160,18 @@ class userController
             exit;
         }
     }
-    public function realizarTroca($prodOferecido, $meuProd){
+
+    public function realizarTroca()
+    {
 
         if (!isset($_SESSION['usuario_id'])) {
-            header("Location: ../index.php");
+            header("Location:" . BASE);
             exit;
         }
 
         dbController::getConnection();
-        $prodUser = $meuProd;
-        $prodDesejado = $prodOferecido;
+        $prodUser = filter_input(INPUT_POST, 'prodOferecido', FILTER_SANITIZE_NUMBER_INT);;
+        $prodDesejado = filter_input(INPUT_POST, 'meuProd', FILTER_SANITIZE_NUMBER_INT);;
 
         $btn = null;
         if (isset($_POST['confirmar'])) {
@@ -242,6 +251,43 @@ class userController
                 dbController::getPdo()->rollBack();
             }
             echo "Erro ao processar a troca: " . $e->getMessage();
+        }
+    }
+
+    public function solicitarTroca()
+    {
+        dbController::getConnection();
+        $idProd = filter_input(INPUT_POST, 'produtoDesejadoId', FILTER_SANITIZE_NUMBER_INT);
+        $idProdOferecido = filter_input(INPUT_POST, 'meuProdutoId', FILTER_SANITIZE_NUMBER_INT);
+
+        // Ter o dono do produto IDPROD
+        // Ter o dono do Produto IDPRODOFERECIDO
+
+        try {
+            // Inserção na tabela troca
+            $stmt = dbController::getPdo()->prepare("
+                INSERT INTO troca (idUserDesejado, idUser, idProdDesejado, idProdUser)
+                SELECT 
+                    p1.idUser AS idUserDesejado,
+                    p2.idUser AS idUser,
+                    p1.id AS idProdDesejado,
+                    p2.id AS idProdUser
+                FROM 
+                    produtos p1, produtos p2
+                WHERE 
+                    p1.id = :idProd AND
+                    p2.id = :idProdOferecido;
+                ");
+            $stmt->bindParam(':idProd', $idProd);
+            $stmt->bindParam(':idProdOferecido', $idProdOferecido);
+            $stmt->execute();
+
+            // Redirecionamento após sucesso
+            header("location:" . BASE . "/trocas");
+
+        } catch (PDOException $e) {
+            echo "Erro ao trocar os produtos: " . $e->getMessage();
+            exit;
         }
     }
 }
