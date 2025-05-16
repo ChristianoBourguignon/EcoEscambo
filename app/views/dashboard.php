@@ -38,7 +38,7 @@ $produtos = (new userController)->meusProdutos($idUser);
                         </button>
                         <ul class="dropdown-menu" style="position: absolute;">
                             <li>
-                                <a class="dropdown-item" href="consultarSolicitacoes.php?id=<?= $produto['id'] ?>">Consultar Solicitações</a>
+                                <a class="dropdown-item" href="<?= BASE ?>/trocas">Consultar Solicitações</a>
                             </li>
                             <a href="#alterarProdutoModal"
                                class="dropdown-item btn-editar-produto"
@@ -50,7 +50,7 @@ $produtos = (new userController)->meusProdutos($idUser);
                                 Alterar
                             </a>
                             <li>
-                                <form action="backend/ExcluirProduto.php" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?')" style="margin: 0;">
+                                <form action="<?= BASE ?>/excluirProduto" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?')" style="margin: 0;">
                                     <input type="hidden" name="id" value="<?= $produto['id'] ?>">
                                     <button type="submit" class="dropdown-item text-danger" style="background: none; border: none;">Excluir</button>
                                 </form>

@@ -204,7 +204,7 @@ class ProductsController
             $stmt->bindParam(':idProd', $idProd);
             $stmt->execute();
 
-            header("Location:" . BASE . "/dashboard.php");
+            header("Location:" . BASE . "/dashboard");
 
         } catch (PDOException $e) {
             echo "Erro ao buscar produtos: " . $e->getMessage();
