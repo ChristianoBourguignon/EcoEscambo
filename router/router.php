@@ -55,6 +55,15 @@ $router = [
         },
         "/EcoEscambo/realizarTroca" => function (){
             return load("userController", "realizarTroca");
-        }
+        },
+        "/EcoEscambo/cadastrarProduto" => function (){
+            return load("ProductsController", "cadastrarProdutos");
+        },
+        "/EcoEscambo/alterarProduto" => function (){
+            return load("ProductsController", "alterarProduto");
+        },
+        "/EcoEscambo/excluirProduto" => function (){
+            return load("ProductsController", "excluirProduto");
+        },
     ],
 ];

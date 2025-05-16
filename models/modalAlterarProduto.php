@@ -7,7 +7,7 @@
                 <h5 class="modal-title" id="alterarProdutoModalLabel">Alterar Produto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <form action="backend/AlterarProduto.php" method="POST" enctype="multipart/form-data">
+            <form action="<?= BASE ?>/alterarProduto" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
                         <input type="hidden" class="form-control" readonly id="id" name="id" required/>

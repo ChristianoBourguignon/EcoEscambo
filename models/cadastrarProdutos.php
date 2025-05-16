@@ -6,7 +6,7 @@
                 <h5 class="modal-title" id="cadastroProdutosModalLabel">Cadastrar Produto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <form action="backend/processarProduto.php" method="POST" enctype="multipart/form-data">
+            <form action="<?= BASE ?>/cadastrarProduto" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome do Produto</label>
