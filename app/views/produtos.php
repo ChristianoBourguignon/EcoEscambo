@@ -19,10 +19,6 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
     <!-- Trocas Populares -->
     <section class="produtos-categoria">
         <h3>Todos os Itens</h3>
-        <?php
-        var_dump($idUser);
-        var_dump($produtos);
-        ?>
         <div class="produtos-lista">
             <?php if (count($produtos) > 0): ?>
                 <?php foreach ($produtos as $produto): ?>

@@ -89,27 +89,10 @@ class userController
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
-                SELECT * FROM produtos p
-                        WHERE p.idUser = :idUser AND
-                              (
-                            EXISTS (
-                                SELECT 1 
-                                FROM troca t 
-                                WHERE (t.idProdDesejado = p.id OR t.idProdUser = p.id)
-                                  AND t.Status IN (0, -1)
-                            )
-                            OR NOT EXISTS (
-                                SELECT 1 
-                                FROM troca t 
-                                WHERE t.idProdDesejado = p.id OR t.idProdUser = p.id
-                            )
-                        )
-                        AND NOT EXISTS (
-                            SELECT 1 
-                            FROM troca t2 
-                            WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
-                              AND t2.Status = 1
-                        );
+                SELECT p.*, u.nome 
+                FROM produtos p
+                INNER JOIN users u ON p.idUser = u.id
+                WHERE p.idUser = :idUser;
                 "
             );
             $stmt->bindParam(':idUser', $idUser);
@@ -187,8 +170,8 @@ class userController
         }
 
         dbController::getConnection();
-        $prodUser = filter_input(INPUT_POST, 'prodOferecido', FILTER_SANITIZE_NUMBER_INT);;
-        $prodDesejado = filter_input(INPUT_POST, 'meuProd', FILTER_SANITIZE_NUMBER_INT);;
+        $prodUser = filter_input(INPUT_POST, 'meuProd', FILTER_SANITIZE_NUMBER_INT);;
+        $prodDesejado = filter_input(INPUT_POST, 'prodOferecido', FILTER_SANITIZE_NUMBER_INT);;
 
         $btn = null;
         if (isset($_POST['confirmar'])) {
@@ -293,14 +276,27 @@ class userController
                     produtos p1, produtos p2
                 WHERE 
                     p1.id = :idProd AND
-                    p2.id = :idProdOferecido;
+                    p2.id = :idProdOferecido AND
+                    NOT EXISTS (
+                            SELECT 1 FROM troca 
+                            WHERE idUserDesejado = p1.idUser 
+                              AND idUser = p2.idUser 
+                              AND idProdDesejado = p1.id 
+                              AND idProdUser = p2.id
+                    );
                 ");
             $stmt->bindParam(':idProd', $idProd);
             $stmt->bindParam(':idProdOferecido', $idProdOferecido);
             $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                header("location:" . BASE . "/trocas");
+            } else {
+                echo "Essa troca já foi registrada anteriormente.";
+            }
 
             // Redirecionamento após sucesso
-            header("location:" . BASE . "/trocas");
+//            header("location:" . BASE . "/trocas");
+
 
         } catch (PDOException $e) {
             echo "Erro ao trocar os produtos: " . $e->getMessage();

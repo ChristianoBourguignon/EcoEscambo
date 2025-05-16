@@ -22,6 +22,7 @@ $produtos = (new userController)->meusProdutos($idUser);
 <div class="container mt-5 py-5">
     <h1>Olá, <?= htmlspecialchars($produtos[0]['nome']) ?>!</h1>
 
+
     <h2 class="mt-5">Seus Produtos</h2>
     <div class="produtos-lista" style="display: flex; flex-wrap: wrap; gap: 20px; position: relative; overflow: visible;">
         <?php if (!empty($produtos)): ?>
