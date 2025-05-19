@@ -89,9 +89,12 @@ class userController
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
-                SELECT * 
+                SELECT p.*, t.*
                 FROM produtos p
-                WHERE p.idUser = :idUser;
+                INNER JOIN troca t ON p.idUser = t.idUser
+                WHERE 
+                t.Status <> 1
+                AND p.idUser = :idUser;
                 "
             );
             $stmt->bindParam(':idUser', $idUser);
