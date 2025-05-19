@@ -89,9 +89,8 @@ class userController
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
-                SELECT p.*, u.nome 
+                SELECT * 
                 FROM produtos p
-                INNER JOIN users u ON p.idUser = u.id
                 WHERE p.idUser = :idUser;
                 "
             );
