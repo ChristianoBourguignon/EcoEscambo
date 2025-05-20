@@ -70,7 +70,11 @@ class dbController
                 self::$pdo->exec($sqlTroca);
 
             } catch (PDOException $e) {
-                die("Erro na conexão ou criação do banco: " . $e->getMessage());
+                $_SESSION['modal'] = [
+                    'msg' =>'Erro na conexão do banco de dados: ' . $e->getMessage(),
+                    'statuscode' => 404
+                ];
+                header("location: " . BASE);
             }
         }
 

@@ -7,8 +7,7 @@ $this->layout("master", [
     'title' => "Meu Inventário",
     'description' => "Aqui você encontrará todos os produtos cadastrados por você"
 ]);
-session_start();
-$nome = $_SESSION['usuario_nome'];
+
 $idUser = $_SESSION['usuario_id'];
 if (!isset($idUser)){
     header('Location:'. BASE);
@@ -18,10 +17,10 @@ if (!isset($idUser)){
 $produtos = (new userController)->meusProdutos($idUser);
 
 ?>
-<?php $this->start('body'); ?>
+<?php $this->start('body');?>
 
 <div class="container mt-5 py-5">
-    <h1>Olá, <?= htmlspecialchars($nome) ?>!</h1>
+    <h1>Olá, <?= htmlspecialchars($_SESSION['usuario_nome']); ?>!</h1>
 
 
     <h2 class="mt-5">Seus Produtos</h2>

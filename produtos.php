@@ -70,7 +70,7 @@ try {
 
 <?php
 include_once("perfil.php");
-include_once("models/produtoCadastrado.php");
+//include_once("models/produtoCadastrado.php");
 include_once("models/cadastrarProdutos.php");
 include_once("models/modalTrocarProduto.php");
 include_once("models/footer.php");

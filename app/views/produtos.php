@@ -11,8 +11,6 @@ $idUser = $_SESSION['usuario_id'] ?? NULL;
 
 $produtos = (new ProductsController)->buscarProdutos($idUser);
 
-
-
 ?>
 <?php $this->start('body'); ?>
 <main class="container my-5">
@@ -42,17 +40,13 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
                 <p>Nenhum produto cadastrado ainda.</p>
             <?php endif; ?>
         </div>
-        </div>
-        </div>
     </section>
 </main>
 
 <?php
 include_once("perfil.php");
-include_once("models/produtoCadastrado.php");
 include_once("models/cadastrarProdutos.php");
 include_once("models/modalTrocarProduto.php");
-//include_once("models/footer.php");
 ?>
 <?php $this->stop(); ?>
 

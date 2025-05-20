@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-                Produto cadastrado com sucesso!
+                Produto cadastrado com sucessos!
             </div>
         </div>
     </div>

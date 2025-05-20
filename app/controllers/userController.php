@@ -89,7 +89,7 @@ class userController
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
-                SELECT p.*, t.*
+                SELECT p.*, t.idUser,t.Status
                 FROM produtos p
                 INNER JOIN troca t ON p.idUser = t.idUser
                 WHERE 
@@ -158,7 +158,10 @@ class userController
             return $resultadosSql;
 
         } catch (PDOException $e) {
-            echo "Erro ao buscar produtos: " . $e->getMessage();
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
+                'statuscode' => 404
+            ];
             exit;
         }
     }
@@ -224,6 +227,11 @@ class userController
                 // Finaliza a transação
                 dbController::getPdo()->commit();
 
+                $_SESSION['modal'] = [
+                    'msg' =>'Produto trocado com sucesso',
+                    'statuscode' => 200
+                ];
+
                 header('Location:' . BASE . '/trocas');
                 exit;
             } else {
@@ -243,6 +251,10 @@ class userController
                 ]);
 
                 dbController::getPdo()->commit();
+                $_SESSION['modal'] = [
+                    'msg' =>'Produto rejeitado com sucesso',
+                    'statuscode' => 200
+                ];
 
                 header('Location:' . BASE . '/trocas');
                 exit;
@@ -252,7 +264,10 @@ class userController
             if (dbController::getPdo()->inTransaction()) {
                 dbController::getPdo()->rollBack();
             }
-            echo "Erro ao processar a troca: " . $e->getMessage();
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao realizar a troca' . $e->getMessage(),
+                'statuscode' => 404
+            ];
         }
     }
 
@@ -293,15 +308,18 @@ class userController
             if ($stmt->rowCount() > 0) {
                 header("location:" . BASE . "/trocas");
             } else {
-                echo "Essa troca já foi registrada anteriormente.";
+                $_SESSION['modal'] = [
+                    'msg' =>'Já existe uma troca pendente com esses produtos!',
+                    'statuscode' => 404
+                ];
             }
-
-            // Redirecionamento após sucesso
-//            header("location:" . BASE . "/trocas");
-
+            header("location:" . BASE . "/trocas");
 
         } catch (PDOException $e) {
-            echo "Erro ao trocar os produtos: " . $e->getMessage();
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao realizar a solicitação de troca: '. $e->getMessage(),
+                'statuscode' => 401
+            ];
             exit;
         }
     }

@@ -1,16 +1,25 @@
 <?php
+
+use app\controllers\MessagesController;
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 $idUser = $_SESSION['usuario_id'] ?? null;
+
+if (isset($_SESSION['modal'])) {
+    $modal = (new MessagesController());
+    $modal->mensagemCadastroProduto($_SESSION['modal']['msg'], $_SESSION['modal']['statuscode']);
+    unset($_SESSION['modal']);
+}
 ?>
     <!DOCTYPE html>
     <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="<?=$this->e($title)?>">
+        <meta name="description" content="<?=$this->e($description)?>">
         <link rel="icon" type="image/x-icon" href="img/logo.png">
         <title>EcoEscambo<?=' - ' . $this->e($title)?></title>
 
@@ -35,37 +44,24 @@ $idUser = $_SESSION['usuario_id'] ?? null;
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
+    <?php require_once("app/models/scriptMostrarModal.php"); ?>
 
     <!-- Navbar -->
-<?php
-include_once("models/navbarRouter.php");
+    <?php
+    include_once("models/navbarRouter.php");
 
-?>
+    ?>
 
-<?= $this->section('body') ?>
+    <?= $this->section('body') ?>
 
-<?php
-    include_once("perfil.php");
-
-    if ($nomeUsuario) {
-    include_once("models/cadastrarProdutos.php");
-    include_once("models/produtoCadastrado.php");
-
-    if (isset($_SESSION['sucesso'])){ ?>
-    <script>
-        const sucessoModal = new bootstrap.Modal(document.getElementById('modalSucesso'));
-        sucessoModal.show();
-        <?php
-        unset($_SESSION['sucesso']);
-        ?>
-    </script>
-    <?php } else {;?>
-    <script>
-        const modalErro = new bootstrap.Modal(document.getElementById('modalErro'));
-        modalErro.show();
-    </script>
-<?php
+    <?php
+        include_once("perfil.php");
+        if ($nomeUsuario) {
+        include_once("models/cadastrarProdutos.php");
         include_once("models/modalAlterarProduto.php");
         }
-    }
-?>
+    ?>
+    </body>
+</html>
+
+

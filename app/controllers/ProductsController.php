@@ -2,6 +2,7 @@
 namespace app\controllers;
 use app\controllers\Controller;
 use PDO;
+session_start();
 
 class ProductsController
 {
@@ -66,13 +67,15 @@ class ProductsController
             $produtos = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
             return $produtos;
         } catch (PDOException $e) {
-            echo "Erro ao buscar produtos: " . $e->getMessage();
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),
+                'statuscode' => 404
+            ];
             exit;
         }
     }
     public function cadastrarProdutos(){
         dbController::getConnection();
-        session_start();
         $nome = $_POST['nome'];
         $descricao = $_POST['descricao'];
         $idUser = $_SESSION['usuario_id'];
@@ -102,26 +105,18 @@ class ProductsController
             $stmt = dbController::getPdo()->prepare($sql);
             $stmt->execute([$nome, $descricao, $image, $idUser]);
 
-            $_SESSION['sucesso'] = true;
+            $_SESSION['modal'] = [
+                'msg' => 'Produto: '. $nome . ' cadastrado com sucesso!',
+                'statuscode' => 200
+            ];
             header("location:" . BASE . "/dashboard");
         } catch (PDOException $e) {
-            ?>
-            <!-- Modal de erro -->
-            <div class="modal fade" id="modalErro" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content bg-danger text-white">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Erro</h5>
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            Erro ao cadastrar o Produto + <?= $e->getMessage() ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao cadastrar o Produto '. $nome . ': ' . $e->getMessage(),
+                'statuscode' => 404
+            ];
             header("location:" . BASE . "/dashboard");
+            exit;
         }
     }
     public function alterarProduto(){
@@ -167,21 +162,28 @@ class ProductsController
                 $stmt->bindParam(':descricao', $prodDesc);
                 $stmt->bindParam(':idProd', $idProd);
                 $stmt->execute();
-                var_dump($stmt);
             }
+            $_SESSION['modal'] = [
+                'msg' =>'Produto: '. $prodName .' alterado com sucesso',
+                'statuscode' => 200
+            ];
             header("Location:" . BASE . "/dashboard");
-
-
         } catch (PDOException $e) {
-            echo "Erro ao buscar produtos: " . $e->getMessage();
-            exit;
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao alterar o produto: ' . $e->getMessage(),
+                'statuscode' => 404
+            ];
+            header("Location:" . BASE . "/dashboard");
         }
     }
     public function excluirProduto(){
         dbController::getConnection();
-        session_start();
         if($_SESSION['usuario_id'] == NULL){
             http_response_code(401);
+            $_SESSION['modal'] = [
+                'msg' =>'Você não tem acesso a essa área',
+                'statuscode' => 401
+            ];
             header("location:". BASE);
             exit;
         }
@@ -203,12 +205,19 @@ class ProductsController
             $stmt = dbController::getPdo()->prepare("DELETE FROM produtos WHERE id = :idProd");
             $stmt->bindParam(':idProd', $idProd);
             $stmt->execute();
-
+            $_SESSION['modal'] = [
+                'msg' =>'Produto Excluído com sucesso',
+                'statuscode' => 200
+            ];
             header("Location:" . BASE . "/dashboard");
 
+
         } catch (PDOException $e) {
-            echo "Erro ao buscar produtos: " . $e->getMessage();
-            exit;
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao excluir o produto: '. $e->getMessage(),
+                'statuscode' => 404
+            ];
+            header("location:". BASE . "/dashboard");
         }
     }
 
