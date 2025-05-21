@@ -20,7 +20,7 @@ $trocados = $resultados[3];
 
     <h2 class="mt-5">Ofertas no seu produto</h2>
 
-    <?php if (count($solicitacao) > 0): ?>
+    <?php if ($solicitacao != NULL): ?>
         <?php for ($i = 0; $i < count($solicitacao); $i += 2): ?>
             <?php if (isset($solicitacao[$i + 1])): // Verifica se existe um par de trocas ?>
                 <form action="<?= BASE ?>/realizarTroca" method="POST" enctype="multipart/form-data">
@@ -74,7 +74,7 @@ $trocados = $resultados[3];
 
     <h2 class="mt-5">Suas trocas pendentes</h2>
 
-    <?php if (count($pendente) > 0): ?>
+    <?php if ($pendente != NULL): ?>
         <?php for ($i = 0; $i < count($pendente); $i += 2): ?>
             <?php if (isset($pendente[$i + 1])): // Verifica se existe um par de trocas ?>
                 <div class="container my-4">
@@ -119,7 +119,7 @@ $trocados = $resultados[3];
         <p>Nenhuma solicitação de troca encontrada.</p>
     <?php endif; ?>
 
-    <?php if (count($trocados) > 0): ?>
+    <?php if ($trocados != NULL): ?>
         <h2 class="mt-5">Trocas realizadas e Canceladas</h2>
         <?php for ($i = 0; $i < count($trocados); $i += 2): ?>
             <?php if (isset($trocados[$i + 1])): ?>

@@ -17,12 +17,25 @@ class userController
     {
         Controller::view("trocas");
     }
+    public function buscarUser($idUser): bool
+    {
+        dbController::getConnection();
+        $stmt = dbController::getPdo()->prepare("SELECT id FROM users WHERE id = :idUser");
+        $stmt->bindParam(':idUser', $idUser);
+        $stmt->execute();
+        $prod = $stmt->fetch();
+        if(count($prod) > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function logar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-            $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_STRING);
+            $senha = filter_input(INPUT_POST,'senha');
 
             if (empty($email) || empty($senha)) {
                 echo "Preencha todos os campos!";
@@ -39,6 +52,7 @@ class userController
                 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 // Sem criptografia, comparação direta
+                // password_verify e password_hash -> pesquisar na documentação como se usa posteriormente
                 if ($usuario && $usuario['senha'] === $senha) {
                     $_SESSION['usuario_id'] = $usuario['id'];
                     $_SESSION['usuario_nome'] = $usuario['nome'];
@@ -92,6 +106,14 @@ class userController
     public function meusProdutos($idUser)
     {
         try {
+            if(!userController::buscarUser($idUser)){
+                $_SESSION['modal']= [
+                    'msg'=>"Usuario não encontrado",
+                    'statuscode'=>401
+                ];
+                header("location: ". BASE . "/dashboard");
+                exit;
+            }
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
                 SELECT * FROM produtos p
@@ -133,9 +155,12 @@ class userController
 
     public function consultarTrocas()
     {
-
-        if (!isset($_SESSION['usuario_id'])) {
-            header("Location:" . BASE);
+        if(!userController::buscarUser($_SESSION['usuario_id'])){
+            $_SESSION['modal']= [
+                'msg'=>"Usuario não encontrado",
+                'statuscode'=>401
+            ];
+            header("location: ". BASE . "/dashboard");
             exit;
         }
         dbController::getConnection();
@@ -145,7 +170,7 @@ class userController
         try {
             // Consulta todos os produtos em propostas de troca feitas ao usuário logado
             $stmt = dbController::getPdo()->prepare("
-               SELECT * 
+               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUserDesejado 
                 FROM troca t 
                 JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
                 WHERE t.idUserDesejado = :idUser 
@@ -156,7 +181,7 @@ class userController
             $solicitacao = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 
             $stmt = dbController::getPdo()->prepare("
-               SELECT * 
+               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUser 
                 FROM troca t 
                 JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
                 WHERE t.idUser = :idUser 
@@ -167,15 +192,23 @@ class userController
             $pendente = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 
             $stmt = dbController::getPdo()->prepare("
-               SELECT * 
+               SELECT t.idProdDesejado,t.idProdUser,t.Status,t.idUser,p.img,p.nome,p.descricao 
                 FROM troca t 
                 JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE t.idUser = :idUser 
-                AND (t.status = 1 or t.status = -1);
+                WHERE (t.idUser = :idUser or t.idUserDesejado = :idUser)
+                AND (t.Status = 1 or t.Status = -1);
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
             $trocados = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+
+            foreach (['solicitacao', 'pendente', 'trocados'] as $variavel) {
+//                $$variavel => É uma variável da váriavel.
+//                 (Exemplo: $$variavel pode ser $trocados, isso evita setar na mesma váriavel)
+                if (count($$variavel) <= 0) {
+                    $$variavel = NULL;
+                }
+            }
 
             $resultadosSql = [$nomeUsuario, $solicitacao, $pendente, $trocados];
             return $resultadosSql;
