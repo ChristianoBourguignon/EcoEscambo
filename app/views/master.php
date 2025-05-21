@@ -43,7 +43,7 @@ if (isset($_SESSION['modal'])) {
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </head>
-    <body>
+    <body <?php if($_SERVER['REQUEST_URI'] == BASE.'/404'){ ?> class="bg-light d-flex align-items-center justify-content-center vh-100" <?php }?>>
     <?php require_once("app/models/scriptMostrarModal.php"); ?>
 
     <!-- Navbar -->

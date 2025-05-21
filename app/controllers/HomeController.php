@@ -8,4 +8,8 @@ class HomeController
     {
         Controller::view("home");
     }
+    public function notFound()
+    {
+        Controller::view("404");
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace app\controllers;
 use app\controllers\Controller;
+use http\Header;
 use PDO;
 
 session_start();
-require_once 'dbController.php';
 
 class userController
 {
@@ -21,8 +21,8 @@ class userController
     public function logar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'] ?? '';
-            $senha = $_POST['senha'] ?? '';
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $senha = filter_input(INPUT_POST,'senha',FILTER_SANITIZE_STRING);
 
             if (empty($email) || empty($senha)) {
                 echo "Preencha todos os campos!";
@@ -42,11 +42,13 @@ class userController
                 if ($usuario && $usuario['senha'] === $senha) {
                     $_SESSION['usuario_id'] = $usuario['id'];
                     $_SESSION['usuario_nome'] = $usuario['nome'];
-                    var_dump($_SESSION['usuario_id']);
-                    var_dump($_SESSION['usuario_nome']);
 
                 } else {
-                    echo "Email ou senha incorretos.";
+                    $_SESSION['modal'] = [
+                        'msg' =>'Usuario ou senha incorreta',
+                        'statuscode' => 404
+                    ];
+                    header("location:" . BASE);
                     exit;
                 }
             } catch (PDOException $e) {
@@ -57,8 +59,11 @@ class userController
                 exit;
             }
         } else {
-            echo "Requisição inválida.";
-            exit;
+            $_SESSION['modal'] = [
+                'msg' =>'Você precisa logar para acessar esse conteúdo',
+                'statuscode' => 401
+            ];
+            header("location: ". BASE . '/404');
         }
         header("location:" . BASE . "/dashboard");
     }

@@ -12,7 +12,7 @@ function load(string $controller, string $action)
         $controllerInstance = new $controllerNamespace();
 
         if (!method_exists($controllerInstance, $action)) {
-            throw new Exception(
+            throw new Tortura(
                 "O método {$action} não existe no controller {$controller}"
             );
         }
@@ -20,8 +20,11 @@ function load(string $controller, string $action)
         $controllerInstance->$action((object) $_REQUEST);
     } catch (Exception $e) {
         echo $e->getMessage();
+    } catch (Tortura $e){
+        echo $e->getMessage();
     }
 }
+
 $router = [
         "GET" =>[
         "/EcoEscambo/" => function () {
@@ -44,6 +47,9 @@ $router = [
         },
         "/EcoEscambo/trocas" => function (){
             return load("userController","trocas");
+        },
+        "/EcoEscambo/404" => function (){
+            return load("HomeController","notFound");
         }
     ],
     "POST" => [
@@ -57,6 +63,7 @@ $router = [
             return load("userController", "realizarTroca");
         },
         "/EcoEscambo/cadastrarProduto" => function (){
+            requireMethod();
             return load("ProductsController", "cadastrarProdutos");
         },
         "/EcoEscambo/alterarProduto" => function (){

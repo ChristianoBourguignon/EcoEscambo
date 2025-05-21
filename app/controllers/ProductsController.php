@@ -12,7 +12,6 @@ class ProductsController
     }
     public function buscarProdutos($idUser){
         dbController::getConnection();
-
         try {
             if(!$idUser){
                 $stmt = dbController::getPdo()->prepare("
@@ -120,7 +119,14 @@ class ProductsController
         }
     }
     public function alterarProduto(){
-
+        if($_SESSION['usuario_id'] == NULL){
+            $_SESSION['modal'] = [
+                'msg' =>'Você precisa logar para acessar esse conteúdo',
+                'statuscode' => 401
+            ];
+            header("location: ". BASE . "/produtos");
+            exit;
+        }
         //Criar lógica de apenas alterar quando tiver alteração
 
         dbController::getConnection();
