@@ -1,17 +1,21 @@
 <?php
-require_once 'backend/db.php';
+namespace app\controllers;
 
 if (isset($_SESSION['usuario_id'])) {
-    $pdo = Db::getConnection();
+    $pdo = dbController::getConnection();
     $idUser = $_SESSION['usuario_id'];
 }
 try {
     $stmt = $pdo->prepare("SELECT * FROM produtos WHERE idUser = :idUser");
     $stmt->bindParam(':idUser', $idUser);
     $stmt->execute();
-    $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $produtos = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 } catch (PDOException $e) {
-    echo "Erro ao buscar produtos: " . $e->getMessage();
+    $_SESSION['modal'] = [
+        'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),
+        'statuscode' => 404
+    ];
+    header("location: ". BASE . "/produtos");
     exit;
 }
 ?>
@@ -44,6 +48,15 @@ try {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <p class="text-center">Nenhum produto encontrado.</p>
+                        <p class="text-center">
+                            <a id="btnCriarProduto"
+                               class="btn btn-primary"
+                               href="#cadastroProdutosModal"
+                               data-bs-toggle="modal"
+                               data-bs-target="#cadastroProdutosModal">
+                                Deseja criar um produto?
+                            </a>
+                        </p>
                     <?php endif; ?>
                 </div>
             </div>

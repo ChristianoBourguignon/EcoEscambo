@@ -39,7 +39,7 @@ $trocados = $resultados[3];
                             </div>
 
                             <!-- Ícone de troca -->
-                            <?php include("models/trocaicon.php"); ?>
+                            <?php include("app/models/trocaicon.php"); ?>
 
                             <!-- Produto do Usuário -->
                             <div class="col-md-3 text-center">
@@ -92,7 +92,7 @@ $trocados = $resultados[3];
                         </div>
 
                         <!-- Ícone de troca -->
-                        <?php include("models/trocaicon.php"); ?>
+                        <?php include("app/models/trocaicon.php"); ?>
 
                         <!-- Produto do Usuário -->
                         <div class="col-md-3 text-center">
@@ -137,7 +137,7 @@ $trocados = $resultados[3];
                             </div>
                         </div>
 
-                        <?php include("models/trocaicon.php"); ?>
+                        <?php include("app/models/trocaicon.php"); ?>
 
                         <!-- Produto do Usuário -->
                         <div class="col-md-3 text-center">

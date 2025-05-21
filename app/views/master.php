@@ -30,13 +30,13 @@ if (isset($_SESSION['modal'])) {
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
 
         <!-- CSS global -->
-        <link rel="stylesheet" href="css/globals.css">
+        <link rel="stylesheet" href="app/static/css/globals.css">
 
         <?php
         if ($_SERVER['REQUEST_URI'] == (BASE . "/sobre")){
             ?>
             <!-- CSS sobre -->
-            <link rel="stylesheet" href="css/sobre.css">
+            <link rel="stylesheet" href="app/static/css/sobre.css">
         <?php }  ?>
 
 
@@ -48,17 +48,17 @@ if (isset($_SESSION['modal'])) {
 
     <!-- Navbar -->
     <?php
-    include_once("models/navbarRouter.php");
+    include_once("app/models/navbarRouter.php");
 
     ?>
 
     <?= $this->section('body') ?>
 
     <?php
-        include_once("perfil.php");
+        include_once("app/models/perfil.php");
         if ($nomeUsuario) {
-        include_once("models/cadastrarProdutos.php");
-        include_once("models/modalAlterarProduto.php");
+        include_once("app/models/cadastrarProdutos.php");
+        include_once("app/models/modalAlterarProduto.php");
         }
     ?>
     </body>

@@ -44,9 +44,9 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
 </main>
 
 <?php
-include_once("perfil.php");
-include_once("models/cadastrarProdutos.php");
-include_once("models/modalTrocarProduto.php");
+require_once("app/models/perfil.php");
+require_once("app/models/cadastrarProdutos.php");
+require_once("app/models/modalTrocarProduto.php");
 ?>
 <?php $this->stop(); ?>
 

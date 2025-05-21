@@ -1,10 +1,12 @@
 <?php
-require "config.php";
-require "vendor/autoload.php";
-require "router/router.php";
+require_once "config.php";
+require_once "vendor/autoload.php";
+require_once "app/router/router.php";
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 try {
     $uri = parse_url($_SERVER["REQUEST_URI"])["path"];
     $request = $_SERVER["REQUEST_METHOD"];
@@ -20,5 +22,5 @@ try {
     $controller = $router[$request][$uri];
     $controller();
 } catch (Exception $e) {
-    $e->getMessage();
+    echo $e->getMessage();
 }

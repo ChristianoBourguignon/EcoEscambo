@@ -94,12 +94,27 @@ class userController
         try {
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
-                SELECT p.*, t.idUser,t.Status
-                FROM produtos p
-                INNER JOIN troca t ON p.idUser = t.idUser
-                WHERE 
-                t.Status <> 1
-                AND p.idUser = :idUser;
+                SELECT * FROM produtos p
+                        WHERE (
+                            EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE (t.idProdDesejado = p.id OR t.idProdUser = p.id)
+                                  AND t.Status IN (0, -1)
+                            )
+                            OR NOT EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE t.idProdDesejado = p.id OR t.idProdUser = p.id
+                            )
+                        )
+                        AND NOT EXISTS (
+                            SELECT 1 
+                            FROM troca t2 
+                            WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
+                              AND t2.Status = 1
+                        )
+                     AND idUser = :idUser;
                 "
             );
             $stmt->bindParam(':idUser', $idUser);
@@ -108,7 +123,10 @@ class userController
 
             return $produtos;
         } catch (PDOException $e) {
-            echo "Erro ao buscar produtos: " . $e->getMessage();
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),
+                'statuscode' => 404
+            ];
             exit;
         }
     }

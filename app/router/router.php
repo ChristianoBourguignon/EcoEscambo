@@ -12,15 +12,13 @@ function load(string $controller, string $action)
         $controllerInstance = new $controllerNamespace();
 
         if (!method_exists($controllerInstance, $action)) {
-            throw new Tortura(
+            throw new Exception(
                 "O método {$action} não existe no controller {$controller}"
             );
         }
 
         $controllerInstance->$action((object) $_REQUEST);
     } catch (Exception $e) {
-        echo $e->getMessage();
-    } catch (Tortura $e){
         echo $e->getMessage();
     }
 }
@@ -63,7 +61,6 @@ $router = [
             return load("userController", "realizarTroca");
         },
         "/EcoEscambo/cadastrarProduto" => function (){
-            requireMethod();
             return load("ProductsController", "cadastrarProdutos");
         },
         "/EcoEscambo/alterarProduto" => function (){

@@ -4,7 +4,7 @@
 ]); ?>
 
 <?php $this->start('body'); ?>
-    <link rel="stylesheet" href="../../css/sobre.css">
+    <link rel="stylesheet" href="../static/css/sobre.css">
     <!-- CONTEÚDO -->
     <main>
         <section class="content-box fade-in">

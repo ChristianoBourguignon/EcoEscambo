@@ -83,12 +83,18 @@
             });
             modalSelecionar.show();
         });
+        document.getElementById('btnCriarProduto').addEventListener('click', function () {
+            const modalCriarProduto = new bootstrap.Modal(document.getElementById('cadastroProdutosModal'), {
+                backdrop: false
+            });
+            modalCriarProduto.show();
+        });
 </script>
 <?php
 
 if (isset($_SESSION['usuario_id'])) {
     $idUser = $_SESSION['usuario_id'];
-    include_once 'models/modalSelecionarProduto.php';
+    require_once 'app/models/modalSelecionarProduto.php';
 }
 
 

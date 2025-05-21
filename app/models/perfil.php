@@ -39,7 +39,7 @@
                     </div>
                     <!-- Cadastro -->
                     <div class="tab-pane fade p-4" id="register" role="tabpanel">
-                        <form id="registerForm" action="backend/register.php" method="POST">
+                        <form id="registerForm" action="../../backend/register.php" method="POST">
                             <div class="mb-3">
                                 <label for="registerName" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="registerName" name="nome" required>

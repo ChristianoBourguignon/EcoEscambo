@@ -5,15 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/views/404.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adicionados_recentemente.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ProductsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/userController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/userController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/master.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trocas_populares.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas_populares.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/sobre.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/sobre.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/trocas.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/trocas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/AlterarProduto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ExcluirProduto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/TrocarProduto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/login.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/logout.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/operacaoTroca.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/processarProduto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/recuperarSenha.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/register.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/sobre.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/sobre.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/0005_01.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/0005_01.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/398536-800-800.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/398536-800-800.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/39d5a9649a.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/39d5a9649a.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/CGY-0283-028_zoom1.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/CGY-0283-028_zoom1.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/D_850274-MLU78125457342_082024-C.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/D_850274-MLU78125457342_082024-C.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/D_946302-MLU74247990875_012024-C.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/D_946302-MLU74247990875_012024-C.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/Logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/Logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/a640f7e87b601033d58fc246e302167f.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/a640f7e87b601033d58fc246e302167f.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/gmail.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/gmail.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/tenis_lacoste_39sma0057br_042_02-6399ef658b4f6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/img/tenis_lacoste_39sma0057br_042_02-6399ef658b4f6.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index(desativado).php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/cadastrarProdutos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/cadastrarProdutos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/footer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/modalAlterarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalAlterarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/modalSelecionarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalSelecionarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/modalTrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalTrocarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/navbarRouter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/navbarRouter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/produtoCadastrado.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/trocaicon.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/trocaicon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/perfil.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/perfil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/produtos.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/router/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/scripts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sobre.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/todos_os_itens.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trocas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trocas_populares.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Apoio.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Apoio.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Cavalo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Cavalo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Guitarra.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Guitarra.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Liquidificador.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Liquidificador.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Martelo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Martelo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/Tenis.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/Tenis.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc91cb95b622.84977868.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc91cb95b622.84977868.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc91eeae2476.48654581.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc91eeae2476.48654581.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc923eddf607.87117312.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc923eddf607.87117312.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc92e71d4074.64017072.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc92e71d4074.64017072.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc9342046709.53351722.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc9342046709.53351722.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc937939efe8.30760063.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc937939efe8.30760063.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc939e9f4c25.99761886.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc939e9f4c25.99761886.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc93b52a1a56.88431619.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc93b52a1a56.88431619.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc947d020a37.50548587.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc947d020a37.50548587.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc94ae16eea4.56564847.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc94ae16eea4.56564847.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67fc94c760aa32.47305178.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67fc94c760aa32.47305178.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_67ffbd2e8bc722.98050183.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_67ffbd2e8bc722.98050183.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_681120092dfa85.01832881.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_681120092dfa85.01832881.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/img_6811299e257bb4.82330365.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/uploads/img_6811299e257bb4.82330365.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,11 +150,11 @@
       <recent name="J:\Projetos\EcoEscambo\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo\app" />
+      <recent name="J:\Projetos\EcoEscambo\static" />
       <recent name="J:\Projetos\EcoEscambo\app\models" />
       <recent name="J:\Projetos\EcoEscambo\models" />
-      <recent name="J:\Projetos\EcoEscambo\app" />
       <recent name="J:\Projetos\EcoEscambo" />
-      <recent name="J:\Projetos\EcoEscambo\backend\uploads" />
     </key>
   </component>
   <component name="RunManager">
@@ -156,7 +220,8 @@
       <workItem from="1747348105889" duration="11712000" />
       <workItem from="1747682996366" duration="17779000" />
       <workItem from="1747745475742" duration="7240000" />
-      <workItem from="1747797146937" duration="4770000" />
+      <workItem from="1747797146937" duration="4887000" />
+      <workItem from="1747834650279" duration="5271000" />
     </task>
     <servers />
   </component>

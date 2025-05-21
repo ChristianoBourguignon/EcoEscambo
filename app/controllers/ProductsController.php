@@ -81,7 +81,7 @@ class ProductsController
         $image = NULL;
 
         // Lógica para upload da imagem
-        $uploadDir = "../uploads/";
+        $uploadDir = "app/static/uploads/";
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -94,7 +94,7 @@ class ProductsController
             $imgPath = $uploadDir . $newNameImg;
 
             if (move_uploaded_file($imgTempPath, $imgPath)) {
-                $image = "../uploads/" . $newNameImg;
+                $image = "app/static/uploads/" . $newNameImg;
 
             }
         }
