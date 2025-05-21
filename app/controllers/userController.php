@@ -4,7 +4,9 @@ use app\controllers\Controller;
 use http\Header;
 use PDO;
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class userController
 {

@@ -2,7 +2,9 @@
 namespace app\controllers;
 use app\controllers\Controller;
 use PDO;
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 class ProductsController
 {
@@ -84,7 +86,8 @@ class ProductsController
             $stmt = dbController::getPdo()->prepare("SELECT img FROM produtos WHERE id = :idProd");
             $stmt->bindParam(':idProd', $idProd);
             $stmt->execute();
-            return $stmt->fetch();
+            $prod = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $prod;
         } else {
             return 0;
         }
@@ -194,8 +197,10 @@ class ProductsController
                                 $prod = $this->getProduto($idProd);
                                 $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
                                 $caminhoAbsoluto = dirname(__DIR__) . DIRECTORY_SEPARATOR . $caminhoRelativo;
+                                var_dump($caminhoAbsoluto);
                                 if (file_exists($caminhoAbsoluto)) {
                                     unlink($caminhoAbsoluto);
+                                    var_dump($caminhoAbsoluto);
                                 }
                                 $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, img = :img WHERE id = :idProd");
                                 $stmt->bindParam(':nome', $prodName);
@@ -222,7 +227,7 @@ class ProductsController
                 $stmt->execute();
             }
             $_SESSION['modal'] = [
-                'msg' =>'Produto: '. $prodName .' alterado com sucesso',
+                'msg' =>'Produto: '. $prodName .' alterado com sucesso: ',
                 'statuscode' => 200
             ];
             header("Location:" . BASE . "/dashboard");

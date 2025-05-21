@@ -21,7 +21,7 @@ class dbController
                 // Conecta ao servidor para criar o banco, se necessário
                 $pdoTemp = new PDO("mysql:host=" . self::$host, self::$username, self::$password);
                 $pdoTemp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $pdoTemp->exec("CREATE DATABASE IF NOT EXISTS " . self::$dbname);
+                $pdoTemp->exec("CREATE DATABASE IF NOT EXISTS " . self::$dbname . " CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;");
 
                 // Conecta agora ao banco criado
                 self::$pdo = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8", self::$username, self::$password);
