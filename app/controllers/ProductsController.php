@@ -95,9 +95,17 @@ class ProductsController
     }
     public function cadastrarProdutos()
     {
+        if(!(new userController())->buscarUser($_SESSION['usuario_id'])){
+            $_SESSION['modal'] = [
+                'msg' =>'Você precisa logar para acessar esse conteúdo',
+                'statuscode' => 401
+            ];
+            header("location: ". BASE . "/produtos");
+            exit;
+        }
         dbController::getConnection();
-        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $idUser = $_SESSION['usuario_id'];
         $image = NULL;
 
@@ -110,42 +118,36 @@ class ProductsController
             $imgTempPath = $_FILES['imagem']['tmp_name'];
             $nameImg = basename($_FILES['imagem']['name']);
             $extension = strtolower(pathinfo($nameImg, PATHINFO_EXTENSION));
-            switch ($extension){
-                default:
-                    $_SESSION['modal'] = [
-                        'msg' => 'Erro ao cadastrar o Produto ' . $nome . ': Imagem não permitida. Envie apenas JPG, PNG e JPEG',
-                        'statuscode' => 404
-                    ];
-                    header("location: " . BASE . "/dashboard");
-                    break;
-                case $this->allowedExtensionImg[0]:
-                case $this->allowedExtensionImg[1]:
-                case $this->allowedExtensionImg[2]:
-                    $newNameImg = uniqid('img_', true) . '.' . $extension;
-                    $imgPath = $this->uploadDir . $newNameImg;
+            if (!in_array($extension, $this->allowedExtensionImg)) {
+                $_SESSION['modal'] = [
+                    'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': Imagem não permitida. Envie apenas JPG, PNG e JPEG',
+                    'statuscode' => 404
+                ];
+                header("location: " . BASE . "/produtos");
+                exit;
+            }
+            $newNameImg = uniqid('img_', true) . '.' . $extension;
+            $imgPath = $this->uploadDir . $newNameImg;
+            if (move_uploaded_file($imgTempPath, $imgPath)) {
+                $image = $this->uploadDir . $newNameImg;
+            }
+            try {
+                $sql = "INSERT INTO produtos (nome, descricao, img, idUser) VALUES (?, ?, ?, ?)";
+                $stmt = dbController::getPdo()->prepare($sql);
+                $stmt->execute([$prodName, $prodDesc, $image, $idUser]);
 
-                    if (move_uploaded_file($imgTempPath, $imgPath)) {
-                        $image = "app/static/uploads/" . $newNameImg;
-                    }
-                try {
-                    $sql = "INSERT INTO produtos (nome, descricao, img, idUser) VALUES (?, ?, ?, ?)";
-                    $stmt = dbController::getPdo()->prepare($sql);
-                    $stmt->execute([$nome, $descricao, $image, $idUser]);
-
-                    $_SESSION['modal'] = [
-                        'msg' => 'Produto: ' . $nome . ' cadastrado com sucesso!',
-                        'statuscode' => 200
-                    ];
-                    header("location:" . BASE . "/dashboard");
-                    break;
-                } catch (PDOException $e) {
-                    $_SESSION['modal'] = [
-                        'msg' => 'Erro ao cadastrar o Produto ' . $nome . ': ' . $e->getMessage(),
-                        'statuscode' => 404
-                    ];
-                    header("location:" . BASE . "/dashboard");
-                    exit;
-                }
+                $_SESSION['modal'] = [
+                    'msg' => 'Produto: ' . $prodName . ' cadastrado com sucesso!',
+                    'statuscode' => 200
+                ];
+                header("location:" . BASE . "/dashboard");
+            } catch (PDOException $e) {
+                $_SESSION['modal'] = [
+                    'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': ' . $e->getMessage(),
+                    'statuscode' => 404
+                ];
+                header("location:" . BASE . "/dashboard");
+                exit;
             }
         }
     }
@@ -176,47 +178,41 @@ class ProductsController
                     $imgTempPath = $_FILES['imagem']['tmp_name'];
                     $nameImg = basename($_FILES['imagem']['name']);
                     $extension = strtolower(pathinfo($nameImg, PATHINFO_EXTENSION));
-                    switch ($extension){
-                        default:
-                            $_SESSION['modal'] = [
-                                'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': Imagem não permitida. Envie apenas JPG, PNG e JPEG',
-                                'statuscode' => 404
-                            ];
-                            header("location: " . BASE . "/produtos");
-                            break;
-                        case $this->allowedExtensionImg[0]:
-                        case $this->allowedExtensionImg[1]:
-                        case $this->allowedExtensionImg[2]:
-                            $newNameImg = uniqid('img_', true) . '.' . $extension;
-                            $imgPath = $this->uploadDir . $newNameImg;
+                    if (!in_array($extension, $this->allowedExtensionImg)) {
+                        $_SESSION['modal'] = [
+                            'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': Imagem não permitida. Envie apenas JPG, PNG e JPEG',
+                            'statuscode' => 404
+                        ];
+                        header("location: " . BASE . "/produtos");
+                        exit;
+                    }
 
-                            if (move_uploaded_file($imgTempPath, $imgPath)) {
-                                $image = "app/static/uploads/" . $newNameImg;
-                            }
-                            try {
-                                $prod = $this->getProduto($idProd);
-                                $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
-                                $caminhoAbsoluto = dirname(__DIR__) . DIRECTORY_SEPARATOR . $caminhoRelativo;
-                                var_dump($caminhoAbsoluto);
-                                if (file_exists($caminhoAbsoluto)) {
-                                    unlink($caminhoAbsoluto);
-                                    var_dump($caminhoAbsoluto);
-                                }
-                                $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, img = :img WHERE id = :idProd");
-                                $stmt->bindParam(':nome', $prodName);
-                                $stmt->bindParam(':descricao', $prodDesc);
-                                $stmt->bindParam(':img', $image);
-                                $stmt->bindParam(':idProd', $idProd);
-                                $stmt->execute();
-                                break;
-                            } catch (PDOException $e) {
-                                $_SESSION['modal'] = [
-                                    'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': ' . $e->getMessage(),
-                                    'statuscode' => 404
-                                ];
-                                header("location:" . BASE . "/dashboard");
-                                exit;
-                            }
+                    $newNameImg = uniqid('img_', true) . '.' . $extension;
+                    $imgPath = $this->uploadDir . $newNameImg;
+
+                    if (move_uploaded_file($imgTempPath, $imgPath)) {
+                        $image = $this->uploadDir . $newNameImg;
+                    }
+                    try {
+                        $prod = $this->getProduto($idProd);
+                        $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
+                        $caminhoAbsoluto = dirname(__DIR__,2) . DIRECTORY_SEPARATOR . $caminhoRelativo;
+                        if (file_exists($caminhoAbsoluto)) {
+                            unlink($caminhoAbsoluto);
+                        }
+                        $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, img = :img WHERE id = :idProd");
+                        $stmt->bindParam(':nome', $prodName);
+                        $stmt->bindParam(':descricao', $prodDesc);
+                        $stmt->bindParam(':img', $image);
+                        $stmt->bindParam(':idProd', $idProd);
+                        $stmt->execute();
+                    } catch (PDOException $e) {
+                        $_SESSION['modal'] = [
+                            'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': ' . $e->getMessage(),
+                            'statuscode' => 404
+                        ];
+                        header("location:" . BASE . "/dashboard");
+                        exit;
                     }
                 }
             } else {
@@ -227,7 +223,7 @@ class ProductsController
                 $stmt->execute();
             }
             $_SESSION['modal'] = [
-                'msg' =>'Produto: '. $prodName .' alterado com sucesso: ',
+                'msg' =>'Produto: '. $prodName .' alterado com sucesso',
                 'statuscode' => 200
             ];
             header("Location:" . BASE . "/dashboard");
@@ -240,16 +236,15 @@ class ProductsController
         }
     }
     public function excluirProduto(){
-        dbController::getConnection();
-        if($_SESSION['usuario_id'] == NULL){
-            http_response_code(401);
+        if(!(new userController())->buscarUser($_SESSION['usuario_id'])){
             $_SESSION['modal'] = [
-                'msg' =>'Você não tem acesso a essa área',
+                'msg' =>'Você precisa logar para acessar esse conteúdo',
                 'statuscode' => 401
             ];
-            header("location:". BASE);
+            header("location: ". BASE . "/produtos");
             exit;
         }
+        dbController::getConnection();
         $idProd = $_POST['id'];
 
         try {
@@ -258,7 +253,7 @@ class ProductsController
             $stmt->execute();
             $prod = $stmt->fetch();
             $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
-            $caminhoAbsoluto = dirname(__DIR__) . DIRECTORY_SEPARATOR . $caminhoRelativo;
+            $caminhoAbsoluto = dirname(__DIR__,2) . DIRECTORY_SEPARATOR . $caminhoRelativo;
             if (file_exists($caminhoAbsoluto)) {
                 unlink($caminhoAbsoluto);
             }

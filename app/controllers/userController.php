@@ -22,12 +22,16 @@ class userController
     public function buscarUser($idUser): bool
     {
         dbController::getConnection();
-        $stmt = dbController::getPdo()->prepare("SELECT id FROM users WHERE id = :idUser");
+        $stmt = dbController::getPdo()->prepare("SELECT id,nome FROM users WHERE id = :idUser");
         $stmt->bindParam(':idUser', $idUser);
         $stmt->execute();
         $prod = $stmt->fetch();
         if(count($prod) > 0){
-            return true;
+            if($_SESSION['usuario_nome'] == $prod['nome']){
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
