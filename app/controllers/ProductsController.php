@@ -10,10 +10,22 @@ class ProductsController
 {
     private array $allowedExtensionImg = ['png', 'jpg','jpeg'];
     private string $uploadDir = "app/static/uploads/";
+    private array $allowedCat;
+
+    public function __construct()
+    {
+        $this->allowedCat = array_column(self::getCategorias(), 'nome');
+    }
 
     public function index()
     {
         Controller::view("produtos");
+    }
+    public static function getCategorias(){
+        dbController::getConnection();
+        $stmt = dbController::getPdo()->prepare("SELECT nome FROM categorias");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function buscarProdutos($idUser){
         dbController::getConnection();
@@ -106,6 +118,15 @@ class ProductsController
         dbController::getConnection();
         $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prodCat = $_POST['categoria'];
+        if (!in_array($prodCat, $this->allowedCat)) {
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': Categoria não permitida ou inválida.',
+                'statuscode' => 404
+            ];
+            header("location: " . BASE . "/produtos");
+            exit;
+        }
         $idUser = $_SESSION['usuario_id'];
         $image = NULL;
 
@@ -132,9 +153,9 @@ class ProductsController
                 $image = $this->uploadDir . $newNameImg;
             }
             try {
-                $sql = "INSERT INTO produtos (nome, descricao, img, idUser) VALUES (?, ?, ?, ?)";
+                $sql = "INSERT INTO produtos (nome, descricao, fk_categoria, img, idUser) VALUES (?, ?, ?, ?, ?)";
                 $stmt = dbController::getPdo()->prepare($sql);
-                $stmt->execute([$prodName, $prodDesc, $image, $idUser]);
+                $stmt->execute([$prodName, $prodDesc,$prodCat, $image, $idUser]);
 
                 $_SESSION['modal'] = [
                     'msg' => 'Produto: ' . $prodName . ' cadastrado com sucesso!',
@@ -160,16 +181,25 @@ class ProductsController
             header("location: ". BASE . "/produtos");
             exit;
         }
+
         //Criar lógica de apenas alterar quando tiver alteração
 
         dbController::getConnection();
-        $idProd = $_POST['id'];
-        $prodName = $_POST['nome'];
-        $prodDesc = $_POST['descricao'];
+        $idProd = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $prodCat = $_POST['categoria'];
+        if (!in_array($prodCat, $this->allowedCat)) {
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao alterar o Produto ' . $prodName . ': Categoria não permitida ou inválida.',
+                'statuscode' => 404
+            ];
+            header("location: " . BASE . "/produtos");
+            exit;
+        }
         $image = $_FILES['imagem']['tmp_name'];// Só para evitar o erro de array
 
         try {
-
             if (!is_dir($this->uploadDir)) {
                 mkdir($this->uploadDir, 0755, true);
             }
@@ -200,9 +230,10 @@ class ProductsController
                         if (file_exists($caminhoAbsoluto)) {
                             unlink($caminhoAbsoluto);
                         }
-                        $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, img = :img WHERE id = :idProd");
+                        $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao, fk_categoria = :categoria, img = :img WHERE id = :idProd");
                         $stmt->bindParam(':nome', $prodName);
                         $stmt->bindParam(':descricao', $prodDesc);
+                        $stmt->bindParam(':categoria', $prodCat);
                         $stmt->bindParam(':img', $image);
                         $stmt->bindParam(':idProd', $idProd);
                         $stmt->execute();

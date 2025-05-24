@@ -46,7 +46,8 @@ $produtos = (new userController)->meusProdutos($idUser);
                                data-bs-target="#alterarProdutoModal"
                                data-id="<?= $produto['id'] ?>"
                                data-nome="<?= htmlspecialchars($produto['nome']) ?>"
-                               data-descricao="<?= htmlspecialchars($produto['descricao']) ?>">
+                               data-descricao="<?= htmlspecialchars($produto['descricao']) ?>"
+                               data-categoria="<?= $produto['fk_categoria'] ?>">
                                 Alterar
                             </a>
                             <li>

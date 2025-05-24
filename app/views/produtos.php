@@ -45,7 +45,7 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
 
 <?php
 require_once("app/models/modalPerfil.php");
-require_once("app/models/cadastrarProdutos.php");
+require_once("app/models/modalCadastrarProdutos.php");
 require_once("app/models/modalTrocarProduto.php");
 ?>
 <?php $this->stop(); ?>

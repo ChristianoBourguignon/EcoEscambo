@@ -1,3 +1,9 @@
+<?php
+namespace app\controllers;
+dbController::getConnection();
+$categorias = ProductsController::getCategorias();
+?>
+
 <!-- Modal de Cadastro de Produto -->
 <div class="modal fade" id="cadastroProdutosModal" tabindex="-1" aria-labelledby="cadastroProdutosModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -15,6 +21,15 @@
                     <div class="mb-3">
                         <label for="descricao" class="form-label">Descrição</label>
                         <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categorias para o produto: </label>
+                        <select class="form-select" id="categoria" name="categoria" required>
+                            <option selected disabled>Selecione uma categoria</option>
+                            <?php foreach ($categorias as $cat): ?>
+                            <option value="<?= $cat['nome'] ?>"><?= $cat['nome'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="imagem" class="form-label">Imagem do Produto</label>

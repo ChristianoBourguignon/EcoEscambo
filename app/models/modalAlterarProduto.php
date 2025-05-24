@@ -1,4 +1,8 @@
-
+<?php
+namespace app\controllers;
+dbController::getConnection();
+$categorias = ProductsController::getCategorias();
+?>
 <!-- Modal de Cadastro de Produto -->
 <div class="modal fade" id="alterarProdutoModal" tabindex="-1" aria-labelledby="alterarProdutoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -18,6 +22,14 @@
                     <div class="mb-3">
                         <label for="descricao" class="form-label">Descrição</label>
                         <input class="form-control" id="descricao" name="descricao" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">Categorias para o produto: </label>
+                        <select class="form-select" id="categoria" name="categoria" required>
+                            <?php foreach ($categorias as $cat): ?>
+                                <option value="<?= $cat['nome'] ?>"><?= $cat['nome'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="imagem" class="form-label">Imagem do Produto</label>
@@ -40,10 +52,12 @@
                 const id = button.getAttribute('data-id');
                 const nome = button.getAttribute('data-nome');
                 const descricao = button.getAttribute('data-descricao');
+                const categoria = button.getAttribute('data-categoria');
 
                 modal.querySelector('#id').value = id;
                 modal.querySelector('#nome').value = nome;
                 modal.querySelector('#descricao').value = descricao;
+                modal.querySelector('#categoria').value = categoria;
             });
         });
     </script>
