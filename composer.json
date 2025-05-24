@@ -1,6 +1,18 @@
 {
-  "require": {
-    "ext-mysql": "*",
-    "ext-mysqli": "*"
-  }
+    "name": "chris_i1piao2/eco-escambo",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christiano Bourguignon",
+            "email": "christianombl@gmail.com"
+        }
+    ],
+    "require": {
+        "league/plates": "^3.6",
+      "ext-pdo": "*"
+    }
 }

@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LEIAME.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/userController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/userController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/perfil.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalPerfil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/router/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/uploads/img_682fcf4e9750f6.48717749.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/master.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/master.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/navbar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/produtos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todos_os_itens.php" beforeDir="false" afterPath="$PROJECT_DIR$/todos_os_itens.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trocas_populares.php" beforeDir="false" afterPath="$PROJECT_DIR$/trocas_populares.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +23,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,51 +37,61 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/league/plates" />
+    </include_path>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2vIBUvzMR2naZLLomzL4Qnp6tmb" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JavaScript Debug.index.html.executor": "Run",
-    "JavaScript Debug.index.php.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "J:/Projetos/EcoEscambo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.index.php.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;simpleRouter&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;J:/Projetos/EcoEscambo/app/views&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo\app\views" />
+      <recent name="J:\Projetos\EcoEscambo\models" />
       <recent name="J:\Projetos\EcoEscambo\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="J:\Projetos\EcoEscambo" />
-      <recent name="J:\Projetos\EcoEscambo\backend\uploads" />
+      <recent name="J:\Projetos\EcoEscambo\app" />
+      <recent name="J:\Projetos\EcoEscambo\static" />
+      <recent name="J:\Projetos\EcoEscambo\app\models" />
       <recent name="J:\Projetos\EcoEscambo\models" />
-      <recent name="J:\Projetos\EcoEscambo\pages" />
-      <recent name="C:\Users\chris\IdeaProjects\main\scripts" />
+      <recent name="J:\Projetos\EcoEscambo" />
     </key>
   </component>
   <component name="RunManager">
@@ -127,7 +141,28 @@
       <workItem from="1744688233422" duration="269000" />
       <workItem from="1744813706901" duration="853000" />
       <workItem from="1745344527908" duration="4038000" />
-      <workItem from="1745932318688" duration="3462000" />
+      <workItem from="1745932318688" duration="3922000" />
+      <workItem from="1745952095805" duration="3559000" />
+      <workItem from="1745956094002" duration="359000" />
+      <workItem from="1746199510531" duration="6368000" />
+      <workItem from="1746453626879" duration="847000" />
+      <workItem from="1746454492636" duration="1342000" />
+      <workItem from="1746458004566" duration="14381000" />
+      <workItem from="1746554148693" duration="1097000" />
+      <workItem from="1746878171609" duration="11985000" />
+      <workItem from="1747010948165" duration="231000" />
+      <workItem from="1747055270650" duration="2354000" />
+      <workItem from="1747146498003" duration="14356000" />
+      <workItem from="1747329266851" duration="9541000" />
+      <workItem from="1747348105889" duration="11712000" />
+      <workItem from="1747682996366" duration="17779000" />
+      <workItem from="1747745475742" duration="7240000" />
+      <workItem from="1747797146937" duration="4887000" />
+      <workItem from="1747834650279" duration="20826000" />
+      <workItem from="1747918796771" duration="473000" />
+      <workItem from="1747956252532" duration="1562000" />
+      <workItem from="1747961686040" duration="2259000" />
+      <workItem from="1748052375416" duration="7835000" />
     </task>
     <servers />
   </component>
