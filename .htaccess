@@ -7,3 +7,10 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # Redireciona tudo para o index.php
 RewriteRule ^ index.php [QSA,L]
+
+# Impede a listagem do conteúdo do diretório
+Options -Indexes
+
+# Opcional: redireciona qualquer tentativa de acesso para a raiz do site
+# RewriteEngine On
+# RewriteRule ^(.*)$ /EcoEscambo/404 [R=301,L]

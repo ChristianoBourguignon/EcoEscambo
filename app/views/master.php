@@ -55,7 +55,7 @@ if (isset($_SESSION['modal'])) {
     <?= $this->section('body') ?>
 
     <?php
-        include_once("app/models/perfil.php");
+        include_once("app/models/modalPerfil.php");
         if ($nomeUsuario) {
         include_once("app/models/cadastrarProdutos.php");
         include_once("app/models/modalAlterarProduto.php");

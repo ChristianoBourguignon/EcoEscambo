@@ -1,7 +1,7 @@
 <?php
 $this->layout("master", [
-    'title' => "Meu Inventário",
-    'description' => "Aqui você encontrará todos os produtos cadastrados por você"
+    'title' => "Pagina não encontrada",
+    'description' => "Página não encontrada, ou você não tem acesso."
 ]);
 
 $idUser = $_SESSION['usuario_id'] ?? NULL;

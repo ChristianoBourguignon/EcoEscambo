@@ -22,5 +22,10 @@ try {
     $controller = $router[$request][$uri];
     $controller();
 } catch (Exception $e) {
-    echo $e->getMessage();
+    $_SESSION['modal'] = [
+        'msg' => "Página não encontrada",
+        'statuscode' => 404
+    ];
+    header("location: ". BASE . '/404');
+    exit;
 }

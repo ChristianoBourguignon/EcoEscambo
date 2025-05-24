@@ -25,15 +25,85 @@ class userController
         $stmt = dbController::getPdo()->prepare("SELECT id,nome FROM users WHERE id = :idUser");
         $stmt->bindParam(':idUser', $idUser);
         $stmt->execute();
-        $prod = $stmt->fetch();
-        if(count($prod) > 0){
-            if($_SESSION['usuario_nome'] == $prod['nome']){
+        $user = $stmt->fetch();
+        if(count($user) > 0){
+            if($_SESSION['usuario_nome'] == $user['nome']){
                 return true;
             } else {
                 return false;
             }
         } else {
             return false;
+        }
+    }
+    public function getUser($idBusca, $colunaBusca = "id"){
+        try {
+            $colunasValidas = ["email","id"];
+            if(!array($colunaBusca,$colunasValidas)){
+                throw new \Exception("Coluna inválida ou inexistente: {$colunaBusca}");
+            }
+            $stmt = dbController::getPdo()->prepare("SELECT id,nome,email FROM users where {$colunaBusca} = :email LIMIT 1");
+            $stmt->bindParam(":email", $idBusca);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Exception $e){
+            $_SESSION['modal'] = [
+                'msg' => "Erro ao buscar o usuario:".$e->getMessage(),
+                'statuscode' => 404
+            ];
+            header("location: ". BASE . '/404');
+            exit;
+        }
+    }
+
+    public function criarConta(){
+        $nome = filter_input(INPUT_POST, 'nome',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'email',FILTER_SANITIZE_EMAIL);
+        $senha = filter_input(INPUT_POST, 'senha');
+        if(empty($nome) || empty($email) || empty($senha)){
+            $_SESSION['modal'] = [
+                'msg' => 'É necessário o preenchimento de todos os campos',
+                'statuscode' => 404
+            ];
+            header("location: ". BASE);
+            exit;
+        }
+        $senha = password_hash($senha, PASSWORD_DEFAULT);
+        dbController::getConnection();
+        try{
+            $stmt = dbController::getPdo()->prepare("SELECT email FROM users where email = :email LIMIT 1");
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
+            $user = $stmt->fetch();
+            if(!empty($user)){
+                $_SESSION['modal'] = [
+                    'msg' => 'Já existe uma conta cadastrada neste e-mail!',
+                    'statuscode' => 404
+                ];
+                header("location: ". BASE);
+                exit;
+            }
+            $stmt = dbController::getPdo()->prepare("INSERT INTO users (nome, email, senha) VALUES (:nome, :email, :senha)");
+            $stmt->bindParam(":nome", $nome);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":senha", $senha);
+            $stmt->execute();
+            $user = userController::getUser($email,"email");
+            $_SESSION['usuario_id'] = $user['id'];
+            $_SESSION['usuario_nome'] = $user['nome'];
+            $_SESSION['modal'] = [
+                'msg' => "Parabens, conta criada com sucesso! Você foi logado automaticamente.",
+                'statuscode' => 200
+            ];
+            header("location: ". BASE . "/dashboard");
+            exit;
+        } catch (\Exception $e){
+            $_SESSION['modal'] = [
+                'msg' => "Erro ao criar uma conta",
+                'statuscode' => 404
+            ];
+            header("location: ". BASE);
+            exit;
         }
     }
 
@@ -55,14 +125,19 @@ class userController
                 $stmt->bindParam(':email', $email);
                 $stmt->execute();
 
-                $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 // Sem criptografia, comparação direta
                 // password_verify e password_hash -> pesquisar na documentação como se usa posteriormente
-                if ($usuario && $usuario['senha'] === $senha) {
-                    $_SESSION['usuario_id'] = $usuario['id'];
-                    $_SESSION['usuario_nome'] = $usuario['nome'];
+                if ($user && password_verify($senha,$user['senha'])) {
+                    $_SESSION['usuario_id'] = $user['id'];
+                    $_SESSION['usuario_nome'] = $user['nome'];
 
+                    $_SESSION['modal'] = [
+                        'msg' => "Seja bem-vindo ". $user['nome'] . '!',
+                        'statuscode' => 200
+                    ];
+                    header("location:" . BASE . "/dashboard");
                 } else {
                     $_SESSION['modal'] = [
                         'msg' =>'Usuario ou senha incorreta',
@@ -85,7 +160,6 @@ class userController
             ];
             header("location: ". BASE . '/404');
         }
-        header("location:" . BASE . "/dashboard");
     }
 
     public function deslogar()
