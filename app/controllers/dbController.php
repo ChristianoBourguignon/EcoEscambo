@@ -42,9 +42,11 @@ class dbController
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         nome VARCHAR(100) NOT NULL,
                         descricao VARCHAR(255) NOT NULL,
+                        fk_categoria VARCHAR(255) NOT NULL,
                         img VARCHAR(255) NOT NULL,
                         idUser INT NOT NULL,
-                        FOREIGN KEY (idUser) REFERENCES users(id)
+                        FOREIGN KEY (idUser) REFERENCES users(id),
+                        FOREIGN KEY (fk_categoria) REFERENCES categorias(nome)
                     );
                 ";
 
@@ -63,9 +65,17 @@ class dbController
                     );
                 ";
 
+                $sqlCategoria = "
+                    CREATE TABLE IF NOT EXISTS categorias (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        nome VARCHAR(255) NOT NULL UNIQUE
+                    );
+                ";
+
 
                 // Executa as queries
                 self::$pdo->exec($sqlUsers);
+                self::$pdo->exec($sqlCategoria);
                 self::$pdo->exec($sqlProdutos);
                 self::$pdo->exec($sqlTroca);
 
