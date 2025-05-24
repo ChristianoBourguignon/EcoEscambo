@@ -48,6 +48,9 @@ $router = [
         },
         "/EcoEscambo/404" => function (){
             return load("HomeController","notFound");
+        },
+        "/EcoEscambo/icon" => function(){
+            return "app/static/img/logo.png";
         }
     ],
     "POST" => [
