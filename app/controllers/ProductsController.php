@@ -188,7 +188,7 @@ class ProductsController
         $idProd = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $prodCat = $_POST['categoria'];
+        $prodCat = filter_input(INPUT_POST, 'categoria');
         if (!in_array($prodCat, $this->allowedCat)) {
             $_SESSION['modal'] = [
                 'msg' => 'Erro ao alterar o Produto ' . $prodName . ': Categoria não permitida ou inválida.',
@@ -237,7 +237,7 @@ class ProductsController
                         $stmt->bindParam(':img', $image);
                         $stmt->bindParam(':idProd', $idProd);
                         $stmt->execute();
-                    } catch (PDOException $e) {
+                    } catch (\PDOException $e) {
                         $_SESSION['modal'] = [
                             'msg' => 'Erro ao cadastrar o Produto ' . $prodName . ': ' . $e->getMessage(),
                             'statuscode' => 404
@@ -247,9 +247,10 @@ class ProductsController
                     }
                 }
             } else {
-                $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao WHERE id = :idProd");
+                $stmt = dbController::getPdo()->prepare("UPDATE produtos SET nome = :nome, descricao = :descricao,fk_categoria = :categoria WHERE id = :idProd");
                 $stmt->bindParam(':nome', $prodName);
                 $stmt->bindParam(':descricao', $prodDesc);
+                $stmt->bindParam(':categoria', $prodCat);
                 $stmt->bindParam(':idProd', $idProd);
                 $stmt->execute();
             }
@@ -258,7 +259,7 @@ class ProductsController
                 'statuscode' => 200
             ];
             header("Location:" . BASE . "/dashboard");
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' =>'Erro ao alterar o produto: ' . $e->getMessage(),
                 'statuscode' => 404
