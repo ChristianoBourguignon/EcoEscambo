@@ -11,6 +11,7 @@ class ProductsController
     private array $allowedExtensionImg = ['png', 'jpg','jpeg'];
     private string $uploadDir = "app/static/uploads/";
     private array $allowedCat;
+    private array $limitsProducts = [1,0];
 
     public function __construct()
     {
@@ -21,14 +22,35 @@ class ProductsController
     {
         Controller::view("produtos");
     }
+    public static function contarProduts(){
+        try{
+            dbController::getConnection();
+            $stmt = dbController::getPdo()->prepare("select count(*) from produtos");
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (\Exception $e){
+            $_SESSION['modal'] = [
+                'msg' => 'Erro ao contar os produtos' . $e->getMessage(),
+                'statuscode' => 403
+            ];
+        }
+        return 0;
+    }
     public static function getCategorias(){
         dbController::getConnection();
         $stmt = dbController::getPdo()->prepare("SELECT nome FROM categorias");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function buscarProdutos($idUser){
+    public function buscarProdutos($limit = NULL, $offset = NULL){
         dbController::getConnection();
+        if($limit == NULL){
+            $limit = $this->limitsProducts[0];
+        }
+        if($offset == NULL){
+            $offset = $this->limitsProducts[1];
+        }
+        $idUser = $_SESSION['usuario_id'];
         try {
             if(!$idUser){
                 $stmt = dbController::getPdo()->prepare("
@@ -51,7 +73,9 @@ class ProductsController
                             FROM troca t2 
                             WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
                               AND t2.Status = 1
-                        );
+                        )
+                    order by id desc
+                    limit $limit offset $offset;
                     ");
             } else {
                 $stmt = dbController::getPdo()->prepare("
@@ -75,7 +99,9 @@ class ProductsController
                             FROM troca t2 
                             WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
                               AND t2.Status = 1
-                        );
+                        )
+                    order by id desc
+                    limit $limit offset $offset;
                 ");
                 $stmt->bindParam(':idUser',$idUser);
             }

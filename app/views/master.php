@@ -20,7 +20,7 @@ if (isset($_SESSION['modal'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="<?=$this->e($description)?>">
-        <link rel="icon" type="image/x-icon" href="<?= BASE ?>/icon">
+        <link rel="icon" type="image/x-icon" href="app/static/img/Logo.ico">
         <title>EcoEscambo<?=' - ' . $this->e($title)?></title>
 
         <!-- Bootstrap CSS -->

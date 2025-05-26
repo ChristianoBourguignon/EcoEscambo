@@ -10,6 +10,10 @@ $this->layout("master", [
 
 $idUser = $_SESSION['usuario_id'];
 if (!isset($idUser)){
+    $_SESSION['modal'] = [
+        'msg' => "Você precisa está logado!",
+        'statuscode' => 401
+    ];
     header('Location:'. BASE);
     exit;
 }

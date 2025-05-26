@@ -10,6 +10,7 @@ session_start();
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 
 $produtos = (new ProductsController)->buscarProdutos($idUser);
+include_once("app/static/js/filter.php");
 ?>
 <?php $this->start('body'); ?>
 
@@ -44,6 +45,9 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
                 <p>Nenhum produto cadastrado ainda.</p>
             <?php endif; ?>
         </div>
+<!--        <div class="d-flex justify-content-center my-4">-->
+<!--            <button class="btn btn-primary">Mostrar mais --><?php //echo $totalPaginas ?><!--</button>-->
+<!--        </div>-->
     </section>
 </main>
 
@@ -51,7 +55,6 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
 require_once("app/models/modalPerfil.php");
 require_once("app/models/modalCadastrarProdutos.php");
 require_once("app/models/modalTrocarProduto.php");
-include_once("app/static/js/filter.php");
 ?>
 <?php $this->stop(); ?>
 

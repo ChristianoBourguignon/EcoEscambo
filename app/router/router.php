@@ -50,7 +50,7 @@ $router = [
             return load("HomeController","notFound");
         },
         "/EcoEscambo/icon" => function(){
-            $file = dirname(__DIR__,2) . "/app/static/img/logo.png";
+            $file = dirname(__DIR__,2) . "/app/static/img/Logo.ico";
             header("Content-Type: image/x-icon");
             readfile($file);
             http_response_code(200);

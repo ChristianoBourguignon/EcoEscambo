@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/models/formFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/static/js/filter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/img/Logo.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/modalTrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalTrocarProduto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/scriptMostrarModal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/scriptMostrarModal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/sobre.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/sobre.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ProductsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/router/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/js/filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/filter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/master.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
@@ -65,7 +62,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "J:/Projetos/EcoEscambo/app/static",
+    "last_opened_file_path": "J:/Projetos/EcoEscambo/app/static/img",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,6 +81,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo\app\static\img" />
       <recent name="J:\Projetos\EcoEscambo\app\static" />
       <recent name="J:\Projetos\EcoEscambo\app\views" />
       <recent name="J:\Projetos\EcoEscambo\models" />
@@ -168,7 +166,7 @@
       <workItem from="1748052375416" duration="7835000" />
       <workItem from="1748096783853" duration="8328000" />
       <workItem from="1748105568232" duration="1112000" />
-      <workItem from="1748210589855" duration="7067000" />
+      <workItem from="1748210589855" duration="12297000" />
     </task>
     <servers />
   </component>

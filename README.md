@@ -47,13 +47,14 @@ EcoEscambo é uma plataforma web para troca de produtos, promovendo uma troca se
 - ✅ Sistema de notificações via modais
 - ✅ Validação de dados e segurança
 - ✅ Interface responsiva com Bootstrap
+- ✅ Filtros com nome e categoria na página de produtos
+- ✅ Filtros com nome e categoria no inventário
+- ✅ Implementação de AJAX para filtros
 
 ## Funcionalidades em Desenvolvimento
 - 🔄 Chat entre usuários que realizaram troca
-- 🔄 Filtros com nome e categoria na página de produtos
-- 🔄 Filtros com nome e categoria no inventário
 - 🔄 Paginação de produtos (carregar mais 10 produtos)
-- 🔄 Implementação de AJAX para filtros e paginação
+- 🔄 Implementação de AJAX para o carregar mais
 
 ## Configuração
 1. Clone o repositório
