@@ -18,13 +18,13 @@ EcoEscambo é uma plataforma web para troca de produtos, promovendo uma troca se
   - `modalSelecionarProduto.php` - Modal para seleção de produtos
   - `modalTrocarProduto.php` - Modal para troca de produtos
   - `navbarRouter.php` - Roteamento da barra de navegação
-  - `scriptMostrarModal.php` - Script para exibição de modais
 - `/views` - Views da aplicação
   - `dashboard.php` - Painel do usuário
   - `master.php` - Template principal
   - `produtos.php` - Listagem de produtos
   - `trocas.php` - Página de trocas
 - `/static`
+  - `/js` - Scripts
   - `/css` - Arquivos de estilo
   - `/uploads` - Arquivos enviados pelos usuários
 - `/router` - Sistema de roteamento

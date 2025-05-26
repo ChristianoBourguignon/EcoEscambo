@@ -11,5 +11,4 @@
         document.body.style.overflow = 'auto';
         document.body.classList.remove('modal-open');
     });
-
 </script>

@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/models/formFilter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/js/filter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ProductsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/cadastrarProdutos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalCadastrarProdutos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/modalAlterarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalAlterarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/modalTrocarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalTrocarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/scriptMostrarModal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/js/scriptMostrarModal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/css/sobre.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/sobre.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/master.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/master.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
@@ -52,44 +56,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.index.php.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;J:/Projetos/EcoEscambo/app/views&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.index.php.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "J:/Projetos/EcoEscambo/app/static",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo\app\static" />
       <recent name="J:\Projetos\EcoEscambo\app\views" />
       <recent name="J:\Projetos\EcoEscambo\models" />
       <recent name="J:\Projetos\EcoEscambo\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="J:\Projetos\EcoEscambo\app\static\js" />
       <recent name="J:\Projetos\EcoEscambo\app" />
       <recent name="J:\Projetos\EcoEscambo\static" />
       <recent name="J:\Projetos\EcoEscambo\app\models" />
       <recent name="J:\Projetos\EcoEscambo\models" />
-      <recent name="J:\Projetos\EcoEscambo" />
     </key>
   </component>
   <component name="RunManager">
@@ -162,7 +167,8 @@
       <workItem from="1747961686040" duration="2259000" />
       <workItem from="1748052375416" duration="7835000" />
       <workItem from="1748096783853" duration="8328000" />
-      <workItem from="1748105568232" duration="832000" />
+      <workItem from="1748105568232" duration="1112000" />
+      <workItem from="1748210589855" duration="7067000" />
     </task>
     <servers />
   </component>

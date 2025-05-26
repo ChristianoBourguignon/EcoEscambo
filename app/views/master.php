@@ -39,12 +39,14 @@ if (isset($_SESSION['modal'])) {
             <link rel="stylesheet" href="app/static/css/sobre.css">
         <?php }  ?>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body <?php if($_SERVER['REQUEST_URI'] == BASE.'/404'){ ?> class="bg-light d-flex align-items-center justify-content-center vh-100" <?php }?>>
-    <?php require_once("app/models/scriptMostrarModal.php"); ?>
+    <?php require_once("app/static/js/scriptMostrarModal.php"); ?>
 
     <!-- Navbar -->
     <?php

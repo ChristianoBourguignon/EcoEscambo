@@ -21,15 +21,15 @@ $produtos = (new userController)->meusProdutos($idUser);
 
 <div class="container mt-5 py-5">
     <h1>Olá, <?= htmlspecialchars($_SESSION['usuario_nome']); ?>!</h1>
-
-
+    <?php include_once "app/models/formFilter.php" ?>
     <h2 class="mt-5">Seus Produtos</h2>
     <div class="produtos-lista" style="display: flex; flex-wrap: wrap; gap: 20px; position: relative; overflow: visible;">
         <?php if (!empty($produtos)): ?>
             <?php foreach ($produtos as $produto): ?>
                 <div class="product" style="position: relative; width: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s; text-align: center; overflow: visible; z-index: 1; background-color: #fff;">
-                    <img src="<?= htmlspecialchars($produto['img']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
-                    <p class="product-name" style="font-weight: bold; margin-top: 10px;"><?= htmlspecialchars($produto['nome']) ?></p>
+                    <img src="<?= htmlspecialchars($produto['img']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
+                    <p class="condition"><?= htmlspecialchars($produto['fk_categoria']) ?></p>
+                    <p class="product-name font-weight-bold" style="font-weight: bold; margin-top: 10px;"><?= htmlspecialchars($produto['nome']) ?></p>
                     <p class="condition"><?= htmlspecialchars($produto['descricao']) ?></p>
 
                     <div class="dropdown dropdown-btn" style="position: absolute; top: 10px; left: 10px;">
@@ -66,4 +66,5 @@ $produtos = (new userController)->meusProdutos($idUser);
     </div>
 </div>
 
+<?php include_once("app/static/js/filter.php"); ?>
 <?php $this->stop(); ?>

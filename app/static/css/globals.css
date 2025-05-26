@@ -245,8 +245,9 @@ main {
 
 .product img {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
+    height: 150px;
+    object-fit: fill;
+    border-radius: 10px;
 }
 
 .product-name {
@@ -320,9 +321,5 @@ main {
 
 #modalSelecionarProduto {
     z-index: 1050;
-}
-
-.img-prod{
-    object-fit: contain;
 }
 

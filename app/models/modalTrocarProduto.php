@@ -14,8 +14,10 @@
                             <h6 class="mb-3">Produto Desejado</h6>
                             <div class="p-2">
                                 <img src="" id="imgProd" class="img-fluid rounded shadow-sm mb-2 img-prod">
+                                <p class="font-monospace" id="catProd"></p>
                                 <p><strong id="nomeProd"></strong></p>
                                 <p id="descricaoProd"></p>
+
                             </div>
                         </div>
 
@@ -66,6 +68,7 @@
             const nome = button.getAttribute('data-nome');
             const descricao = button.getAttribute('data-descricao');
             const srcimg = button.getAttribute('data-imagem');
+            const categoria = button.getAttribute('data-categoria');
 
             // Preencher campos ocultos
             modal.querySelector('#produtoDesejadoId').value = id;
@@ -75,6 +78,7 @@
             modal.querySelector('#descricaoProd').textContent = descricao;
             modal.querySelector('#imgProd').src = srcimg;
             modal.querySelector('#imgProd').title = nome;
+            modal.querySelector('#catProd').textContent = categoria;
         });
     }
         document.getElementById('btnAbrirSelecionarProduto').addEventListener('click', function () {
