@@ -1,4 +1,7 @@
 <?php
+
+use app\controllers\ProductsController;
+
 function load(string $controller, string $action)
 {
     try {
@@ -54,6 +57,17 @@ $router = [
             header("Content-Type: image/x-icon");
             readfile($file);
             http_response_code(200);
+            exit;
+        },
+        "/EcoEscambo/buscarProdutos" => function(){
+            header('Content-Type: application/json');
+            $offset = filter_input(INPUT_GET,'offset',FILTER_SANITIZE_NUMBER_INT);
+            $idUser = filter_input(INPUT_GET,'idUser',FILTER_SANITIZE_NUMBER_INT);
+            if(!$idUser){
+                $idUser = NULL;
+            }
+            $produtos = (new ProductsController)->buscarProdutos($idUser, $offset);
+            echo json_encode($produtos);
             exit;
         }
     ],

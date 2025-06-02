@@ -11,7 +11,7 @@ class ProductsController
     private array $allowedExtensionImg = ['png', 'jpg','jpeg'];
     private string $uploadDir = "app/static/uploads/";
     private array $allowedCat;
-    private array $limitsProducts = [1,0];
+    private array $limitsProducts = [10,10];
 
     public function __construct()
     {
@@ -22,19 +22,62 @@ class ProductsController
     {
         Controller::view("produtos");
     }
-    public static function contarProduts(){
-        try{
-            dbController::getConnection();
-            $stmt = dbController::getPdo()->prepare("select count(*) from produtos");
-            $stmt->execute();
-            return $stmt->fetchColumn();
-        } catch (\Exception $e){
-            $_SESSION['modal'] = [
-                'msg' => 'Erro ao contar os produtos' . $e->getMessage(),
-                'statuscode' => 403
-            ];
+    public function getLimit(){
+        return $this->limitsProducts[0];
+    }
+    public static function contarProduts($idUser){
+        if(!$idUser){
+            $stmt = dbController::getPdo()->prepare("
+                    SELECT count(*) FROM produtos p
+                        WHERE (
+                            EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE (t.idProdDesejado = p.id OR t.idProdUser = p.id)
+                                  AND t.Status IN (0, -1)
+                            )
+                            OR NOT EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE t.idProdDesejado = p.id OR t.idProdUser = p.id
+                            )
+                        )
+                        AND NOT EXISTS (
+                            SELECT 1 
+                            FROM troca t2 
+                            WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
+                              AND t2.Status = 1
+                        )
+                    order by id desc
+                    ");
+        } else {
+            $stmt = dbController::getPdo()->prepare("
+                    SELECT count(*) FROM produtos p
+                        WHERE p.idUser != :idUser AND
+                              (
+                            EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE (t.idProdDesejado = p.id OR t.idProdUser = p.id)
+                                  AND t.Status IN (0, -1)
+                            )
+                            OR NOT EXISTS (
+                                SELECT 1 
+                                FROM troca t 
+                                WHERE t.idProdDesejado = p.id OR t.idProdUser = p.id
+                            )
+                        )
+                        AND NOT EXISTS (
+                            SELECT 1 
+                            FROM troca t2 
+                            WHERE (t2.idProdDesejado = p.id OR t2.idProdUser = p.id)
+                              AND t2.Status = 1
+                        )
+                ");
+            $stmt->bindParam(':idUser',$idUser);
         }
-        return 0;
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
     }
     public static function getCategorias(){
         dbController::getConnection();
@@ -42,16 +85,15 @@ class ProductsController
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function buscarProdutos($limit = NULL, $offset = NULL){
+    public function buscarProdutos($idUser,$offset = NULL){
         dbController::getConnection();
-        if($limit == NULL){
-            $limit = $this->limitsProducts[0];
-        }
-        if($offset == NULL){
-            $offset = $this->limitsProducts[1];
-        }
-        $idUser = $_SESSION['usuario_id'];
         try {
+            $limit = $this->limitsProducts[1];
+            if(isset($offset)){
+                $offset = intval($offset,10);
+            } else {
+                $offset = 0;
+            }
             if(!$idUser){
                 $stmt = dbController::getPdo()->prepare("
                     SELECT * FROM produtos p
