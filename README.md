@@ -56,6 +56,8 @@ EcoEscambo é uma plataforma web para troca de produtos, promovendo uma troca se
 ## Funcionalidades em Desenvolvimento
 - 🔄 Chat entre usuários que realizaram troca
 - 🔄 Testes Unitários com PHPUnit e PHPStan
+- 🔄 Página do usuario
+- 🔄 E-mail de recuperação de Senha
 
 ## Configuração
 1. Clone o repositório
