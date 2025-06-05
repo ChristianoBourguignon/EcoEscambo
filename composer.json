@@ -15,5 +15,8 @@
         "league/plates": "^3.6",
       "ext-pdo": "*",
       "ext-json": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
     }
 }
