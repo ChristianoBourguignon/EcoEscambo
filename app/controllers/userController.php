@@ -19,6 +19,11 @@ class userController
     {
         Controller::view("trocas");
     }
+    public static function getNome($idUser): String{
+        if(isset($idUser)){
+            return $_SESSION['usuario_nome'];
+        }
+    }
     public function buscarUser($idUser): bool
     {
         dbController::getConnection();
