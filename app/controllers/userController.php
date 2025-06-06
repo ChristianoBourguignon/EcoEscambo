@@ -250,22 +250,42 @@ class userController
         try {
             // Consulta todos os produtos em propostas de troca feitas ao usuário logado
             $stmt = dbController::getPdo()->prepare("
-               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUserDesejado 
-                FROM troca t 
-                JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE t.idUserDesejado = :idUser 
-                AND t.status = 0;
+               SELECT 
+                t.id AS idTroca,
+                t.status,
+                t.idUser,
+                t.idUserDesejado,
+                p.nome,
+                p.descricao,
+                p.img,
+                p.fk_categoria,
+                p.id
+            FROM troca t
+            JOIN produtos p 
+                ON p.id = t.idProdUser OR p.id = t.idProdDesejado
+            WHERE t.status = 0 
+              AND t.idUserDesejado = :idUser;
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
             $solicitacao = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
 
             $stmt = dbController::getPdo()->prepare("
-               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUser 
-                FROM troca t 
-                JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE t.idUser = :idUser 
-                AND t.status = 0;
+               SELECT 
+                t.id,
+                t.status,
+                t.idUser,
+                t.idUserDesejado,
+                p.nome,
+                p.descricao,
+                p.img,
+                p.fk_categoria,
+                p.id
+            FROM troca t
+            JOIN produtos p 
+                ON p.id IN (t.idProdDesejado, t.idProdUser)
+            WHERE t.status = 0 
+              AND t.idUser = :idUser;
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();

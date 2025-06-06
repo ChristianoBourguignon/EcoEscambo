@@ -17,7 +17,7 @@ $trocados = $resultados[3];
 
 <div class="container mt-5 py-5">
     <h1>Olá, <?= htmlspecialchars($resultados[0]) ?>!</h1>
-
+    <?php var_dump($solicitacao) ?>
     <h2 class="mt-5">Ofertas no seu produto</h2>
 
     <?php if ($solicitacao != NULL): ?>
@@ -32,6 +32,7 @@ $trocados = $resultados[3];
                                     <div class="card-header bg-transparent">Produto oferecido</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
                                     <div class="card-body">
+                                        <p class="condition font-monospace"><?= htmlspecialchars($solicitacao[$i]['fk_categoria']) ?></p>
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i]['nome']) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($solicitacao[$i]['descricao']) ?></p>
                                     </div>
@@ -44,9 +45,10 @@ $trocados = $resultados[3];
                             <!-- Produto do Usuário -->
                             <div class="col-md-3 text-center">
                                 <div class="card">
-                                    <div class="card-header bg-transparent">Seu produto</div>
+                                    <div class="card-header bg-transparent">Meu produto</div>
                                     <img src="<?= htmlspecialchars($solicitacao[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
                                     <div class="card-body">
+                                        <p class="condition font-monospace"><?= htmlspecialchars($solicitacao[$i+1]['fk_categoria']) ?></p>
                                         <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?></h5>
                                         <p class="card-text"><?= htmlspecialchars($solicitacao[$i + 1]['descricao']) ?></p>
                                     </div>
@@ -82,9 +84,10 @@ $trocados = $resultados[3];
                         <!-- Produto Oferecido -->
                         <div class="col-md-3 text-center">
                             <div class="card">
-                                <div class="card-header bg-transparent">Produto Desejado</div>
+                                <div class="card-header bg-transparent">Meu produto</div>
                                 <img src="<?= htmlspecialchars($pendente[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
                                 <div class="card-body">
+                                    <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i]['fk_categoria']) ?></p>
                                     <h5 class="card-title"><?= htmlspecialchars($pendente[$i]['nome']) ?></h5>
                                     <p class="card-text"><?= htmlspecialchars($pendente[$i]['descricao']) ?></p>
                                 </div>
@@ -97,9 +100,10 @@ $trocados = $resultados[3];
                         <!-- Produto do Usuário -->
                         <div class="col-md-3 text-center">
                             <div class="card">
-                                <div class="card-header bg-transparent">Seu produto</div>
+                                <div class="card-header bg-transparent">Produto Desejado</div>
                                 <img src="<?= htmlspecialchars($pendente[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
                                 <div class="card-body">
+                                    <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i+1]['fk_categoria']) ?></p>
                                     <h5 class="card-title"><?= htmlspecialchars($pendente[$i + 1]['nome']) ?></h5>
                                     <p class="card-text"><?= htmlspecialchars($pendente[$i + 1]['descricao']) ?></p>
                                 </div>
