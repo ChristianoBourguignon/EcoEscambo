@@ -69,7 +69,6 @@ include_once("app/static/js/filter.php");
             data: { offset: offset },
             dataType: 'json',
             success: function (produtos) {
-                console.log(produtos);
                 if (produtos.length === 0) {
                     alert("Não há mais produtos.");
                     return;
