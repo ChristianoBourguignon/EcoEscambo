@@ -238,44 +238,106 @@ class userController
         }
     }
 
-    public function consultarTrocas()
-    {
-        if(!userController::buscarUser($_SESSION['usuario_id'])){
-            $_SESSION['modal']= [
-                'msg'=>"Usuario não encontrado",
-                'statuscode'=>401
+    public function getTrocasSolicitadas($idUser){
+        try {
+            if(!userController::buscarUser($idUser)){
+                $_SESSION['modal']= [
+                    'msg'=>"Usuario não encontrado",
+                    'statuscode'=>401
+                ];
+                header("location: ". BASE . "/dashboard");
+                exit;
+            }
+            // Consulta todos os produtos em propostas de troca feitas ao usuário logado
+            dbController::getConnection();
+            $stmt = dbController::getPdo()->prepare("
+               SELECT 
+                    t.idProdDesejado,
+                    t.idProdUser,
+                    t.status,
+                    p1.nome AS nomeProdutoDesejado,
+                    p2.nome AS nomeProdutoUser,
+                    p1.descricao AS descricaoProdutoDesejado,
+                    p2.descricao AS descricaoProdutoUser,
+                    p1.img AS imgProdutoDesejado,
+                    p2.img AS imgProdutoUser,
+                    p1.fk_categoria AS categoriaProdutoDesejado,
+                    p2.fk_categoria AS categoriaProdutoUser
+                FROM troca t
+                INNER JOIN produtos p1 ON p1.id = t.idProdDesejado
+                INNER JOIN produtos p2 ON p2.id = t.idProdUser
+                WHERE t.idUserDesejado = :idUser
+                  AND t.status = 0;
+            ");
+            $stmt->bindParam(':idUser', $idUser);
+            $stmt->execute();
+            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+        }catch (\PDOException $e){
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
+                'statuscode' => 404
             ];
-            header("location: ". BASE . "/dashboard");
             exit;
         }
-        dbController::getConnection();
-        $idUser = $_SESSION['usuario_id'];
-        $nomeUsuario = $_SESSION['usuario_nome'];
+    }
 
+    public function getTrocasPendentes($idUser){
         try {
+            if(!userController::buscarUser($idUser)){
+                $_SESSION['modal']= [
+                    'msg'=>"Usuario não encontrado",
+                    'statuscode'=>401
+                ];
+                header("location: ". BASE . "/dashboard");
+                exit;
+            }
+            dbController::getConnection();
             // Consulta todos os produtos em propostas de troca feitas ao usuário logado
             $stmt = dbController::getPdo()->prepare("
-               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUserDesejado 
-                FROM troca t 
-                JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE t.idUserDesejado = :idUser 
-                AND t.status = 0;
+               SELECT 
+                    t.idProdDesejado,
+                    t.idProdUser,
+                    t.status,
+                    p1.nome AS nomeProdutoDesejado,
+                    p2.nome AS nomeProdutoUser,
+                    p1.descricao AS descricaoProdutoDesejado,
+                    p2.descricao AS descricaoProdutoUser,
+                    p1.img AS imgProdutoDesejado,
+                    p2.img AS imgProdutoUser,
+                    p1.fk_categoria AS categoriaProdutoDesejado,
+                    p2.fk_categoria AS categoriaProdutoUser
+                FROM troca t
+                INNER JOIN produtos p1 ON p1.id = t.idProdDesejado
+                INNER JOIN produtos p2 ON p2.id = t.idProdUser
+                WHERE t.idUser = :idUser
+                  AND t.status = 0;
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            $solicitacao = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+        }catch (\PDOException $e){
+            $_SESSION['modal'] = [
+                'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
+                'statuscode' => 404
+            ];
+            exit;
+        }
+    }
 
-            $stmt = dbController::getPdo()->prepare("
-               SELECT t.idProdDesejado,t.idProdUser,t.status,t.idUser 
-                FROM troca t 
-                JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE t.idUser = :idUser 
-                AND t.status = 0;
-            ");
-            $stmt->bindParam(':idUser', $idUser);
-            $stmt->execute();
-            $pendente = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+    public function getHistoricoTrocas($idUser)
+    {
+        try {
+            if(!userController::buscarUser($_SESSION['usuario_id'])){
+                $_SESSION['modal']= [
+                    'msg'=>"Usuario não encontrado",
+                    'statuscode'=>401
+                ];
+                header("location: ". BASE . "/dashboard");
+                exit;
+            }
+            dbController::getConnection();
 
+            // Consulta todos os produtos em propostas de troca feitas ao usuário logado
             $stmt = dbController::getPdo()->prepare("
                SELECT t.idProdDesejado,t.idProdUser,t.Status,t.idUser,p.img,p.nome,p.descricao 
                 FROM troca t 
@@ -285,19 +347,7 @@ class userController
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            $trocados = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
-
-            foreach (['solicitacao', 'pendente', 'trocados'] as $variavel) {
-//                $$variavel => É uma variável da váriavel.
-//                 (Exemplo: $$variavel pode ser $trocados, isso evita setar na mesma váriavel)
-                if (count($$variavel) <= 0) {
-                    $$variavel = NULL;
-                }
-            }
-
-            $resultadosSql = [$nomeUsuario, $solicitacao, $pendente, $trocados];
-            return $resultadosSql;
-
+            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
         } catch (PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
