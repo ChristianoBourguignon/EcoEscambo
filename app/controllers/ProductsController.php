@@ -25,7 +25,7 @@ class ProductsController
     public function getLimit(){
         return $this->limitsProducts[0];
     }
-    public static function contarProduts($idUser){
+    public static function contarProduts($idUser):int {
         if(!$idUser){
             $stmt = dbController::getPdo()->prepare("
                     SELECT count(*) FROM produtos p

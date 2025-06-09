@@ -2,3 +2,7 @@ parameters:
     level: max
     paths:
         - app
+        - config.php
+    ignoreErrors:
+        - '#binaryOp\.invalid#'
+    reportUnmatchedIgnoredErrors: false

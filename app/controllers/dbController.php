@@ -10,7 +10,7 @@ class dbController
     private static $password = '';
     private static $pdo;
 
-    public static function getPdo() {
+    public static function getPdo(): PDO {
         return self::$pdo;
     }
 

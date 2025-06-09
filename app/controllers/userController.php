@@ -23,42 +23,63 @@ class userController
         }
         return NULL;
     }
-    public function buscarUser($idUser): bool
+    public function buscarUser(int $idUser): bool
     {
         dbController::getConnection();
         $stmt = dbController::getPdo()->prepare("SELECT id,nome FROM users WHERE id = :idUser");
         $stmt->bindParam(':idUser', $idUser);
         $stmt->execute();
         $user = $stmt->fetch();
+        /** @var array{id: int,nome: string} $user */
         if($user != NULL){
             if($_SESSION['usuario_nome'] == $user['nome']){
                 return true;
             } else {
+                $_SESSION['modal'] = [
+                    'msg' => 'Você não tem acesso à esse conteúdo',
+                    'statuscode' => 401
+                ];
                 return false;
             }
         } else {
+            $_SESSION['modal'] = [
+                'msg' => 'Não encontrado o usuario especificado',
+                'statuscode' => 404
+            ];
+            header("location:" .BASE. "/404");
             return false;
         }
     }
-    public function getUser($idBusca, $colunaBusca = "id"): array|null {
+    /**
+     * @return array{id: int, nome: string, email: string}|mixed
+     */
+    public function getUser(int|string $idBusca, string $colunaBusca = "id"): array|false {
         try {
-            $colunasValidas = ["email","id"];
-            if(!array($colunaBusca,$colunasValidas)){
-                throw new \Exception("Coluna inválida ou inexistente: {$colunaBusca}");
+            $colunasValidas = ["email", "id"];
+            if (!in_array($colunaBusca, $colunasValidas, true)) {
+                $_SESSION['modal'] = [
+                    'msg' => "Coluna inválida",
+                    'statuscode'=>404
+                ];
+                http_response_code(404);
+                exit;
             }
-            $stmt = dbController::getPdo()->prepare("SELECT id,nome,email FROM users where {$colunaBusca} = :email LIMIT 1");
-            $stmt->bindParam(":email", $idBusca);
+            $stmt = dbController::getPdo()->prepare(
+                "SELECT id, nome, email FROM users WHERE {$colunaBusca} = :valor LIMIT 1"
+            );
+            $stmt->bindParam(":valor", $idBusca);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (\Exception $e){
             $_SESSION['modal'] = [
-                'msg' => "Erro ao buscar o usuario:".$e->getMessage(),
+                'msg' => "Erro ao buscar o usuário: " . $e->getMessage(),
                 'statuscode' => 404
             ];
-            header("location: ". BASE . '/404');
+            header("location: " . BASE . '/404');
             exit;
         }
     }
+
 
     public function criarConta(): void{
         $nome = filter_input(INPUT_POST, 'nome',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -190,14 +211,7 @@ class userController
     public function meusProdutos($idUser)
     {
         try {
-            if(!userController::buscarUser($idUser)){
-                $_SESSION['modal']= [
-                    'msg'=>"Usuario não encontrado",
-                    'statuscode'=>401
-                ];
-                header("location: ". BASE . "/dashboard");
-                exit;
-            }
+            userController::buscarUser($idUser);
             dbController::getConnection();
             $stmt = dbController::getPdo()->prepare("
                 SELECT * FROM produtos p
