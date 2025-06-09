@@ -2,7 +2,7 @@
 
 use app\controllers\ProductsController;
 
-function load(string $controller, string $action)
+function load(string $controller, string $action):mixed
 {
     try {
         // se controller existe
@@ -20,10 +20,11 @@ function load(string $controller, string $action)
             );
         }
 
-        $controllerInstance->$action((object) $_REQUEST);
+        return $controllerInstance->$action((object) $_REQUEST);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
+    return NULL;
 }
 
 $router = [
@@ -60,6 +61,18 @@ $router = [
             exit;
         },
         "/EcoEscambo/buscarProdutos" => function(){
+            if (
+                !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
+                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
+            ) {
+                http_response_code(403);
+                $_SESSION['modal'] = [
+                    'msg' => "Sem acesso a esse conteúdo",
+                    'statuscode' => 403
+                ];
+                header("location:" . BASE . "/404");
+                exit;
+            }
             header('Content-Type: application/json');
             $offset = filter_input(INPUT_GET,'offset',FILTER_SANITIZE_NUMBER_INT);
             $idUser = filter_input(INPUT_GET,'idUser',FILTER_SANITIZE_NUMBER_INT);
