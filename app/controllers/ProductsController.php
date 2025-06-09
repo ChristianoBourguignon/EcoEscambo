@@ -96,7 +96,7 @@ class ProductsController
             }
             if(!$idUser){
                 $stmt = dbController::getPdo()->prepare("
-                    SELECT * FROM produtos p
+                    SELECT id, nome, descricao, img,fk_categoria FROM produtos p
                         WHERE (
                             EXISTS (
                                 SELECT 1 
@@ -121,7 +121,7 @@ class ProductsController
                     ");
             } else {
                 $stmt = dbController::getPdo()->prepare("
-                    SELECT * FROM produtos p
+                    SELECT id,img,nome,descricao,fk_categoria FROM produtos p
                         WHERE p.idUser != :idUser AND
                               (
                             EXISTS (
