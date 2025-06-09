@@ -1,3 +1,9 @@
+<?php
+if(session_status() === PHP_SESSION_NONE){
+    session_start();
+}
+/** @var string $nomeUsuario */
+?>
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
         <!-- Logo -->
@@ -52,23 +58,23 @@
                     </div>
                     <div class="list-group">
                         <div class="list-group-item disabled">Páginas</div>
-                        <a class="list-group-item list-group-item-action" href="index.php">Início</a>
-                        <a class="list-group-item list-group-item-action" href="produtos.php">Produtos</a>
-                        <a class="list-group-item list-group-item-action" href="sobre.php">Sobre nós</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>">Início</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/produtos">Produtos</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/sobre">Sobre nós</a>
 
                         <div class="list-group-item disabled mt-3">Minha Conta</div>
-                        <a class="list-group-item list-group-item-action" href="dashboard.php">Meu Inventário</a>
-                        <a class="list-group-item list-group-item-action" href="trocas.php">Minhas Trocas</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/dashboard">Meu Inventário</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/trocas">Minhas Trocas</a>
                         <a class="list-group-item list-group-item-action" href="#cadastroProdutosModal" data-bs-toggle="modal" data-bs-target="#cadastroProdutosModal">Cadastrar Produto</a>
 
-                        <a class="list-group-item list-group-item-action text-danger mt-3" href="backend/logout.php">Sair</a>
+                        <a class="list-group-item list-group-item-action text-danger mt-3" href="<?= BASE ?>/deslogar">Sair</a>
                     </div>
                 <?php else: ?>
                     <div class="list-group">
                         <div class="list-group-item disabled ">Páginas</div>
-                        <a class="list-group-item list-group-item-action" href="index.php">Início</a>
-                        <a class="list-group-item list-group-item-action" href="produtos.php">Produtos</a>
-                        <a class="list-group-item list-group-item-action" href="sobre.php">Sobre nós</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>">Início</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/produtos">Produtos</a>
+                        <a class="list-group-item list-group-item-action" href="<?= BASE ?>/sobre">Sobre nós</a>
                         <a class="btn btn-outline-dark w-100 mt-3" href="#perfilModal" data-bs-toggle="modal" data-bs-target="#perfilModal">Entrar / Cadastrar</a>
                     </div>
                 <?php endif; ?>

@@ -1,23 +1,10 @@
 <?php
-namespace app\controllers;
-
-if (isset($_SESSION['usuario_id'])) {
-    $pdo = dbController::getConnection();
-    $idUser = $_SESSION['usuario_id'];
+if(session_status() === PHP_SESSION_NONE){
+    session_start();
 }
-try {
-    $stmt = $pdo->prepare("SELECT * FROM produtos WHERE idUser = :idUser");
-    $stmt->bindParam(':idUser', $idUser);
-    $stmt->execute();
-    $produtos = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
-} catch (PDOException $e) {
-    $_SESSION['modal'] = [
-        'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),
-        'statuscode' => 404
-    ];
-    header("location: ". BASE . "/produtos");
-    exit;
-}
+$idUser = $_SESSION['usuario_id'] ?? NULL;
+$produtos = (new app\controllers\userController)->meusProdutos($idUser);
+/** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
 ?>
 
 <!-- Modal para Selecionar Produto -->
@@ -40,6 +27,7 @@ try {
                                      data-img="<?= $produto['img'] ?>">
                                     <img src="<?= $produto['img'] ?>" class="card-img-top img-prod" alt="<?= htmlspecialchars($produto['nome']) ?>">
                                     <div class="card-body">
+                                        <p class="condition font-monospace"><?= htmlspecialchars($produto['fk_categoria']) ?></p>
                                         <h6 class="card-title"><?= htmlspecialchars($produto['nome']) ?></h6>
                                         <p class="card-text"><?= htmlspecialchars($produto['descricao']) ?></p>
                                     </div>
