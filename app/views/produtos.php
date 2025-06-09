@@ -12,15 +12,9 @@ if(session_status() === PHP_SESSION_NONE){
     session_start();
 }
 $idUser = $_SESSION['usuario_id'] ?? NULL;
-if((new userController)->buscarUser($idUser)){
-    $produtos = (new ProductsController)->buscarProdutos($idUser);
-    $totalPaginas = ProductsController::contarProduts($idUser);
-    $limit = (new ProductsController)->getLimit();
-} else {
-    $produtos = NULL;
-    $totalPaginas = NULL;
-    $limit = NULL;
-}
+$produtos = (new ProductsController)->buscarProdutos($idUser);
+$totalPaginas = ProductsController::contarProduts($idUser);
+$limit = (new ProductsController)->getLimit();
 /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
 /** @var int $totalPaginas */
 /** @var int $limit */

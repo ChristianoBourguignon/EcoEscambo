@@ -1,7 +1,5 @@
 <?php
 namespace app\controllers;
-use app\controllers\Controller;
-use http\Header;
 use PDO;
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -10,19 +8,20 @@ if (session_status() === PHP_SESSION_NONE) {
 
 class userController
 {
-    public function index()
+    public function index(): void
     {
         Controller::view("dashboard");
     }
 
-    public function trocas()
+    public function trocas(): void
     {
         Controller::view("trocas");
     }
-    public static function getNome($idUser): String{
-        if(isset($idUser)){
+    public static function getNome(int|null $idUser): String|null {
+        if(($idUser != NULL) && (is_string($_SESSION['usuario_nome']))){
             return $_SESSION['usuario_nome'];
         }
+        return NULL;
     }
     public function buscarUser($idUser): bool
     {
@@ -31,7 +30,7 @@ class userController
         $stmt->bindParam(':idUser', $idUser);
         $stmt->execute();
         $user = $stmt->fetch();
-        if(count($user) > 0){
+        if($user != NULL){
             if($_SESSION['usuario_nome'] == $user['nome']){
                 return true;
             } else {
@@ -41,7 +40,7 @@ class userController
             return false;
         }
     }
-    public function getUser($idBusca, $colunaBusca = "id"){
+    public function getUser($idBusca, $colunaBusca = "id"): array|null {
         try {
             $colunasValidas = ["email","id"];
             if(!array($colunaBusca,$colunasValidas)){
@@ -61,7 +60,7 @@ class userController
         }
     }
 
-    public function criarConta(){
+    public function criarConta(): void{
         $nome = filter_input(INPUT_POST, 'nome',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, 'email',FILTER_SANITIZE_EMAIL);
         $senha = filter_input(INPUT_POST, 'senha');
