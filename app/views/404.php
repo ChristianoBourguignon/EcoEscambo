@@ -1,4 +1,7 @@
 <?php
+use League\Plates;
+/** @var Plates\Template\Template $this */
+
 $this->layout("master", [
     'title' => "Pagina não encontrada",
     'description' => "Página não encontrada, ou você não tem acesso."

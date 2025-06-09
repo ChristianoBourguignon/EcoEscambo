@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
-use app\controllers\dbController;
+use League\Plates;
+
+/** @var Plates\Template\Template $this */
 
 $this->layout("master", [
     'title' => "Minhas Trocas",
@@ -8,9 +10,14 @@ $this->layout("master", [
 ]);
 
 $resultados = (new userController )->consultarTrocas();
+/** @var array<int,String,mixed> $resultados */
 $solicitacao = $resultados[1];
 $pendente = $resultados[2];
 $trocados = $resultados[3];
+/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $solicitacao */
+/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $pendente */
+/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $trocados */
+
 ?>
 
 <?php $this->start('body'); ?>

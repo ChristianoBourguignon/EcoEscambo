@@ -1,4 +1,7 @@
-<?php $this->layout("master", [
+<?php
+use League\Plates;
+/** @var Plates\Template\Template $this */
+$this->layout("master", [
     'title' => "Bem vindo",
     'description' => "Bem vindo a EcoEscambo, onde você pode oferecer um produto que você deseja jogar fora em um outro produto totalmente útil!"
 ]); ?>

@@ -1,17 +1,24 @@
 <?php
 
 use app\controllers\MessagesController;
+use League\Plates;
+
+/** @var Plates\Template\Template $this */
+/** @var string $description */
+/** @var string $title */
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 $nomeUsuario = $_SESSION['usuario_nome'] ?? null;
 $idUser = $_SESSION['usuario_id'] ?? null;
-
 if (isset($_SESSION['modal'])) {
+    /** @var array{msg: string, statuscode: int} $modalData */
+    $modalData = $_SESSION['modal'];
     $modal = (new MessagesController());
-    $modal->mensagemCadastroProduto($_SESSION['modal']['msg'], $_SESSION['modal']['statuscode']);
+    $modal->mensagemCadastroProduto($modalData['msg'], $modalData['statuscode']);
     unset($_SESSION['modal']);
+    $modalData = Null;
 }
 ?>
     <!DOCTYPE html>

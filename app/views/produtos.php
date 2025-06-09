@@ -1,16 +1,29 @@
 <?php
 
 namespace app\controllers;
+use League\Plates;
 
+/** @var Plates\Template\Template $this */
 $this->layout("master", [
     'title' => "Produtos",
     'description' => "Aqui você encontrará todos os produtos disponível para realizar uma troca, tendo total liberdade de escolha."
 ]);
-session_start();
+if(session_status() === PHP_SESSION_NONE){
+    session_start();
+}
 $idUser = $_SESSION['usuario_id'] ?? NULL;
-
-$produtos = (new ProductsController)->buscarProdutos($idUser);
-$totalPaginas = ProductsController::contarProduts($idUser);
+if((new userController)->buscarUser($idUser)){
+    $produtos = (new ProductsController)->buscarProdutos($idUser);
+    $totalPaginas = ProductsController::contarProduts($idUser);
+    $limit = (new ProductsController)->getLimit();
+} else {
+    $produtos = NULL;
+    $totalPaginas = NULL;
+    $limit = NULL;
+}
+/** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
+/** @var int $totalPaginas */
+/** @var int $limit */
 include_once("app/static/js/filter.php");
 ?>
 <?php $this->start('body'); ?>
@@ -21,7 +34,7 @@ include_once("app/static/js/filter.php");
     <section class="produtos-categoria">
         <h3>Todos os Itens</h3>
         <div class="produtos-lista">
-            <?php if (count($produtos) > 0): ?>
+            <?php if ($totalPaginas > 0): ?>
                 <?php foreach ($produtos as $produto): ?>
                     <div class="product" style="position: relative; width: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s; text-align: center; overflow: visible; z-index: 1; background-color: #fff;">
                         <img src="<?= htmlspecialchars($produto['img']) ?>"  class="img-prod" alt="<?= htmlspecialchars($produto['nome']) ?>">
@@ -52,8 +65,8 @@ include_once("app/static/js/filter.php");
     </div>
 </main>
 <script>
-    let totalPaginas = <?php echo $totalPaginas ?>;
-    const limit = <?= (new ProductsController)->getLimit(); ?>;
+    let totalPaginas = parseInt(<?= $totalPaginas ?>);
+    const limit = parseInt(<?= $limit ?>);
     let offset = 10;
     $("#moreProducts").off("click").on("click", function () {
         $.ajax({
@@ -106,6 +119,6 @@ require_once("app/models/modalPerfil.php");
 require_once("app/models/modalCadastrarProdutos.php");
 require_once("app/models/modalTrocarProduto.php");
 ?>
-<?php $this->stop(); ?>
+<?php $this->stop();
 
 

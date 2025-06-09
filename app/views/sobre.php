@@ -1,4 +1,8 @@
-<?php $this->layout("master", [
+
+<?php
+use League\Plates;
+/** @var Plates\Template\Template $this */
+$this->layout("master", [
     'title' => "Página Principal",
     'description' => "Index da Pagina da Principal"
 ]); ?>
