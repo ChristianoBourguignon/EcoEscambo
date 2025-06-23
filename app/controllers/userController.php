@@ -208,7 +208,7 @@ class userController
         header("location:" . BASE);
     }
 
-    public function meusProdutos($idUser)
+    public function meusProdutos(int $idUser): array
     {
         try {
             userController::buscarUser($idUser);
@@ -239,9 +239,7 @@ class userController
             );
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            $produtos = $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
-
-            return $produtos;
+            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
         } catch (PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),

@@ -5,7 +5,7 @@ use app\controllers\Controller;
 
 class AboutController
 {
-    public function index()
+    public function index(): void
     {
 
         Controller::view("sobre");

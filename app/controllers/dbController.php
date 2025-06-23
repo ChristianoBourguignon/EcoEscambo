@@ -2,21 +2,21 @@
 
 namespace app\controllers;
 use PDO;
+use PDOException;
 class dbController
 {
-    private static $host = 'localhost';
-    private static $dbname = 'ecoescambo';
-    private static $username = 'root';
-    private static $password = '';
-    private static $pdo;
+    private static String $host = 'localhost';
+    private static String $dbname = 'ecoescambo';
+    private static String $username = 'root';
+    private static String $password = '';
+    private static PDO $pdo;
 
     public static function getPdo(): PDO {
         return self::$pdo;
     }
 
-    public static function getConnection()
+    public static function getConnection(): PDO
     {
-        if (!self::$pdo) {
             try {
                 // Conecta ao servidor para criar o banco, se necessário
                 $pdoTemp = new PDO("mysql:host=" . self::$host, self::$username, self::$password);
@@ -86,8 +86,6 @@ class dbController
                 ];
                 header("location: " . BASE);
             }
-        }
-
         return self::$pdo;
     }
 }

@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/userController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/userController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpstan.neon" beforeDir="false" afterPath="$PROJECT_DIR$/phpstan.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/AboutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/AboutController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/MessagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/MessagesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/ProductsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/dbController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/dbController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +94,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "fixErrors",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "J:/Projetos/EcoEscambo",
+    "last_opened_file_path": "J:/Projetos/Projetos Java",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -212,6 +217,14 @@
       <workItem from="1749228248413" duration="1627000" />
       <workItem from="1749263554249" duration="836000" />
       <workItem from="1749484023880" duration="13596000" />
+      <workItem from="1749498582705" duration="7798000" />
+      <workItem from="1749510715703" duration="461000" />
+      <workItem from="1749652726003" duration="3460000" />
+      <workItem from="1749894832519" duration="687000" />
+      <workItem from="1750088362439" duration="151000" />
+      <workItem from="1750124354882" duration="43000" />
+      <workItem from="1750465471076" duration="3733000" />
+      <workItem from="1750470010760" duration="18000" />
     </task>
     <servers />
   </component>

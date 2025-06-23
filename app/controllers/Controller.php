@@ -5,7 +5,10 @@ use League\Plates\Engine;
 
 class Controller
 {
-    public static function view(string $view, array $data = [])
+    /**
+     * @param array<string, mixed> $data
+     */
+    public static function view(string $view, array $data = []): void
     {
         try {
             $viewsPath = dirname(__FILE__, 2) . "/views";

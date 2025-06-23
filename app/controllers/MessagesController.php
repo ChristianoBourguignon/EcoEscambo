@@ -4,17 +4,22 @@ namespace app\controllers;
 
 class MessagesController
 {
-    private $msg;
-    private $statuscode;
+    private String $msg;
+    private int $statuscode;
+    /** @var array<string, string> */
     private array $configStatusCode;
 
-    public function setMensagesController(String $msg, int $statuscode){
+    public function setMensagesController(String $msg, int $statuscode): void
+    {
         $this->msg = $msg;
         $this->statuscode = $statuscode;
         $this->configStatusCode = $this->configStatusCode($statuscode);
     }
 
-    public function configStatusCode(int $code){
+    /**
+     * @return array<string, string>
+     */
+    public function configStatusCode(int $code): array{
         switch ($code) {
             case 404:
                 return [
@@ -61,7 +66,7 @@ class MessagesController
         }
     }
 
-    public  function mensagemCadastroProduto(String $msg, int $statusCode)
+    public function mensagemCadastroProduto(String $msg, int $statusCode): void
     {
         $this->setMensagesController($msg,$statusCode);
         echo "
@@ -69,11 +74,11 @@ class MessagesController
             <div class=\"modal-dialog modal-dialog-centered\">
                 <div class=\"modal-content {$this->configStatusCode['bg']} text-white\">
                     <div class=\"modal-header\">
-                        <h5 class=\"modal-title\">{$this->configStatusCode['title']}</h5>
+                        <h5 class=\"modal-title\" id='{$this->statuscode}'>{$this->configStatusCode['title']}</h5>
                         <button type=\"button\" class=\"btn-close btn-close-white\" data-bs-dismiss=\"modal\"></button>
                     </div>
                     <div class=\"modal-body\">
-                        {$msg}
+                        {$this->msg}
                     </div>
                 </div>
             </div>

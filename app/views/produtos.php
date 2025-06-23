@@ -13,7 +13,7 @@ if(session_status() === PHP_SESSION_NONE){
 }
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 $produtos = (new ProductsController)->buscarProdutos($idUser);
-$totalPaginas = ProductsController::contarProduts($idUser);
+$totalPaginas = ProductsController::contarProdutos($idUser);
 $limit = (new ProductsController)->getLimit();
 /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
 /** @var int $totalPaginas */
@@ -99,8 +99,11 @@ include_once("app/static/js/filter.php");
                     $("#moreProducts").prop("disabled", true).text("Todos os produtos carregados");
                 }
             },
-            error: function () {
-                console.log("Erro ao carregar produtos.");
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Erro ao carregar produtos: " + errorThrown);
+                console.error("Status:", textStatus);
+                console.error("Erro:", errorThrown);
+                console.error("Detalhes:", jqXHR.responseText);
             }
         });
     });
