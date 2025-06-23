@@ -10,12 +10,11 @@
             <select class="form-select" id="categoria" name="categoria">
                 <option value="" selected>Selecione uma opção</option>
                 <?php
-                if(is_array($categorias)){
                     foreach ($categorias as $cat):
                         /** @var array{nome:string} $cat */
                 ?>
                     <option value="<?= $cat['nome'] ?>"><?= $cat['nome'] ?></option>
-                <?php endforeach;} ?>
+                <?php endforeach; ?>
             </select>
         </div>
         <div class="col-md-2 mb-3 d-grid">

@@ -92,14 +92,17 @@ class ProductsController
     }
 
     /**
-     * @return array<int, array<string, mixed>>
+     * @return array<int, array{nome: string}>
      */
     public static function getCategorias(): array
     {
         dbController::getConnection();
         $stmt = dbController::getPdo()->prepare("SELECT nome FROM categorias");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        /** @var array<int, array{nome: string}> $result */
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**
@@ -164,7 +167,9 @@ class ProductsController
                 $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
             }
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
+            $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $produtos;
         } catch (PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' => 'Erro ao buscar os produtos: ' . $e->getMessage(),
@@ -175,23 +180,27 @@ class ProductsController
     }
 
     /**
-     * @return array<string, string>|false
+     * @return array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}>|false
      */
     public function getProduto(int $idProd): array|false
     {
-        if (!(new userController())->buscarUser((int)$_SESSION['usuario_id'])) {
-            return false;
-        }
+        $idUser = filter_var($_SESSION['usuario_id'] ?? null, FILTER_VALIDATE_INT);
+        if ($idUser === false || !(new userController())->buscarUser($idUser)) { return false; }
+
         dbController::getConnection();
         $stmt = dbController::getPdo()->prepare("SELECT img FROM produtos WHERE id = :idProd");
         $stmt->bindParam(':idProd', $idProd, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
+        $produtos = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $produtos;
     }
 
     public function cadastrarProdutos(): void
     {
-        if (!(new userController())->buscarUser((int)$_SESSION['usuario_id'])) {
+        $idUser = filter_var($_SESSION['usuario_id'] ?? null, FILTER_VALIDATE_INT);
+        if ($idUser === false || !(new userController())->buscarUser($idUser)) {
             $_SESSION['modal'] = [
                 'msg' => 'Você precisa logar para acessar esse conteúdo',
                 'statuscode' => 401
@@ -200,31 +209,39 @@ class ProductsController
             exit;
         }
         dbController::getConnection();
+        /** @var string $prodName */
         $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         $prodCat = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         if (!in_array($prodCat, $this->allowedCat)) {
             $_SESSION['modal'] = [
-                'msg' => "Erro ao cadastrar o Produto $prodName: Categoria não permitida ou inválida.",
+                'msg' => "Erro ao cadastrar o Produto {$prodName}: Categoria não permitida ou inválida.",
                 'statuscode' => 404
             ];
             header("Location: " . BASE . "/produtos");
             exit;
         }
-        $idUser = (int)$_SESSION['usuario_id'];
+        $idUser = $_SESSION['usuario_id'];
+        if ($idUser === false){return;}
         $image = null;
 
         if (!is_dir($this->uploadDir)) {
             mkdir($this->uploadDir, 0755, true);
         }
 
-        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-            $imgTempPath = $_FILES['imagem']['tmp_name'];
-            $nameImg = $_FILES['imagem']['name'];
+        if (
+            isset($_FILES['imagem']) &&
+            is_array($_FILES['imagem']) &&
+            $_FILES['imagem']['error'] === UPLOAD_ERR_OK
+        ) {
+            /** @var array{tmp_name: string, name: string, error: int} $imagem */
+            $imagem = $_FILES['imagem'];
+            $imgTempPath = $imagem['tmp_name'];
+            $nameImg = $imagem['name'];
             $extension = strtolower(pathinfo($nameImg, PATHINFO_EXTENSION));
             if (!in_array($extension, $this->allowedExtensionImg)) {
                 $_SESSION['modal'] = [
-                    'msg' => "Erro ao cadastrar o Produto $prodName: Imagem não permitida. Envie apenas JPG, PNG e JPEG",
+                    'msg' => sprintf("Erro ao cadastrar o Produto %s: Categoria não permitida ou inválida.", $prodName),
                     'statuscode' => 404
                 ];
                 header("Location: " . BASE . "/produtos");
@@ -259,7 +276,10 @@ class ProductsController
 
     public function alterarProduto(): void
     {
-        if (!(new userController())->buscarUser((int)$_SESSION['usuario_id'])) {
+        /** @var int $idUser */
+        $idUser = $_SESSION['usuario_id'];
+
+        if (!(new userController())->buscarUser($idUser)) {
             $_SESSION['modal'] = [
                 'msg' => 'Você precisa logar para acessar esse conteúdo',
                 'statuscode' => 401
@@ -270,12 +290,13 @@ class ProductsController
 
         dbController::getConnection();
         $idProd = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT) ?: 0;
+        /** @var string $prodName */
         $prodName = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         $prodDesc = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         $prodCat = filter_input(INPUT_POST, 'categoria', FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?: '';
         if (!in_array($prodCat, $this->allowedCat)) {
             $_SESSION['modal'] = [
-                'msg' => "Erro ao alterar o Produto $prodName: Categoria não permitida ou inválida.",
+                'msg' => sprintf("Erro ao alterar o Produto %s: Categoria não permitida ou inválida.",$prodName),
                 'statuscode' => 404
             ];
             header("Location: " . BASE . "/produtos");
@@ -286,14 +307,19 @@ class ProductsController
             if (!is_dir($this->uploadDir)) {
                 mkdir($this->uploadDir, 0755, true);
             }
-            $image = null;
-            if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-                $imgTempPath = $_FILES['imagem']['tmp_name'];
-                $nameImg = $_FILES['imagem']['name'];
+            if (
+                isset($_FILES['imagem']) &&
+                is_array($_FILES['imagem']) &&
+                $_FILES['imagem']['error'] === UPLOAD_ERR_OK
+            ) {
+                /** @var array{tmp_name: string, name: string, error: int} $imagem */
+                $imagem = $_FILES['imagem'];
+                $imgTempPath = $imagem['tmp_name'];
+                $nameImg = $imagem['name'];
                 $extension = strtolower(pathinfo($nameImg, PATHINFO_EXTENSION));
                 if (!in_array($extension, $this->allowedExtensionImg)) {
                     $_SESSION['modal'] = [
-                        'msg' => "Erro ao alterar o Produto $prodName: Imagem não permitida. Envie apenas JPG, PNG e JPEG",
+                        'msg' => sprintf("Erro ao alterar o Produto %s: Imagem não permitida. Envie apenas JPG, PNG e JPEG",$prodName),
                         'statuscode' => 404
                     ];
                     header("Location: " . BASE . "/produtos");
@@ -305,9 +331,13 @@ class ProductsController
 
                 if (move_uploaded_file($imgTempPath, $imgPath)) {
                     $image = $this->uploadDir . $newNameImg;
+
+                    /** @var array<string, array{img: string}> $prod */
                     $prod = $this->getProduto((int)$idProd);
-                    if (is_array($prod) && isset($prod['img'])) {
+                    if (isset($prod['img'])) {
                         $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
+
+                        /** @var String $caminhoAbsoluto */
                         $caminhoAbsoluto = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . $caminhoRelativo;
                         if (file_exists($caminhoAbsoluto)) {
                             unlink($caminhoAbsoluto);
@@ -330,7 +360,7 @@ class ProductsController
                 $stmt->execute();
             }
             $_SESSION['modal'] = [
-                'msg' => "Produto: $prodName alterado com sucesso",
+                'msg' => "Produto alterado com sucesso",
                 'statuscode' => 200
             ];
             header("Location: " . BASE . "/dashboard");
@@ -345,7 +375,9 @@ class ProductsController
 
     public function excluirProduto(): void
     {
-        if (!(new userController())->buscarUser((int)$_SESSION['usuario_id'])) {
+        /** @var int $idUser */
+        $idUser = $_SESSION['usuario_id'] ?? 0;
+        if (!(new userController())->buscarUser($idUser)) {
             $_SESSION['modal'] = [
                 'msg' => 'Você precisa logar para acessar esse conteúdo',
                 'statuscode' => 401
@@ -360,9 +392,12 @@ class ProductsController
             $stmt = dbController::getPdo()->prepare("SELECT img FROM produtos WHERE id = :idProd");
             $stmt->bindParam(':idProd', $idProd, PDO::PARAM_INT);
             $stmt->execute();
+            /** @var array<string, array{img: string}> $prod */
             $prod = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (is_array($prod) && isset($prod['img'])) {
+            if (isset($prod['img'])) {
                 $caminhoRelativo = str_replace('/', DIRECTORY_SEPARATOR, $prod['img']);
+
+                /** @var string $caminhoAbsoluto */
                 $caminhoAbsoluto = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . $caminhoRelativo;
                 if (file_exists($caminhoAbsoluto)) {
                     unlink($caminhoAbsoluto);

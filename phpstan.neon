@@ -4,5 +4,5 @@ parameters:
         - app
         - config.php
     ignoreErrors:
-        - '#binaryOp\.invalid#'
+        - '#Binary operation .+ between .+ and .+ results in an error#'
     reportUnmatchedIgnoredErrors: false
