@@ -167,7 +167,7 @@ $nomeUsuario = userController::getNome($idUser);
                     <!-- Botões e dados escondidos -->
                     <div class="row mt-3">
                         <div class="col text-center">
-                            <?php if(($ht['status'] == 1)): ?>
+                            <?php if(($ht['Status'] == 1)): ?>
                             <button type="submit" value="aceito" class="btn btn-success me-2">Troca Confirmada</button>
                             <?php else: ?>
                             <button type="submit" value="rejeitado" class="btn btn-danger">Troca Rejeitada/Cancelada</button>
