@@ -69,6 +69,7 @@ if (isset($_SESSION['modal'])) {
         include_once("app/models/modalCadastrarProdutos.php");
         include_once("app/models/modalAlterarProduto.php");
         }
+        include_once("app/static/js/filter.php");
     ?>
     </body>
 </html>

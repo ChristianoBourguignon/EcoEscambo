@@ -19,7 +19,6 @@
         </div>
         <div class="col-md-2 mb-3 d-grid">
             <button type="submit" id="filtrar" class="btn btn-primary">
-                <i class="bi bi-filter"></i> Filtrar
             </button>
         </div>
     </div>

@@ -17,7 +17,6 @@ $produtos = (new ProductsController)->buscarProdutos($idUser);
 $totalPaginas = ProductsController::contarProdutos($idUser);
 $limit = (new ProductsController)->getLimit();
 /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
-include_once("app/static/js/filter.php");
 ?>
 <?php $this->start('body'); ?>
 
@@ -113,7 +112,6 @@ include_once("app/static/js/filter.php");
 require_once("app/models/modalPerfil.php");
 require_once("app/models/modalCadastrarProdutos.php");
 require_once("app/models/modalTrocarProduto.php");
+require_once("../static/js/filter.php");
 ?>
 <?php $this->stop();
-
-
