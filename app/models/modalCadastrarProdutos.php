@@ -21,12 +21,11 @@
                         <label for="categoria" class="form-label">Categorias para o produto: </label>
                         <select class="form-select" id="categoria" name="categoria" required>
                             <?php
-                            if(is_array($categorias)){
                                 foreach ($categorias as $cat):
                                     /** @var array{nome:string} $cat */
                                     ?>
                                     <option value="<?= $cat['nome'] ?>"><?= $cat['nome'] ?></option>
-                                <?php endforeach;} ?>
+                                <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">

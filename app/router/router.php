@@ -61,9 +61,11 @@ $router = [
             exit;
         },
         "/EcoEscambo/buscarProdutos" => function(){
+                /** @var string  $httprequest */
+                $httprequest = $_SERVER['HTTP_X_REQUESTED_WITH'] ?? "";
             if (
                 !isset($_SERVER['HTTP_X_REQUESTED_WITH']) ||
-                strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest'
+                strtolower($httprequest) !== 'xmlhttprequest'
             ) {
                 http_response_code(403);
                 $_SESSION['modal'] = [
@@ -74,8 +76,10 @@ $router = [
                 exit;
             }
             header('Content-Type: application/json');
-            $offset = filter_input(INPUT_GET,'offset',FILTER_SANITIZE_NUMBER_INT);
-            $idUser = filter_input(INPUT_GET,'idUser',FILTER_SANITIZE_NUMBER_INT);
+            /** @var int $offset */
+            $offset = filter_input(INPUT_GET,'offset',FILTER_SANITIZE_NUMBER_INT) ?? 0;
+            /** @var int|null $idUser */
+            $idUser = filter_input(INPUT_GET,'idUser',FILTER_SANITIZE_NUMBER_INT) ?? NULL;
             if(!$idUser){
                 $idUser = NULL;
             }

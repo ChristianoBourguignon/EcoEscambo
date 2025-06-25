@@ -10,7 +10,7 @@ $this->layout("master", [
     'title' => "Meu Inventário",
     'description' => "Aqui você encontrará todos os produtos cadastrados por você"
 ]);
-/** @var array<int, array<int,mixed>> $produtos */
+/** @var int $idUser */
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 $produtos = (new userController)->meusProdutos($idUser);
 
@@ -24,9 +24,6 @@ $produtos = (new userController)->meusProdutos($idUser);
     <div class="produtos-lista" style="display: flex; flex-wrap: wrap; gap: 20px; position: relative; overflow: visible;">
         <?php if (is_array($produtos)): ?>
             <?php foreach ($produtos as $produto):
-
-                /** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $produto */
-
                 ?>
                 <div class="product" style="position: relative; width: 200px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; transition: all 0.3s; text-align: center; overflow: visible; z-index: 1; background-color: #fff;">
                     <img src="<?= htmlspecialchars($produto['img']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">

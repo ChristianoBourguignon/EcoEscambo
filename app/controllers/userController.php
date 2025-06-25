@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
+use Exception;
 use PDO;
+use PDOException;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -17,11 +19,12 @@ class userController
     {
         Controller::view("trocas");
     }
-    public static function getNome(int|null $idUser): String|null {
+    public static function getNome(int $idUser): String {
         if(($idUser != NULL) && (is_string($_SESSION['usuario_nome']))){
             return $_SESSION['usuario_nome'];
+        } else {
+            return "";
         }
-        return NULL;
     }
     public function buscarUser(int $idUser): bool
     {
@@ -51,9 +54,9 @@ class userController
         }
     }
     /**
-     * @return array{id: int, nome: string, email: string}|mixed
+     * @return array{id: int, nome: string, email: string}|false
      */
-    public function getUser(int|string $idBusca, string $colunaBusca = "id"): array|false {
+    public function getUser(string $idBusca, string $colunaBusca = "id"): array|false {
         try {
             $colunasValidas = ["email", "id"];
             if (!in_array($colunaBusca, $colunasValidas, true)) {
@@ -69,8 +72,11 @@ class userController
             );
             $stmt->bindParam(":valor", $idBusca);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (\Exception $e){
+            /** @var array{id: int, nome: string, email: string}|false $result */
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+
+        } catch (Exception $e){
             $_SESSION['modal'] = [
                 'msg' => "Erro ao buscar o usuário: " . $e->getMessage(),
                 'statuscode' => 404
@@ -83,6 +89,7 @@ class userController
 
     public function criarConta(): void{
         $nome = filter_input(INPUT_POST, 'nome',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        /** @var string $email */
         $email = filter_input(INPUT_POST, 'email',FILTER_SANITIZE_EMAIL);
         $senha = filter_input(INPUT_POST, 'senha');
         if(empty($nome) || empty($email) || empty($senha)){
@@ -113,7 +120,13 @@ class userController
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":senha", $senha);
             $stmt->execute();
+            if (!is_string($email)) {
+                throw new Exception("Email inválido ou não fornecido.");
+            }
             $user = userController::getUser($email,"email");
+            if ($user === false) {
+                throw new Exception("Usuário não encontrado.");
+            }
             $_SESSION['usuario_id'] = $user['id'];
             $_SESSION['usuario_nome'] = $user['nome'];
             $_SESSION['modal'] = [
@@ -122,7 +135,7 @@ class userController
             ];
             header("location: ". BASE . "/dashboard");
             exit;
-        } catch (\Exception $e){
+        } catch (Exception $e){
             $_SESSION['modal'] = [
                 'msg' => "Erro ao criar uma conta",
                 'statuscode' => 404
@@ -132,7 +145,7 @@ class userController
         }
     }
 
-    public function logar()
+    public function logar():void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -151,9 +164,11 @@ class userController
                 $stmt->execute();
 
                 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($user === false) {
+                    throw new Exception("Usuário não encontrado.");
+                }
+                /** @var array{id: int, nome: string, email: string, senha: string}|false $user */
 
-                // Sem criptografia, comparação direta
-                // password_verify e password_hash -> pesquisar na documentação como se usa posteriormente
                 if ($user && password_verify($senha,$user['senha'])) {
                     $_SESSION['usuario_id'] = $user['id'];
                     $_SESSION['usuario_nome'] = $user['nome'];
@@ -172,9 +187,8 @@ class userController
                     exit;
                 }
             } catch (PDOException $e) {
-                echo "Erro de conexão: " . $e->getMessage();
-                exit;
-            } catch (\Exception $e) {
+                throw new PDOException("Erro de conexão: ". $e->getMessage());
+            } catch (Exception $e) {
                 echo "Erro na view: " . $e->getMessage();
                 exit;
             }
@@ -187,7 +201,7 @@ class userController
         }
     }
 
-    public function deslogar()
+    public function deslogar():void
     {
         // Limpa todas as variáveis de sessão
         $_SESSION = array();
@@ -195,7 +209,7 @@ class userController
         // Se estiver usando cookies de sessão, destrói também
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
+            setcookie("UserLogged", '', time() - 42000,
                 $params["path"], $params["domain"],
                 $params["secure"], $params["httponly"]
             );
@@ -207,8 +221,10 @@ class userController
         // Redireciona para a tela de login ou início
         header("location:" . BASE);
     }
-
-    public function meusProdutos(int $idUser): array
+    /**
+     * @return array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}>|false
+     */
+    public function meusProdutos(int $idUser): array|false
     {
         try {
             userController::buscarUser($idUser);
@@ -239,7 +255,9 @@ class userController
             );
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+            /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}>|false $result */
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         } catch (PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' => 'Erro ao buscar os produtos: '. $e->getMessage(),
@@ -249,7 +267,23 @@ class userController
         }
     }
 
-    public function getTrocasSolicitadas($idUser){
+    /**
+     * @return array<int, array{
+     *      idProdDesejado: int,
+     *      idProdUser: int,
+     *      status: string,
+     *      nomeProdutoDesejado: string,
+     *      nomeProdutoUser: string,
+     *      descricaoProdutoDesejado: string,
+     *      descricaoProdutoUser: string,
+     *      imgProdutoDesejado: string,
+     *      imgProdutoUser: string,
+     *      categoriaProdutoDesejado: string,
+     *      categoriaProdutoUser: string
+     *  }>|false
+     */
+    public function getTrocasSolicitadas(int $idUser): array|false
+    {
         try {
             if(!userController::buscarUser($idUser)){
                 $_SESSION['modal']= [
@@ -282,7 +316,23 @@ class userController
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+            /**
+             * @var array<int, array{
+             *     idProdDesejado: int,
+             *     idProdUser: int,
+             *     status: string,
+             *     nomeProdutoDesejado: string,
+             *     nomeProdutoUser: string,
+             *     descricaoProdutoDesejado: string,
+             *     descricaoProdutoUser: string,
+             *     imgProdutoDesejado: string,
+             *     imgProdutoUser: string,
+             *     categoriaProdutoDesejado: string,
+             *     categoriaProdutoUser: string
+             * }>|false $result
+             */
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         }catch (\PDOException $e){
             $_SESSION['modal'] = [
                 'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
@@ -292,7 +342,23 @@ class userController
         }
     }
 
-    public function getTrocasPendentes($idUser){
+    /**
+     * @return array<int, array{
+     *      idProdDesejado: int,
+     *      idProdUser: int,
+     *      status: string,
+     *      nomeProdutoDesejado: string,
+     *      nomeProdutoUser: string,
+     *      descricaoProdutoDesejado: string,
+     *      descricaoProdutoUser: string,
+     *      imgProdutoDesejado: string,
+     *      imgProdutoUser: string,
+     *      categoriaProdutoDesejado: string,
+     *      categoriaProdutoUser: string
+     *  }>|false
+     */
+    public function getTrocasPendentes(int $idUser): array|false
+    {
         try {
             if(!userController::buscarUser($idUser)){
                 $_SESSION['modal']= [
@@ -325,7 +391,23 @@ class userController
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+            /**
+             * @var array<int, array{
+             *     idProdDesejado: int,
+             *     idProdUser: int,
+             *     status: string,
+             *     nomeProdutoDesejado: string,
+             *     nomeProdutoUser: string,
+             *     descricaoProdutoDesejado: string,
+             *     descricaoProdutoUser: string,
+             *     imgProdutoDesejado: string,
+             *     imgProdutoUser: string,
+             *     categoriaProdutoDesejado: string,
+             *     categoriaProdutoUser: string
+             * }>|false $result
+             */
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         }catch (\PDOException $e){
             $_SESSION['modal'] = [
                 'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
@@ -335,10 +417,25 @@ class userController
         }
     }
 
-    public function getHistoricoTrocas($idUser)
+    /**
+     * @return array<int, array{
+     *      idProdDesejado: int,
+     *      idProdUser: int,
+     *      status: string,
+     *      nomeProdutoDesejado: string,
+     *      nomeProdutoUser: string,
+     *      descricaoProdutoDesejado: string,
+     *      descricaoProdutoUser: string,
+     *      imgProdutoDesejado: string,
+     *      imgProdutoUser: string,
+     *      categoriaProdutoDesejado: string,
+     *      categoriaProdutoUser: string
+     *  }>|false
+     */
+    public function getHistoricoTrocas(int $idUser): array|false
     {
         try {
-            if(!userController::buscarUser($_SESSION['usuario_id'])){
+            if(!userController::buscarUser($idUser)){
                 $_SESSION['modal']= [
                     'msg'=>"Usuario não encontrado",
                     'statuscode'=>401
@@ -350,15 +447,41 @@ class userController
 
             // Consulta todos os produtos em propostas de troca feitas ao usuário logado
             $stmt = dbController::getPdo()->prepare("
-               SELECT t.idProdDesejado,t.idProdUser,t.Status,t.idUser,p.img,p.nome,p.descricao 
-                FROM troca t 
-                JOIN produtos p ON p.id IN (t.idProdDesejado, t.idProdUser) 
-                WHERE (t.idUser = :idUser or t.idUserDesejado = :idUser)
-                AND (t.Status = 1 or t.Status = -1);
+               SELECT 
+                    t.idProdDesejado,
+                    t.idProdUser,
+                    t.Status,
+                    pd.img AS imgProdutoDesejado,
+                    pd.nome AS nomeProdutoDesejado,
+                    pd.descricao AS descricaoProdutoDesejado,
+                    pu.img AS imgProdutoUser,
+                    pu.nome AS nomeProdutoUser,
+                    pu.descricao AS descricaoProdutoUser
+                FROM troca t
+                JOIN produtos pd ON pd.id = t.idProdDesejado
+                JOIN produtos pu ON pu.id = t.idProdUser
+                WHERE (t.idUser = :idUser OR t.idUserDesejado = :idUser)
+                AND (t.Status = 1 OR t.Status = -1);
             ");
             $stmt->bindParam(':idUser', $idUser);
             $stmt->execute();
-            return $stmt->fetchAll(dbController::getPdo()::FETCH_ASSOC);
+            /**
+             * @var array<int, array{
+             *     idProdDesejado: int,
+             *     idProdUser: int,
+             *     status: string,
+             *     nomeProdutoDesejado: string,
+             *     nomeProdutoUser: string,
+             *     descricaoProdutoDesejado: string,
+             *     descricaoProdutoUser: string,
+             *     imgProdutoDesejado: string,
+             *     imgProdutoUser: string,
+             *     categoriaProdutoDesejado: string,
+             *     categoriaProdutoUser: string
+             * }>|false $result
+             */
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         } catch (PDOException $e) {
             $_SESSION['modal'] = [
                 'msg' =>'Erro ao consultar trocas: '. $e->getMessage(),
@@ -368,7 +491,7 @@ class userController
         }
     }
 
-    public function realizarTroca()
+    public function realizarTroca():void
     {
 
         if (!isset($_SESSION['usuario_id'])) {
@@ -473,7 +596,7 @@ class userController
         }
     }
 
-    public function solicitarTroca()
+    public function solicitarTroca():void
     {
         dbController::getConnection();
         $idProd = filter_input(INPUT_POST, 'produtoDesejadoId', FILTER_SANITIZE_NUMBER_INT);

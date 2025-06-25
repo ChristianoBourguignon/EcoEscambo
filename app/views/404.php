@@ -18,7 +18,7 @@ $idUser = $_SESSION['usuario_id'] ?? NULL;
     <a href="<?= BASE ?>" class="btn btn-outline-primary">Voltar para página Inicial</a>
 </div>
 
-<?php if ($idUser != NULL){ ?>
+<?php if ($idUser == NULL){ ?>
     <script>
     window.addEventListener('load', function () {
         const modalPerfil = document.querySelector('#perfilModal');

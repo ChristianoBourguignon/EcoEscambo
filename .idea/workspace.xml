@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="" />
+    <list default="true" id="a82422f7-ece2-4077-8f48-e17b880310a0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/userController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/userController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/modalAlterarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalAlterarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/modalCadastrarProdutos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalCadastrarProdutos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/modalSelecionarProduto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/modalSelecionarProduto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/router/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/router/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/produtos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/produtos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/trocas.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/trocas.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +95,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;fixErrors&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;J:/Projetos/Projetos Java&quot;,
+    &quot;last_opened_file_path&quot;: &quot;J:/Projetos/EcoEscambo&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -217,6 +227,8 @@
       <workItem from="1750465471076" duration="3733000" />
       <workItem from="1750470010760" duration="18000" />
       <workItem from="1750635313418" duration="8224000" />
+      <workItem from="1750768698549" duration="13092000" />
+      <workItem from="1750855455443" duration="10684000" />
     </task>
     <servers />
   </component>

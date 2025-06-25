@@ -11,13 +11,12 @@ $this->layout("master", [
 if(session_status() === PHP_SESSION_NONE){
     session_start();
 }
+/** @var int $idUser */
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 $produtos = (new ProductsController)->buscarProdutos($idUser);
 $totalPaginas = ProductsController::contarProdutos($idUser);
 $limit = (new ProductsController)->getLimit();
 /** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
-/** @var int $totalPaginas */
-/** @var int $limit */
 include_once("app/static/js/filter.php");
 ?>
 <?php $this->start('body'); ?>

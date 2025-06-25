@@ -11,15 +11,19 @@ $this->layout("master", [
 if(session_status() === PHP_SESSION_NONE){
     session_start();
 }
+/** @var int|null $idUser */
 $idUser = $_SESSION['usuario_id'] ?? NULL;
-/** @var array<int,String,mixed> $resultados */
-$solicitacao = (new userController)->getTrocasSolicitadas($idUser);
-$pendente = (new userController)->getTrocasPendentes($idUser);
-$trocados = (new userController)->getHistoricoTrocas($idUser);
+if($idUser === NULL){
+    $_SESSION['modal'] = [
+    'msg' =>'Erro ao obter dados do usuario',
+    'statuscode' => 404
+    ];
+    return;};
+$userController = (new userController());
+$solicitacao = $userController->getTrocasSolicitadas($idUser);
+$pendente = $userController->getTrocasPendentes($idUser);
+$trocados = $userController->getHistoricoTrocas($idUser);
 $nomeUsuario = userController::getNome($idUser);
-/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $solicitacao */
-/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $pendente */
-/** @var array{id: int, img: string, nome: string, descricao: string, fk_categoria: string} $trocados */
 ?>
 
 <?php $this->start('body'); ?>
@@ -29,9 +33,8 @@ $nomeUsuario = userController::getNome($idUser);
 
     <h2 class="mt-5">Ofertas no seu produto</h2>
 
-    <?php if ($solicitacao != NULL): ?>
-        <?php for ($i = 0; $i < count($solicitacao); $i ++): ?>
-            <?php if (isset($solicitacao[$i])): // Verifica se existe um par de trocas ?>
+    <?php if ($solicitacao != NULL):
+        foreach ($solicitacao as $sol): ?>
                 <form action="<?= BASE ?>/realizarTroca" method="POST" enctype="multipart/form-data">
                     <div class="container my-4">
                         <div class="row justify-content-center align-items-center g-4">
@@ -39,11 +42,11 @@ $nomeUsuario = userController::getNome($idUser);
                             <div class="col-md-3 text-center">
                                 <div class="card">
                                     <div class="card-header bg-transparent">Produto oferecido</div>
-                                    <img src="<?= htmlspecialchars($solicitacao[$i]['imgProdutoDesejado']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nomeProdutoDesejado']) ?>">
+                                    <img src="<?= htmlspecialchars($sol['imgProdutoDesejado']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($sol['nomeProdutoDesejado']) ?>">
                                     <div class="card-body">
-                                        <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i]['categoriaProdutoDesejado']) ?></p>
-                                        <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i]['nomeProdutoDesejado']) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars($solicitacao[$i]['descricaoProdutoDesejado']) ?></p>
+                                        <p class="condition font-monospace"><?= htmlspecialchars($sol['categoriaProdutoDesejado']) ?></p>
+                                        <h5 class="card-title"><?= htmlspecialchars($sol['nomeProdutoDesejado']) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars($sol['descricaoProdutoDesejado']) ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -55,11 +58,11 @@ $nomeUsuario = userController::getNome($idUser);
                             <div class="col-md-3 text-center">
                                 <div class="card">
                                     <div class="card-header bg-transparent">Seu produto</div>
-                                    <img src="<?= htmlspecialchars($solicitacao[$i]['imgProdutoUser']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
+                                    <img src="<?= htmlspecialchars($sol['imgProdutoUser']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($sol['nomeProdutoUser']) ?>">
                                     <div class="card-body">
-                                        <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i]['categoriaProdutoUser']) ?></p>
-                                        <h5 class="card-title"><?= htmlspecialchars($solicitacao[$i]['nomeProdutoUser']) ?></h5>
-                                        <p class="card-text"><?= htmlspecialchars($solicitacao[$i]['descricaoProdutoUser']) ?></p>
+                                        <p class="condition font-monospace"><?= htmlspecialchars($sol['categoriaProdutoUser']) ?></p>
+                                        <h5 class="card-title"><?= htmlspecialchars($sol['nomeProdutoUser']) ?></h5>
+                                        <p class="card-text"><?= htmlspecialchars($sol['descricaoProdutoUser']) ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -68,8 +71,8 @@ $nomeUsuario = userController::getNome($idUser);
                         <!-- Botões e dados escondidos -->
                         <div class="row mt-3">
                             <div class="col text-center">
-                                <input type="hidden" name="prodOferecido" value="<?= $solicitacao[$i]['idProdDesejado'] ?>">
-                                <input type="hidden" name="meuProd" value="<?= $solicitacao[$i]['idProdUser'] ?>">
+                                <input type="hidden" name="prodOferecido" value="<?= $sol['idProdDesejado'] ?>">
+                                <input type="hidden" name="meuProd" value="<?= $sol['idProdUser'] ?>">
                                 <button type="submit" name="confirmar" value="Confirmar" class="btn btn-success me-2">Confirmar</button>
                                 <button type="submit" name="rejeitar" value="Rejeitar" class="btn btn-danger">Rejeitar</button>
                             </div>
@@ -77,8 +80,7 @@ $nomeUsuario = userController::getNome($idUser);
                     </div>
                 </form>
                 <hr>
-            <?php endif; ?>
-        <?php endfor; ?>
+        <?php endforeach; ?>
     <?php else: ?>
         <p>Nenhuma solicitação de troca encontrada.</p>
     <?php endif; ?>
@@ -86,19 +88,18 @@ $nomeUsuario = userController::getNome($idUser);
     <h2 class="mt-5">Suas trocas pendentes</h2>
 
     <?php if ($pendente != NULL): ?>
-        <?php for ($i = 0; $i < count($pendente); $i++): ?>
-            <?php if (isset($pendente[$i])): // Verifica se existe um par de trocas ?>
+        <?php foreach ($pendente as $pen): ?>
                 <div class="container my-4">
                     <div class="row justify-content-center align-items-center g-4">
                         <!-- Produto Oferecido -->
                         <div class="col-md-3 text-center">
                             <div class="card">
                                 <div class="card-header bg-transparent">Produto Desejado</div>
-                                <img src="<?= htmlspecialchars($pendente[$i]['imgProdutoDesejado']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nomeProdutoDesejado']) ?>">
+                                <img src="<?= htmlspecialchars($pen['imgProdutoDesejado']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($pen['nomeProdutoDesejado']) ?>">
                                 <div class="card-body">
-                                    <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i]['categoriaProdutoDesejado']) ?></p>
-                                    <h5 class="card-title"><?= htmlspecialchars($pendente[$i]['nomeProdutoDesejado']) ?></h5>
-                                    <p class="card-text"><?= htmlspecialchars($pendente[$i]['descricaoProdutoDesejado']) ?></p>
+                                    <p class="condition font-monospace"><?= htmlspecialchars($pen['categoriaProdutoDesejado']) ?></p>
+                                    <h5 class="card-title"><?= htmlspecialchars($pen['nomeProdutoDesejado']) ?></h5>
+                                    <p class="card-text"><?= htmlspecialchars($pen['descricaoProdutoDesejado']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -110,11 +111,11 @@ $nomeUsuario = userController::getNome($idUser);
                         <div class="col-md-3 text-center">
                             <div class="card">
                                 <div class="card-header bg-transparent">Seu produto</div>
-                                <img src="<?= htmlspecialchars($pendente[$i]['imgProdutoUser']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['imgProdutoUser']) ?>">
+                                <img src="<?= htmlspecialchars($pen['imgProdutoUser']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($pen['imgProdutoUser']) ?>">
                                 <div class="card-body">
-                                    <p class="condition font-monospace"><?= htmlspecialchars($pendente[$i]['categoriaProdutoUser']) ?></p>
-                                    <h5 class="card-title"><?= htmlspecialchars($pendente[$i]['nomeProdutoUser']) ?></h5>
-                                    <p class="card-text"><?= htmlspecialchars($pendente[$i]['descricaoProdutoUser']) ?></p>
+                                    <p class="condition font-monospace"><?= htmlspecialchars($pen['categoriaProdutoUser']) ?></p>
+                                    <h5 class="card-title"><?= htmlspecialchars($pen['nomeProdutoUser']) ?></h5>
+                                    <p class="card-text"><?= htmlspecialchars($pen['descricaoProdutoUser']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -126,26 +127,24 @@ $nomeUsuario = userController::getNome($idUser);
                     </div>
                 </div>
                 <hr>
-            <?php endif; ?>
-        <?php endfor; ?>
+        <?php endforeach; ?>
     <?php else: ?>
         <p>Nenhuma solicitação de troca encontrada.</p>
     <?php endif; ?>
 
     <h2 class="mt-5">Trocas realizadas e Canceladas</h2>
     <?php if ($trocados != NULL): ?>
-        <?php for ($i = 0; $i < count($trocados); $i += 2): ?>
-            <?php if (isset($trocados[$i + 1])): ?>
+        <?php foreach ($trocados as $ht): ?>
                 <div class="container my-4">
                     <div class="row justify-content-center align-items-center g-4">
                         <!-- Produto Oferecido -->
                         <div class="col-md-3 text-center">
                             <div class="card">
                                 <div class="card-header bg-transparent">Seu Produto</div>
-                                <img src="<?= htmlspecialchars($trocados[$i]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i]['nome']) ?>">
+                                <img src="<?= htmlspecialchars($ht['imgProdutoUser']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($ht['nomeProdutoUser']) ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($trocados[$i]['nome']) ?></h5>
-                                    <p class="card-text"><?= htmlspecialchars($trocados[$i]['descricao']) ?></p>
+                                    <h5 class="card-title"><?= htmlspecialchars($ht['nomeProdutoUser']) ?></h5>
+                                    <p class="card-text"><?= htmlspecialchars($ht['descricaoProdutoUser']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -156,10 +155,10 @@ $nomeUsuario = userController::getNome($idUser);
                         <div class="col-md-3 text-center">
                             <div class="card">
                                 <div class="card-header bg-transparent">Produto Oferecido</div>
-                                <img src="<?= htmlspecialchars($trocados[$i + 1]['img']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($solicitacao[$i + 1]['nome']) ?>">
+                                <img src="<?= htmlspecialchars($ht['imgProdutoDesejado']) ?>" class="card-img img-prod" alt="<?= htmlspecialchars($ht['nomeProdutoDesejado']) ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($trocados[$i + 1]['nome']) ?></h5>
-                                    <p class="card-text"><?= htmlspecialchars($trocados[$i + 1]['descricao']) ?></p>
+                                    <h5 class="card-title"><?= htmlspecialchars($ht['nomeProdutoDesejado']) ?></h5>
+                                    <p class="card-text"><?= htmlspecialchars($ht['descricaoProdutoDesejado']) ?></p>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +167,7 @@ $nomeUsuario = userController::getNome($idUser);
                     <!-- Botões e dados escondidos -->
                     <div class="row mt-3">
                         <div class="col text-center">
-                            <?php if(($trocados[$i]['Status'] == 1)): ?>
+                            <?php if(($ht['status'] == 1)): ?>
                             <button type="submit" value="aceito" class="btn btn-success me-2">Troca Confirmada</button>
                             <?php else: ?>
                             <button type="submit" value="rejeitado" class="btn btn-danger">Troca Rejeitada/Cancelada</button>
@@ -178,8 +177,7 @@ $nomeUsuario = userController::getNome($idUser);
                 </div>
             <hr>
 <?php
-            endif;
-        endfor;
+        endforeach;
     else:
 ?>
     <p>Nenhum registro de troca encontrada.</p>

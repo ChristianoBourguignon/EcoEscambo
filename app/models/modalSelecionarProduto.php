@@ -2,9 +2,9 @@
 if(session_status() === PHP_SESSION_NONE){
     session_start();
 }
+/** @var int $idUser */
 $idUser = $_SESSION['usuario_id'] ?? NULL;
 $produtos = (new app\controllers\userController)->meusProdutos($idUser);
-/** @var array<int, array{id: int, img: string, nome: string, descricao: string, fk_categoria: string}> $produtos */
 ?>
 
 <!-- Modal para Selecionar Produto -->
@@ -17,7 +17,7 @@ $produtos = (new app\controllers\userController)->meusProdutos($idUser);
             </div>
             <div class="modal-body">
                 <div class="row" id="listaProdutosUsuario">
-                    <?php if (count($produtos) > 0): ?>
+                    <?php if ($produtos): ?>
                         <?php foreach ($produtos as $produto): ?>
                             <div class="col-md-4 mb-3">
                                 <div class="card h-100 selecionar-produto cursor-pointer"
